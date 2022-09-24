@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         {
             pickedUpObject = colliderTrigger.interactableObject;
             var localPosition = pickedUpObject.transform.localPosition;
-            pickedUpObject.transform.localPosition = new Vector3(localPosition.x, 0, localPosition.z);
+            pickedUpObject.transform.localPosition = new Vector3(localPosition.x, 0.75f, localPosition.z);
             pickedUpObject.transform.parent = transform;
             pickedUpObject.GetComponent<Rigidbody>().isKinematic = true;
         }
