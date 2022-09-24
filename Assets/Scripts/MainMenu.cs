@@ -52,6 +52,7 @@ public class MainMenu : MonoBehaviour
             // Start Game
         } else if (selectedButton == 1) {
             // Exit Game
+            Application.Quit();
         }
     }
 }
