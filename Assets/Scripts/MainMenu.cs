@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class MainMenu : MonoBehaviour
         GetComponent<AudioSource>().Play();
         if (selectedButton == 0) {
             // Start Game
+            SceneManager.LoadScene("Scene1");
         } else if (selectedButton == 1) {
             // Exit Game
             Application.Quit();
