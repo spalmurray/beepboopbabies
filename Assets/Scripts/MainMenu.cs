@@ -49,12 +49,8 @@ public class MainMenu : MonoBehaviour
     void pressButton() {
         GetComponent<AudioSource>().clip = menuSelect;
         GetComponent<AudioSource>().Play();
-        if (selectedButton == 0) {
-            // Start Game
-            SceneManager.LoadScene("Scene1");
-        } else if (selectedButton == 1) {
-            // Exit Game
-            Application.Quit();
-        }
+        Debug.Log("xd" + selectedButton);
+
+        SceneManager.LoadScene("Scene1");
     }
 }
