@@ -10,11 +10,16 @@ public class MainMenu : MonoBehaviour
     public List<TMPro.TextMeshPro> menuButtons = new List<TMPro.TextMeshPro>();
     private int selectedButton = 0;
 
+    public AudioClip menuMove;
+    public AudioClip menuSelect;
+
     // Start is called before the first frame update
     void Start()
     {
         menuButtons.Add(startButton);
         menuButtons.Add(exitButton);
+
+        GetComponent<AudioSource>().playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -31,16 +36,18 @@ public class MainMenu : MonoBehaviour
 
     void OnMove(InputValue value) {
         Vector2 inputDirection = value.Get<Vector2>();
-        if (inputDirection.y > 0) {
+        if (inputDirection.y != 0) {
             selectedButton = (selectedButton + 1) % menuButtons.Count;
-        } else if (inputDirection.y < 0) {
-            selectedButton = (selectedButton + 1) % menuButtons.Count;
+            GetComponent<AudioSource>().clip = menuMove;
+            GetComponent<AudioSource>().Play();
         } else if (inputDirection.x != 0) {
-
+            pressButton();
         }
     }
 
     void pressButton() {
+        GetComponent<AudioSource>().clip = menuSelect;
+        GetComponent<AudioSource>().Play();
         if (selectedButton == 0) {
             // Start Game
         } else if (selectedButton == 1) {
