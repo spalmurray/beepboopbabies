@@ -41,19 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnInteract()
     {
-        if (pickedUpObject != null)
-        {
-            pickedUpObject.GetComponent<Rigidbody>().isKinematic = false;
-            pickedUpObject.transform.parent = null;
-            pickedUpObject = null;
-        }
-        else if (colliderTrigger.interactableObject != null)
-        {
-            pickedUpObject = colliderTrigger.interactableObject;
-            var localPosition = pickedUpObject.transform.localPosition;
-            pickedUpObject.transform.localPosition = new Vector3(localPosition.x, 0.75f, localPosition.z);
-            pickedUpObject.transform.parent = transform;
-            pickedUpObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        colliderTrigger.interactable?.Interact(gameObject);
     }
 }
