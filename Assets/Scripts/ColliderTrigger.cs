@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class ColliderTrigger : MonoBehaviour
 {
-    public GameObject interactableObject;
+    public Interactable interactable;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Interactable")){
-            interactableObject = other.gameObject;
+        var interactableObj = other.gameObject.GetComponent<Interactable>();
+        if (interactable == null && interactableObj != null){
+            interactable = interactableObj;
         }
-        Debug.Log(other.tag);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Object.ReferenceEquals(other.gameObject, interactableObject))
+        var interactableObj = other.gameObject.GetComponent<Interactable>();
+        if (Object.ReferenceEquals(interactableObj, interactable))
         {
-            interactableObject = null;
+            interactable = null;
         }
     }
 }
