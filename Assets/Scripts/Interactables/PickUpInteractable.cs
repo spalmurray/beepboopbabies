@@ -20,19 +20,17 @@ public abstract class PickUpInteractable : Interactable
         }
     }
 
-    protected virtual void PickUp(GameObject playerObject)
+    protected virtual void PickUp(GameObject parentObject)
     {
-        transform.parent = playerObject.transform;
-        var localPosition = transform.localPosition;
-        localPosition.y = 0.25f;
-        transform.localPosition = localPosition;
-
-        GetComponent<Rigidbody>().isKinematic = true;
+        transform.parent = parentObject.transform;
+        transform.localPosition = Vector3.zero;
+        // disable for now baby gets really buggy if kinematic is set to true
+        //GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    protected virtual void Drop(GameObject playerObject)
+    protected virtual void Drop(GameObject parentObject)
     {
-        GetComponent<Rigidbody>().isKinematic = false;
+        //GetComponent<Rigidbody>().isKinematic = false;
         transform.parent = null;
     }
 }

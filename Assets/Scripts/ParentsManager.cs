@@ -1,52 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using TheKiwiCoder;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class ParentsManager : MonoBehaviour
 {
     public GameObject parentPrefab;
-    public PathProvider path1;
-    public PathProvider path2;
-
-    // Time before parent returns for their children
-    public float returnWaitTime = 5;
-
-    private int currentBabyId = 0;
-
+    public GameObject spawnPlane;
+    public GameObject arrivePlane;
+    public float returnTime = 20f;
     // Start is called before the first frame update
+    public int NumberOfParents = 3;
+    
     void Start()
     {
-        StartCoroutine(ManagerRoutine());
-    }
-
-    IEnumerator ManagerRoutine()
-    {
-        StartCoroutine(ParentRoutine(currentBabyId++, path1));
-        yield return new WaitForSeconds(1);
-        StartCoroutine(ParentRoutine(currentBabyId++, path2));
-    }
-
-    IEnumerator ParentRoutine(int babyId, PathProvider pathProvider)
-    {
-        var parent = CreateParent(babyId);
-
-        yield return parent.SpawnBabyRoutine(pathProvider.GetPath(), pathProvider.GetReversePath());
-
-        // Wait for returnWaitTime, then return to pick up baby
-        parent.gameObject.SetActive(false);
-        yield return new WaitForSeconds(returnWaitTime);
-        parent.gameObject.SetActive(true);
-
-        yield return parent.PickUpBabyRoutine(pathProvider.GetPath(), pathProvider.GetReversePath());
-
-        Destroy(parent.gameObject);
-    }
-
-    ParentBehaviour CreateParent(int babyId)
-    {
-        var obj = Instantiate(parentPrefab);
-        var parentBehaviour = obj.GetComponent<ParentBehaviour>();
-        parentBehaviour.babyId = babyId;
-        return parentBehaviour;
+        for (int i = 0; i < NumberOfParents; i++)
+        {
+            Vector3 min = spawnPlane.GetComponent<MeshFilter>().mesh.bounds.min;
+            Vector3 max = spawnPlane.GetComponent<MeshFilter>().mesh.bounds.max;
+            Vector3 pos = spawnPlane.transform.position -  
+                          new Vector3 ((Random.Range(min.x, max.x)), spawnPlane.transform.position.y, (Random.Range(min.z, max.z)));
+            var parent= Instantiate(parentPrefab, Vector3.zero, Quaternion.identity);
+            var height = parent.GetComponent<Collider>().bounds.size.y;
+            pos.y += height / 2;
+            parent.transform.position = pos;
+            var parentState = parent.GetComponent<ParentState>();
+            parentState.arrivePlane = arrivePlane;
+            parentState.spawnPlane = spawnPlane;
+        }
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheKiwiCoder;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BabyPickUpInteractable : PickUpInteractable
 {
@@ -10,15 +12,24 @@ public class BabyPickUpInteractable : PickUpInteractable
 
     private GameObject touchingDropOffObject;
 
+
     private void Start()
     {
         state = GetComponent<BabyState>();
+
+    }
+
+    protected override void PickUp(GameObject playerObject)
+    {
+        state.DisableAI();
+        state.uiController.DisableDialogBox();
+        base.PickUp(playerObject);
     }
 
     protected override void Drop(GameObject playerObject)
     {
+        state.EnableAI();
         base.Drop(playerObject);
-
         if (!hasDroppedOff && touchingDropOffObject != null)
         {
             DropOffBaby();
