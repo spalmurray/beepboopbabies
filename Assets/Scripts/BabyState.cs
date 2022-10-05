@@ -9,4 +9,5 @@ public class BabyState : MonoBehaviour
     public int id;
 
     // Can add more stuffs later, like energy, social, food, etc.
+    
 }
