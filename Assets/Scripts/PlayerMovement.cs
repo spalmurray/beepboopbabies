@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 playerVelocity;
     private Vector2 inputDirection;
-    private Vector2 prevDirection;
     private CharacterController controller;
 
     private GameObject pickedUpObject;
@@ -34,21 +33,16 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity.y = 0f;
         }
 
-        if (inputDirection.x != 0 || inputDirection.y != 0)
-        {
-            prevDirection = inputDirection;
-        }
-
-        transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(prevDirection.x, prevDirection.y), 0);
-        Vector3 move = new Vector3(inputDirection.x, 0, inputDirection.y) * Time.deltaTime;
-        controller.Move(move);
-
+        var move = new Vector3(inputDirection.x, 0, inputDirection.y);
         if (move != Vector3.zero)
         {
             transform.forward = move;
         }
 
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+        playerVelocity.x = move.x;
+        playerVelocity.z = move.z;
+        playerVelocity.y += Physics.gravity.y;
+
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
