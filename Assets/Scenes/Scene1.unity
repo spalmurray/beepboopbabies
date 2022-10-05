@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_RepairStation_01
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d5c17fe9ba7edc940ad63245143e9cda, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8600707959332367864, guid: d5c17fe9ba7edc940ad63245143e9cda, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.108
@@ -1436,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a5234e656e990044e9bfaf0ff8a60ead, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5234e656e990044e9bfaf0ff8a60ead, type: 3}
@@ -2517,7 +2521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  BabyState: {fileID: 1396721548}
+  Baby: {fileID: 1396721548}
   signObject: {fileID: 119370276}
 --- !u!114 &1039745710
 MonoBehaviour:
@@ -2526,7 +2530,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119370276}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599520032f25fac48a9be61eb87baccb, type: 3}
   m_Name: 
