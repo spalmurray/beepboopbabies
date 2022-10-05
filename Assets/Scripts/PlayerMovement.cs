@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnInteract()
     {
-        if (hasObject && colliderTrigger.station != null)
+        if (colliderTrigger.station != null)
         {
             colliderTrigger.station.Interact(gameObject);
             hasObject = !hasObject;
