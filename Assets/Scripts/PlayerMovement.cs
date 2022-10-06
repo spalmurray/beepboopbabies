@@ -13,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private ColliderTrigger colliderTrigger;
 
+    private Vector3 playerVelocity;
     private Vector2 inputDirection;
-    private Vector2 prevDirection;
     private CharacterController controller;
 
     private GameObject pickedUpObject;
@@ -28,13 +28,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (inputDirection.x != 0 || inputDirection.y != 0)
+        if (controller.isGrounded && playerVelocity.y < 0)
         {
-            prevDirection = inputDirection;
+            playerVelocity.y = 0f;
         }
 
-        transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(prevDirection.x, prevDirection.y), 0);
-        controller.Move(new Vector3(inputDirection.x, 0, inputDirection.y) * Time.deltaTime);
+        var move = new Vector3(inputDirection.x, 0, inputDirection.y);
+        if (move != Vector3.zero)
+        {
+            transform.forward = move;
+        }
+
+        playerVelocity.x = move.x;
+        playerVelocity.z = move.z;
+        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+
+        controller.Move(playerVelocity * Time.deltaTime);
     }
 
     public void OnMove(InputValue value)
