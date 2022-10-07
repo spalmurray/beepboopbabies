@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6812100583572468185}
   - component: {fileID: 6812100583572468166}
   - component: {fileID: 1570260009954612218}
+  - component: {fileID: 5539262024371142492}
   m_Layer: 0
   m_Name: Baby
   m_TagString: Interactable
@@ -128,3 +129,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+--- !u!114 &5539262024371142492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929016062317164228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599520032f25fac48a9be61eb87baccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPickedUp: 0
