@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public const float KICK_SPEED = 15;
     public const float KICK_UPWARD_ANGLE = 30;
 
+    public Vector3 startPosition;
+
     private Rigidbody rb;
     private ColliderTrigger colliderTrigger;
 
@@ -24,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         colliderTrigger = GetComponentInChildren<ColliderTrigger>();
+    }
+
+    private void Start()
+    {
+        controller.SetPosition(startPosition);
     }
 
     void Update()
