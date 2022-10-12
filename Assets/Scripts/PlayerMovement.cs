@@ -101,4 +101,9 @@ public class PlayerMovement : MonoBehaviour
             babyRigidbody?.AddForceAtPosition(forceDirection * KICK_SPEED, kickOrigin, ForceMode.VelocityChange);
         }
     }
+
+    public void OnPause()
+    {
+        FindObjectOfType<PauseMenu>().TogglePause();
+    }
 }

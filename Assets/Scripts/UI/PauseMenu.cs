@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject initialButton;
 
-    private void OnCancel()
+    public void TogglePause()
     {
         if (GameIsPaused) {
             Resume();
