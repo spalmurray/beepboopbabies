@@ -116,7 +116,7 @@ MonoBehaviour:
   babyId: 0
   regularWaitTime: 1
   moveSpeed: 5
-  babyPrefab: {fileID: 5929016062317164228, guid: c908dc29c4fdb4253916434225350cd6, type: 3}
+  babyPrefab: {fileID: 7744276255607753948, guid: 3bfc825fe786bc24c944cb696c2bded5, type: 3}
   babySpawnOffset: 1
 --- !u!143 &-1800160324011486090
 CharacterController:

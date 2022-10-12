@@ -22,11 +22,10 @@ public abstract class PickUpInteractable : Interactable
 
     protected virtual void PickUp(GameObject playerObject)
     {
-        transform.parent = playerObject.transform;
-        var localPosition = transform.localPosition;
-        localPosition.y = 0.25f;
-        transform.localPosition = localPosition;
-
+        var player = playerObject.GetComponent<PlayerMovement>();
+        transform.parent = player.pickUpPosition.transform;
+        transform.eulerAngles = Vector3.zero;
+        transform.localPosition = Vector3.zero;
         GetComponent<Rigidbody>().isKinematic = true;
     }
 
