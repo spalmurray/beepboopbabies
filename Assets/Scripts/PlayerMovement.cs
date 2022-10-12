@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour
 
     public const float KICK_SPEED = 15;
     public const float KICK_UPWARD_ANGLE = 30;
+    public Transform pickUpPosition;
+
+    public Vector3 startPosition;
 
     private Rigidbody rb;
     private ColliderTrigger colliderTrigger;
-
     private Vector3 playerVelocity;
     private Vector2 inputDirection;
     private CharacterController controller;
@@ -24,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         colliderTrigger = GetComponentInChildren<ColliderTrigger>();
+    }
+
+    private void Start()
+    {
+        controller.SetPosition(startPosition);
     }
 
     void Update()
@@ -53,7 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnInteract()
     {
-        colliderTrigger.interactable?.Interact(gameObject);
+        if (colliderTrigger.station != null)
+        {
+            colliderTrigger.station.Interact(gameObject);
+        }
+        else if (colliderTrigger.interactable != null)
+        {
+            colliderTrigger.interactable.Interact(gameObject);
+        }
     }
 
     public void OnKick()

@@ -11,18 +11,7 @@ public class ColliderDetection : MonoBehaviour
     public GameObject signObject;
 
     private bool activated=false;
-
-    private void Start()
-    {
-        
-    }
-
-    private void MyFunction()
-    {
-
-    }
-
-
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("baby is near");
