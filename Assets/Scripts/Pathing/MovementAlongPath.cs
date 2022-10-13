@@ -42,9 +42,7 @@ public class MovementAlongPath : MonoBehaviour
         characterController = gameObject.GetComponent<CharacterController>();
         if (positions.Length > 0)
         {
-            characterController.enabled = false;
-            characterController.transform.position = positions[0];
-            characterController.enabled = true;
+            characterController.SetPosition(positions[0]);
         }
     }
 

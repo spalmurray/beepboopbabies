@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
 
     public const float KICK_SPEED = 15;
     public const float KICK_UPWARD_ANGLE = 30;
+    public Transform pickUpPosition;
+
+    public Vector3 startPosition;
 
     private Rigidbody rb;
     private ColliderTrigger colliderTrigger;
-
+    private Vector3 playerVelocity;
     private Vector2 inputDirection;
-    private Vector2 prevDirection;
     private CharacterController controller;
 
     private GameObject pickedUpObject;
@@ -26,15 +28,29 @@ public class PlayerMovement : MonoBehaviour
         colliderTrigger = GetComponentInChildren<ColliderTrigger>();
     }
 
+    private void Start()
+    {
+        controller.SetPosition(startPosition);
+    }
+
     void Update()
     {
-        if (inputDirection.x != 0 || inputDirection.y != 0)
+        if (controller.isGrounded && playerVelocity.y < 0)
         {
-            prevDirection = inputDirection;
+            playerVelocity.y = 0f;
         }
 
-        transform.eulerAngles = new Vector3(0, Mathf.Rad2Deg * Mathf.Atan2(prevDirection.x, prevDirection.y), 0);
-        controller.Move(new Vector3(inputDirection.x, 0, inputDirection.y) * Time.deltaTime);
+        var move = new Vector3(inputDirection.x, 0, inputDirection.y);
+        if (move != Vector3.zero)
+        {
+            transform.forward = move;
+        }
+
+        playerVelocity.x = move.x;
+        playerVelocity.z = move.z;
+        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+
+        controller.Move(playerVelocity * Time.deltaTime);
     }
 
     public void OnMove(InputValue value)
@@ -44,7 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnInteract()
     {
-        colliderTrigger.interactable?.Interact(gameObject);
+        if (colliderTrigger.station != null)
+        {
+            colliderTrigger.station.Interact(gameObject);
+        }
+        else if (colliderTrigger.interactable != null)
+        {
+            colliderTrigger.interactable.Interact(gameObject);
+        }
     }
 
     public void OnKick()
@@ -77,5 +100,10 @@ public class PlayerMovement : MonoBehaviour
             var babyRigidbody = obj.GetComponent<Rigidbody>();
             babyRigidbody?.AddForceAtPosition(forceDirection * KICK_SPEED, kickOrigin, ForceMode.VelocityChange);
         }
+    }
+
+    public void OnPause()
+    {
+        FindObjectOfType<PauseMenu>().TogglePause();
     }
 }
