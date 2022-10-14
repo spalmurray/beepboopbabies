@@ -11,6 +11,8 @@ public class BabyController : MonoBehaviour
     // every one 1 second decrement by 2 units
     [SerializeField] private float delayTime = 1f;
     [SerializeField] private float decrementAmount = 2f;
+    [SerializeField] private float delayTimediaper = 1f;
+    [SerializeField] private float decrementAmountdiaper = 2f;
     private BabyState state;
     private float yVelocity;
 
@@ -19,10 +21,16 @@ public class BabyController : MonoBehaviour
         set => state.rechargeBaby = value;
     }
 
+    public bool rediaperBaby
+    {
+        set => state.rediaperBaby = value;
+    }
+
     public void Start()
     {
         state = GetComponent<BabyState>();
         StartCoroutine(DecreaseEnergy());
+        StartCoroutine(DecreaseDiaper());
     }
 
     public void IncreaseEnergy(float rechargeTime)
@@ -44,4 +52,25 @@ public class BabyController : MonoBehaviour
             }
         }
     }
+
+
+    public void IncreaseDiaper(float rediaperTime)
+    {
+        state.currentDiaper = Mathf.SmoothDamp(state.currentDiaper, state.diaper, ref yVelocity, rediaperTime);
+        uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
+    }
+
+    private IEnumerator DecreaseDiaper()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delayTimediaper);
+            if (state.diaper >= 0 && !state.rediaperBaby)
+            {
+                state.currentDiaper -= decrementAmountdiaper;
+                uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
+            }
+        }
+    }
+
 }
