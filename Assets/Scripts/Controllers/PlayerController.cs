@@ -57,8 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         var interactable = state.interactable;
         if (interactable == null) return;
-        if (interactable is not PickUpInteractable) return;
-
         var obj = interactable.gameObject;
 
         // Check that we're indeed kicking a baby and not other innocent objects
