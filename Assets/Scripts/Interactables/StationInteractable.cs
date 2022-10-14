@@ -4,32 +4,33 @@ using UnityEngine;
 public class StationInteractable : Interactable
 {
     public Transform center;
-    public BabyState baby;
+    public BabyController baby;
     public override void Interact(GameObject other)
     {
-        if (baby == null)
+        var otherAgent = other.GetComponent<AgentState>();
+        if (otherAgent == null) return;
+        if (baby == null && otherAgent.pickedUpObject != null)
         {
-            // check if player has a baby
-            var player = other.GetComponent<PlayerMovement>();
-            if (player == null) return;
-            var babyObject = other.GetComponentInChildren<ColliderTrigger>().interactable;
-            if (babyObject == null) return;
-            var babyGameObj = babyObject.gameObject;
-            babyGameObj.transform.parent = center;
-            babyGameObj.transform.localPosition = Vector3.zero;
-            baby = babyGameObj.GetComponent<BabyState>();
+            var otherGameObj = otherAgent.pickedUpObject.gameObject;
+            // check if the pick up object is a baby (has a BabyController)
+            var babyState = otherGameObj.GetComponent<BabyController>();
+            if (babyState == null) return;
+            var otherTransform = otherGameObj.transform;
+            otherTransform.parent = center;
+            otherTransform.localPosition = Vector3.zero;
+            otherAgent.pickedUpObject = null;
+            baby = babyState;
             baby.rechargeBaby = true;
         }
-        else
+        else if (baby != null)
         {
-            var player = other.GetComponent<PlayerMovement>();
-            // only interact with players not holding anything
-            if (player == null) return;
-            var colliderTrigger = other.GetComponentInChildren<ColliderTrigger>();
-            colliderTrigger.interactable = baby.gameObject.GetComponent<BabyPickUpInteractable>();
-            baby.transform.parent = player.pickUpPosition.transform;
-            baby.transform.localPosition = Vector3.zero;
+            // Check if other agent does not have a pick up Object
+            if (otherAgent.pickedUpObject != null) return;
+            var babyTransform = baby.transform;
+            babyTransform.parent = otherAgent.pickUpPoint;
+            babyTransform.localPosition = Vector3.zero;
             baby.rechargeBaby = false;
+            otherAgent.pickedUpObject = baby.gameObject.GetComponent<PickUpInteractable>();
             baby = null;
         }
     }

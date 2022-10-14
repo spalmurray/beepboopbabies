@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5286278366093263695}
   - component: {fileID: 5286278366093263691}
+  - component: {fileID: 204233436495414101}
   - component: {fileID: 5286278366093263688}
   - component: {fileID: 5286278366093263681}
   m_Layer: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5286278366093263689}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0.01}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5680758043790759133}
@@ -49,8 +50,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09346934c454647889032614b936be7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpPosition: {fileID: 8104102986316593474}
   startPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &204233436495414101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286278366093263689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7e1d1064ccf27429ba6b50d06f11a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpPoint: {fileID: 8104102986316593474}
+  interactable: {fileID: 0}
 --- !u!114 &5286278366093263688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5286278366914390915}
   - component: {fileID: 5286278366914390914}
-  - component: {fileID: 5286278366914390917}
+  - component: {fileID: 4233631738869018647}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -209,7 +223,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5286278366914390917
+--- !u!114 &4233631738869018647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,11 +232,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5286278366914390912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c734cb2a9b3774600a77385b6774054d, type: 3}
+  m_Script: {fileID: 11500000, guid: 491d326fa27cdcc48a5915bec227f9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 0}
-  station: {fileID: 0}
+  state: {fileID: 204233436495414101}
 --- !u!1 &7790098929202811556
 GameObject:
   m_ObjectHideFlags: 0
