@@ -1,10 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StationInteractable : Interactable
 {
     public Transform center;
     public BabyController baby;
+
     public override void Interact(GameObject other)
     {
         var otherAgent = other.GetComponent<AgentState>();

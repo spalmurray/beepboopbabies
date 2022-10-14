@@ -1,11 +1,11 @@
-﻿using Pada1.BBCore.Tasks;
-using Pada1.BBCore;
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
 using UnityEngine;
 
 namespace BBUnity.Actions
 {
     /// <summary>
-    /// It is an action to obtain a random position of an area.
+    ///     It is an action to obtain a random position of an area.
     /// </summary>
     [Action("Vector3/GetRandomInArea")]
     [Help("Gets a random position from a given area")]
@@ -14,7 +14,8 @@ namespace BBUnity.Actions
         /// <summary>The Name property represents the GameObject Input Parameter that must have a BoxCollider or SphereColider.</summary>
         /// <value>The Name property gets/sets the value of the GameObject field, area.</value>
         [InParam("area")]
-        [Help("GameObject that must have a BoxCollider or SphereColider, which will determine the area from which the position is extracted")]
+        [Help(
+            "GameObject that must have a BoxCollider or SphereColider, which will determine the area from which the position is extracted")]
         public GameObject area { get; set; }
 
         /// <summary>The Name property represents the Output Position randomly parameter taken from the area Parameter.</summary>
@@ -24,9 +25,13 @@ namespace BBUnity.Actions
         public Vector3 randomPosition { get; set; }
 
         /// <summary>Initialization Method of GetRandomInArea</summary>
-        /// <remarks>Verify if there is an area, showing an error if it does not exist.Check that the area is a box or sphere to differentiate the
-        /// calculations when obtaining the random position of those areas. Once differentiated, you get the limits of the area to calculate a
-        /// random position.</remarks>
+        /// <remarks>
+        ///     Verify if there is an area, showing an error if it does not exist.Check that the area is a box or sphere to
+        ///     differentiate the
+        ///     calculations when obtaining the random position of those areas. Once differentiated, you get the limits of the area
+        ///     to calculate a
+        ///     random position.
+        /// </remarks>
         public override void OnStart()
         {
             if (area == null)
@@ -34,29 +39,34 @@ namespace BBUnity.Actions
                 Debug.LogError("The area of moving is null", gameObject);
                 return;
             }
-            BoxCollider boxCollider = area.GetComponent<BoxCollider>();
+
+            var boxCollider = area.GetComponent<BoxCollider>();
             if (boxCollider != null)
             {
-                randomPosition = new Vector3(UnityEngine.Random.Range(area.transform.position.x - area.transform.localScale.x * boxCollider.size.x * 0.5f,
-                                                                      area.transform.position.x + area.transform.localScale.x * boxCollider.size.x * 0.5f),
-                                             area.transform.position.y,
-                                             UnityEngine.Random.Range(area.transform.position.z - area.transform.localScale.z * boxCollider.size.z * 0.5f,
-                                                                      area.transform.position.z + area.transform.localScale.z * boxCollider.size.z * 0.5f));
+                randomPosition = new Vector3(Random.Range(
+                        area.transform.position.x - area.transform.localScale.x * boxCollider.size.x * 0.5f,
+                        area.transform.position.x + area.transform.localScale.x * boxCollider.size.x * 0.5f),
+                    area.transform.position.y,
+                    Random.Range(area.transform.position.z - area.transform.localScale.z * boxCollider.size.z * 0.5f,
+                        area.transform.position.z + area.transform.localScale.z * boxCollider.size.z * 0.5f));
             }
             else
             {
-                SphereCollider sphereCollider = area.GetComponent<SphereCollider>();
+                var sphereCollider = area.GetComponent<SphereCollider>();
                 if (sphereCollider != null)
                 {
-                    float distance = UnityEngine.Random.Range(-sphereCollider.radius, area.transform.localScale.x * sphereCollider.radius);
-                    float angle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+                    var distance = Random.Range(-sphereCollider.radius,
+                        area.transform.localScale.x * sphereCollider.radius);
+                    var angle = Random.Range(0, 2 * Mathf.PI);
                     randomPosition = new Vector3(area.transform.position.x + distance * Mathf.Cos(angle),
-                                                 area.transform.position.y,
-                                                 area.transform.position.z + distance * Mathf.Sin(angle));
+                        area.transform.position.y,
+                        area.transform.position.z + distance * Mathf.Sin(angle));
                 }
                 else
                 {
-                    Debug.LogError("The " + area + " GameObject must have a Box Collider or a Sphere Collider component", gameObject);
+                    Debug.LogError(
+                        "The " + area + " GameObject must have a Box Collider or a Sphere Collider component",
+                        gameObject);
                 }
             }
         }

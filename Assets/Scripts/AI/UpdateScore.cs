@@ -1,12 +1,17 @@
+using BBUnity.Actions;
+using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
 using UnityEngine;
-using Pada1.BBCore; // Code attributes
-using Pada1.BBCore.Tasks; // TaskStatus
+// Code attributes
+
+// TaskStatus
 
 [Action("MyActions/UpdateScore")]
 [Help("Updates the Score by specified amount")]
-public class UpdateScore : BBUnity.Actions.GOAction
+public class UpdateScore : GOAction
 {
     [InParam("score")] public int score;
+
     // Main class method, invoked by the execution engine.
     public override TaskStatus OnUpdate()
     {

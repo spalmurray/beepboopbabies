@@ -1,11 +1,11 @@
-﻿using Pada1.BBCore.Tasks;
-using Pada1.BBCore;
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
 using UnityEngine;
 
 namespace BBUnity.Actions
 {
     /// <summary>
-    /// It is an action to destroy the associated game object.
+    ///     It is an action to destroy the associated game object.
     /// </summary>
     [Action("GameObject/Destroy")]
     [Help("Destroys the gameobject")]
@@ -22,7 +22,7 @@ namespace BBUnity.Actions
         {
             if (targetGameobject == null)
                 targetGameobject = gameObject;
-            GameObject.Destroy(targetGameobject);
+            Object.Destroy(targetGameobject);
         }
 
         /// <summary>Method of Update of Destroy.</summary>

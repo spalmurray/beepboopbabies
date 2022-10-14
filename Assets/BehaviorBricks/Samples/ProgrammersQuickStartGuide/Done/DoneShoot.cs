@@ -1,11 +1,14 @@
-﻿using Pada1.BBCore;           // Code attributes
-using Pada1.BBCore.Tasks;     // TaskStatus
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
+// Code attributes
+
+// TaskStatus
 
 namespace BBSamples.PQSG // Programmers Quick Start Guide
 {
     /// <summary>
-    /// DoneShootOnce is a action inherited from DoneShootOnce and Periodically clones a 'bullet' and
-    /// shoots it throught the Forward axis with the specified velocity. This action never ends.
+    ///     DoneShootOnce is a action inherited from DoneShootOnce and Periodically clones a 'bullet' and
+    ///     shoots it throught the Forward axis with the specified velocity. This action never ends.
     /// </summary>
     [Action("Samples/ProgQuickStartGuide/Shoot")]
     [Help("Periodically clones a 'bullet' and shoots it throught the Forward axis " +
@@ -14,11 +17,10 @@ namespace BBSamples.PQSG // Programmers Quick Start Guide
     {
         ///<value>Input delay Parameter, 30 by default.</value>
         // Define the input parameter delay, with the waited game loops between shoots.
-        [InParam("delay", DefaultValue = 30)]
-        public int delay;
+        [InParam("delay", DefaultValue = 30)] public int delay;
 
         // Game loops since the last shoot.
-        private int elapsed = 0;
+        private int elapsed;
 
 
         /// <summary>Update method of DoneShoot.</summary>
@@ -36,9 +38,6 @@ namespace BBSamples.PQSG // Programmers Quick Start Guide
 
             base.OnUpdate();
             return TaskStatus.RUNNING;
-
         } // OnUpdate
-
     } // class DoneShoot
-
 } // namespace

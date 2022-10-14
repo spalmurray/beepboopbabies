@@ -1,24 +1,24 @@
-﻿using Pada1.BBCore.Tasks;
-using Pada1.BBCore;
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
 using UnityEngine;
 
 namespace BBUnity.Actions
 {
     /// <summary>
-    /// It is an action to activate a GameObject.
+    ///     It is an action to activate a GameObject.
     /// </summary>
     [Action("GameObject/SetActive")]
     [Help("Activates or deactivates the game object")]
     public class SetActive : GOAction
     {
         ///<value>Input bool Parameter.</value>
-        [InParam("active")]
-        [Help("true if must be activate")]
+        [InParam("active")] [Help("true if must be activate")]
         public bool active;
 
         ///<value>Input Game object to set the active value Parameter.</value>
         [InParam("game object")]
-        [Help("Game object to set the active value, if no assigned the active value will be set to the game object of this behavior")]
+        [Help(
+            "Game object to set the active value, if no assigned the active value will be set to the game object of this behavior")]
         public GameObject targetGameobject;
 
         /// <summary>Initialization Method of SetActive.</summary>

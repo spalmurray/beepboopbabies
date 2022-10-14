@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -9,9 +8,10 @@ public class AgentState : MonoBehaviour
 {
     // a point which the pick up object will be snapped to
     public Transform pickUpPoint;
+
     // objects we have picked up
     public PickUpInteractable pickedUpObject;
+
     // objects we can potentially interact with
     public Interactable interactable;
-
 }

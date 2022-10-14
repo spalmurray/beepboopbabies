@@ -1,16 +1,18 @@
-﻿#if UNITY_EDITOR
+﻿using BBUnity;
+using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 /// <summary>
-/// Behavior executor component. Add it to your game objects
-/// to execute BehaviorBrick's behaviors.
+///     Behavior executor component. Add it to your game objects
+///     to execute BehaviorBrick's behaviors.
 /// </summary>
-[UnityEngine.AddComponentMenu("Behavior Bricks/Behavior executor component")]
-public class BehaviorExecutor : BBUnity.InternalBehaviorExecutor
+[AddComponentMenu("Behavior Bricks/Behavior executor component")]
+public class BehaviorExecutor : InternalBehaviorExecutor
 {
     /// <summary>
-    /// Method to put into operation the behavior and initiation the debugg option of the behavior.
+    ///     Method to put into operation the behavior and initiation the debugg option of the behavior.
     /// </summary>
 #if UNITY_EDITOR
     protected override void Start()
@@ -22,17 +24,16 @@ public class BehaviorExecutor : BBUnity.InternalBehaviorExecutor
 
 #if UNITY_EDITOR
     /// <summary>
-    /// In editor mode, 
+    ///     In editor mode,
     /// </summary>
-    new void Update()
+    private new void Update()
     {
-        bool prev = this.requestTickExecution;
+        var prev = requestTickExecution;
         base.Update();
-        if (prev != this.requestTickExecution)
+        if (prev != requestTickExecution)
             // Force inspector repaint in editor mode to reactivate
             // Tick button.
             EditorUtility.SetDirty(this);
     }
 #endif
-
 }

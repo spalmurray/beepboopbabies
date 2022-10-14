@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ScoreUIController : MonoBehaviour
 {
@@ -20,6 +18,6 @@ public class ScoreUIController : MonoBehaviour
 
     private void UpdateScoreText(int score)
     {
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + score;
     }
 }

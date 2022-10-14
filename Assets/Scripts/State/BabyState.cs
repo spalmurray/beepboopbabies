@@ -7,10 +7,9 @@ public class BabyState : AgentState
     public float health = 100f;
     public float currentEnergy;
     public float currentHealth;
-    [HideInInspector]
-    public bool rechargeBaby;
+    [HideInInspector] public bool rechargeBaby;
 
-    void Start()
+    private void Start()
     {
         currentEnergy = energy;
         currentHealth = health;

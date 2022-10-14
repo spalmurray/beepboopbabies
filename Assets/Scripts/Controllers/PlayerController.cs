@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,9 +9,9 @@ public class PlayerController : MonoBehaviour
     public const float KICK_SPEED = 15;
     public const float KICK_UPWARD_ANGLE = 30;
     public Vector3 startPosition;
-    private Vector3 playerVelocity;
-    private Vector2 inputDirection;
     private CharacterController controller;
+    private Vector2 inputDirection;
+    private Vector3 playerVelocity;
     private AgentState state;
 
     private void Awake()
@@ -27,18 +25,12 @@ public class PlayerController : MonoBehaviour
         controller.SetPosition(startPosition);
     }
 
-    void Update()
+    private void Update()
     {
-        if (controller.isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
+        if (controller.isGrounded && playerVelocity.y < 0) playerVelocity.y = 0f;
 
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
-        if (move != Vector3.zero)
-        {
-            transform.forward = move;
-        }
+        if (move != Vector3.zero) transform.forward = move;
 
         playerVelocity.x = move.x;
         playerVelocity.z = move.z;
@@ -56,14 +48,9 @@ public class PlayerController : MonoBehaviour
     {
         //case 1: interact with object detected by collider
         if (state.interactable != null)
-        {
             state.interactable.Interact(gameObject);
-        }
         //case 2: interact with the object we picked up
-        else if (state.pickedUpObject != null)
-        {
-            state.pickedUpObject.Interact(gameObject);
-        }
+        else if (state.pickedUpObject != null) state.pickedUpObject.Interact(gameObject);
     }
 
     public void OnKick()

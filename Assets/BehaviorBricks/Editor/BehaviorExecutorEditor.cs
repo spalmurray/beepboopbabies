@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using BBUnity;
 using UnityEditor;
 
 [CustomEditor(typeof(BehaviorExecutor))]
-public class BehaviorExecutorEditor : BBUnity.InternalBehaviorExecutorEditor
+public class BehaviorExecutorEditor : InternalBehaviorExecutorEditor
 {
 }

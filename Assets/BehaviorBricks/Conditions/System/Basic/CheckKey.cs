@@ -1,19 +1,18 @@
-﻿using Pada1.BBCore.Framework;
-using Pada1.BBCore;
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Framework;
 using UnityEngine;
 
 namespace BBCore.Conditions
 {
     /// <summary>
-    /// It is a basic condition to check if a key has been pressed.
+    ///     It is a basic condition to check if a key has been pressed.
     /// </summary>
     [Condition("Basic/CheckKey")]
     [Help("Checks whether a key is pressed")]
     public class CheckKey : ConditionBase
     {
         ///<value>Input key expected to be pressed Parameter, KeyCode.None by default.</value>
-        [InParam("key", DefaultValue = KeyCode.None)]
-        [Help("Key expected to be pressed")]
+        [InParam("key", DefaultValue = KeyCode.None)] [Help("Key expected to be pressed")]
         public KeyCode key = KeyCode.None;
         /*
         public enum MouseAction {down, up, during}
@@ -22,7 +21,7 @@ namespace BBCore.Conditions
 
 
         /// <summary>
-        /// Checks whether the key is pressed.
+        ///     Checks whether the key is pressed.
         /// </summary>
         /// <returns>True if the key is pressed.</returns>
         public override bool Check()
@@ -36,9 +35,9 @@ namespace BBCore.Conditions
                     return Input.GetMouseButtonUp(button);
 
                 case MouseAction.during:*/
-                    return Input.GetKey(key);
+            return Input.GetKey(key);
             /*}
             return false;*/
-		}
+        }
     }
 }

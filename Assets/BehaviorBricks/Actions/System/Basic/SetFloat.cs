@@ -1,25 +1,22 @@
-﻿using Pada1.BBCore.Framework;
+﻿using Pada1.BBCore;
+using Pada1.BBCore.Framework;
 using Pada1.BBCore.Tasks;
-using Pada1.BBCore;
 
 namespace BBUnity.Actions
 {
     /// <summary>
-    /// It is a primitive action to associate a Float to a variable.
+    ///     It is a primitive action to associate a Float to a variable.
     /// </summary>
     [Action("Basic/SetFloat")]
     [Help("Sets a value to a float variable")]
     public class SetFloat : BasePrimitiveAction
     {
-        ///<value>OutPut Float Parameter.</value>
-        [OutParam("var")]
-        [Help("output variable")]
-        public float var;
-
         ///<value>Input Float Parameter.</value>
-        [InParam("value")]
-        [Help("Value")]
-        public float value;
+        [InParam("value")] [Help("Value")] public float value;
+
+        ///<value>OutPut Float Parameter.</value>
+        [OutParam("var")] [Help("output variable")]
+        public float var;
 
         /// <summary>Initialization Method of SetFloat</summary>
         /// <remarks>Initializes the Float value.</remarks>

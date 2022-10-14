@@ -1,30 +1,30 @@
-﻿using UnityEngine;
+﻿using BBUnity.Actions;
+using Pada1.BBCore;
+using Pada1.BBCore.Tasks;
+using UnityEngine;
+// Code attributes
+// TaskStatus
 
-using Pada1.BBCore;           // Code attributes
-using Pada1.BBCore.Tasks;     // TaskStatus
-using BBUnity.Actions;        // GOAction
+// GOAction
 
 namespace BBSamples.PQSG // Programmers Quick Start Guide
 {
     /// <summary>
-    /// DoneShootOnce is a action inherited from GOAction and Clone a 'bullet' and shoots 
-    /// it throught the Forward axis with the specified velocity.
+    ///     DoneShootOnce is a action inherited from GOAction and Clone a 'bullet' and shoots
+    ///     it throught the Forward axis with the specified velocity.
     /// </summary>
     [Action("Samples/ProgQuickStartGuide/ShootOnce")]
     [Help("Clone a 'bullet' and shoots it throught the Forward axis with the " +
           "specified velocity.")]
     public class DoneShootOnce : GOAction
     {
+        ///<value>Input bullet Parameter.</value>
+        // Define the input parameter "bullet" (the prefab to be cloned).
+        [InParam("bullet")] public GameObject bullet;
 
         ///<value>Input shootPoint Parameter.</value>
         // Define the input parameter "shootPoint".
-        [InParam("shootPoint")]
-        public Transform shootPoint;
-
-        ///<value>Input bullet Parameter.</value>
-        // Define the input parameter "bullet" (the prefab to be cloned).
-        [InParam("bullet")]
-        public GameObject bullet;
+        [InParam("shootPoint")] public Transform shootPoint;
 
         ///<value>Input velocity Parameter, by deafult is 30f.</value>
         // Define the input parameter velocity, and provide a default
@@ -43,31 +43,29 @@ namespace BBSamples.PQSG // Programmers Quick Start Guide
             {
                 shootPoint = gameObject.transform.Find("shootPoint");
                 if (shootPoint == null)
-                {
                     Debug.LogWarning("Shoot point not specified. ShootOnce will not work " +
                                      "for " + gameObject.name);
-                }
             }
+
             base.OnStart();
         } // OnStart
 
 
         /// <summary>Update method of DoneShootOnce.</summary>
-        /// <remarks>Instantiate the bullet prefab, Search the RigitBody component in bullet instance. We add a rigitBody to bullet 
-        /// if doesn´t exist, and then we give it a velocity.</remarks>
+        /// <remarks>
+        ///     Instantiate the bullet prefab, Search the RigitBody component in bullet instance. We add a rigitBody to bullet
+        ///     if doesn´t exist, and then we give it a velocity.
+        /// </remarks>
         /// <returns>Return FAILED if the shootPoint is null, and COMPLETE otherwise.</returns>
         // Main class method, invoked by the execution engine.
         public override TaskStatus OnUpdate()
         {
-            if (shootPoint == null)
-            {
-                return TaskStatus.FAILED;
-            }
+            if (shootPoint == null) return TaskStatus.FAILED;
             // Instantiate the bullet prefab.
-            GameObject newBullet = GameObject.Instantiate(
-                                        bullet, shootPoint.position,
-                                        shootPoint.rotation * bullet.transform.rotation
-                                    ) as GameObject;
+            var newBullet = Object.Instantiate(
+                bullet, shootPoint.position,
+                shootPoint.rotation * bullet.transform.rotation
+            );
             // Give it a velocity
             if (newBullet.GetComponent<Rigidbody>() == null)
                 // Safeguard test, altough the rigid body should be provided by the
@@ -78,7 +76,5 @@ namespace BBSamples.PQSG // Programmers Quick Start Guide
             // The action is completed. We must inform the execution engine.
             return TaskStatus.COMPLETED;
         } // OnUpdate
-
     } // class DoneShootOnce
-
 } // namespace

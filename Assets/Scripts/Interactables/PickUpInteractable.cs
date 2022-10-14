@@ -1,26 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 
 public class PickUpInteractable : Interactable
 {
-    public bool isPickedUp = false;
+    public bool isPickedUp;
 
     public override void Interact(GameObject other)
     {
         var state = other.GetComponent<AgentState>();
         if (state == null) return;
-        
+
         if (!isPickedUp)
-        {
             PickUp(state);
-        }
         else
-        {
             Drop(state);
-        }
-        
     }
 
     private void PickUp(AgentState state)
