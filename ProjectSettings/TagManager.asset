@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Interactable
   - Obstacle
+  - MainLight
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NonInteractable
   - Water
   - UI
   - 
