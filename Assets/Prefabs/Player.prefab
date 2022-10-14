@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpPoint: {fileID: 8104102986316593474}
+  pickedUpObject: {fileID: 0}
   interactable: {fileID: 0}
 --- !u!114 &5286278366093263688
 MonoBehaviour:
@@ -154,8 +155,20 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eb8e3523-272e-4627-b373-2824cbfe2397
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d73c7f2d-0d05-456c-b621-044acb32ef9f
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b5058af6-ee5f-487d-88e7-b26a876a34a7
+    m_ActionName: Player/Kick[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0505a756-3f11-4087-aadc-33c7559728d6
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

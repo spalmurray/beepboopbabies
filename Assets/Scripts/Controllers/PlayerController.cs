@@ -55,10 +55,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnKick()
     {
-        var interactable = state.pickedUpObject;
+        var interactable = state.interactable;
         if (interactable == null) return;
-        // Ensure we're not kicking a picked up baby
-        if (interactable.isPickedUp) return;
+        if (interactable is not PickUpInteractable) return;
 
         var obj = interactable.gameObject;
 
