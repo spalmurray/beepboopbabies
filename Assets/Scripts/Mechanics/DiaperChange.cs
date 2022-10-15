@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class RechargeEnergy : MonoBehaviour
+public class DiaperChange : MonoBehaviour
 {
-    // how long it will take to recharge to full
+    // increment amount for each tick
     public float incrementAmount = 5f;
 
     // Start is called before the first frame update
@@ -22,17 +24,17 @@ public class RechargeEnergy : MonoBehaviour
         var newInStation = station.baby != null;
         if (inStation && !newInStation)
         {
-            baby.rechargeBaby = false;
+            baby.rediaperBaby = false;
             baby = null;
         } else if (!inStation && newInStation)
         {
             baby = station.baby;
-            baby.rechargeBaby = true;
+            baby.rediaperBaby = true;
         }
         inStation = newInStation;
         if (inStation && baby != null)
         {
-            baby.IncreaseEnergy(incrementAmount * Time.deltaTime);
+            baby.IncreaseDiaper(incrementAmount * Time.deltaTime);
         }
     }
 }

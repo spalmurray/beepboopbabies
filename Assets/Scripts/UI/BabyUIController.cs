@@ -5,8 +5,10 @@ public class BabyUIController : MonoBehaviour
 {
     [SerializeField] private Image healthbarSprite;
     [SerializeField] private Image energybarSprite;
+    [SerializeField] private Image diaperbarSprite;
     [SerializeField] private GameObject healthbar;
     [SerializeField] private GameObject energybar;
+    [SerializeField] private GameObject diaperbar;
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private Image dialogImage;
     [SerializeField] private Transform babyLocation;
@@ -35,16 +37,24 @@ public class BabyUIController : MonoBehaviour
         energybarSprite.fillAmount = currentEnergy / maxEnergy;
     }
 
+    public void UpdateDiaperBar(float maxDiaper, float currentDiaper)
+    {
+        diaperbarSprite.fillAmount = currentDiaper / maxDiaper;
+    }
+
+
     public void EnableStatusBars()
     {
         healthbar.SetActive(true);
         energybar.SetActive(true);
+        diaperbar.SetActive(true);
     }
 
     public void DisableStatusBars()
     {
         healthbar.SetActive(true);
         energybar.SetActive(true);
+        diaperbar.SetActive(true);
     }
 
     public void EnableDialogBox(Sprite sprite)
