@@ -12,6 +12,7 @@ public class BabyUIController : MonoBehaviour
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private Image dialogImage;
     [SerializeField] private Transform babyLocation;
+    [SerializeField] private float height = 3f;
     private Camera _cam;
 
     private void Start()
@@ -23,7 +24,7 @@ public class BabyUIController : MonoBehaviour
     private void Update()
     {
         var trans = transform;
-        trans.position = babyLocation.position + 2 * Vector3.up;
+        trans.position = babyLocation.position +  height * Vector3.up;
         trans.rotation = Quaternion.LookRotation(trans.position - _cam.transform.position);
     }
 
