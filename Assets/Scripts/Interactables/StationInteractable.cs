@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class StationInteractable : Interactable
 {
@@ -20,7 +21,6 @@ public class StationInteractable : Interactable
             otherTransform.localPosition = Vector3.zero;
             otherAgent.pickedUpObject = null;
             baby = babyState;
-            baby.rechargeBaby = true;
         }
         else if (baby != null)
         {
@@ -29,7 +29,6 @@ public class StationInteractable : Interactable
             var babyTransform = baby.transform;
             babyTransform.parent = otherAgent.pickUpPoint;
             babyTransform.localPosition = Vector3.zero;
-            baby.rechargeBaby = false;
             otherAgent.pickedUpObject = baby.gameObject.GetComponent<PickUpInteractable>();
             baby = null;
         }
