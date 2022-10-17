@@ -20,4 +20,4 @@ public class UpdateScore : GOAction
         scoreManager.UpdateScore(score);
         return TaskStatus.COMPLETED;
     } // OnUpdate
-} // class ShootOnce
+}

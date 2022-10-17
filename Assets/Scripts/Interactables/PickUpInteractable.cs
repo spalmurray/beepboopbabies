@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PickUpInteractable : Interactable
 {
+    public delegate void PickedUpEvent();
+
+    public event PickedUpEvent HandlePickedUp;
+        
     public bool isPickedUp;
     
     public override void Interact(GameObject other)
@@ -15,7 +19,7 @@ public class PickUpInteractable : Interactable
             Drop(state);
     }
 
-    private void PickUp(AgentState state)
+    public void PickUp(AgentState state)
     {
         // already has a picked up an object so do nothing
         if (state.pickedUpObject != null) return;
@@ -29,9 +33,10 @@ public class PickUpInteractable : Interactable
         gameObject.layer = LayerMask.NameToLayer("NonInteractable");
         if (outline != null) outline.OutlineMode = Outline.Mode.OutlineHidden;
         isPickedUp = true;
+        HandlePickedUp?.Invoke();
     }
 
-    private void Drop(AgentState state)
+    public void Drop(AgentState state)
     {
         state.pickedUpObject = null;
         GetComponent<Rigidbody>().isKinematic = false;
