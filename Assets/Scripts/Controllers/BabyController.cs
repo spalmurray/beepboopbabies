@@ -16,6 +16,10 @@ public class BabyController : MonoBehaviour
     [SerializeField] private float decrementAmountdiaper = 2f;
     private BabyState state;
 
+    [SerializeField] private float funDecreasePerSecondIdle = 2f;
+    [SerializeField] private float funIncreasePerSecondFlying = 25f;
+    [SerializeField] private float healthDecreasePerDrop = 25;
+
     public bool rechargeBaby
     {
         set => state.rechargeBaby = value;
@@ -31,6 +35,21 @@ public class BabyController : MonoBehaviour
         state = GetComponent<BabyState>();
         StartCoroutine(DecreaseEnergy());
         StartCoroutine(DecreaseDiaper());
+
+        GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
+    }
+
+    private void Update()
+    {
+        if (state.isFlying)
+        {
+            state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
+        }
+        else
+        {
+            state.currentFun = Mathf.Max(state.currentFun - funDecreasePerSecondIdle * Time.deltaTime, 0);
+        }
+        uiController.UpdateFunBar(state.fun, state.currentFun);
     }
 
     public void IncreaseEnergy(float incrementAmount)
@@ -61,7 +80,6 @@ public class BabyController : MonoBehaviour
             }
         }
     }
-    
 
     private IEnumerator DecreaseDiaper()
     {
@@ -77,4 +95,29 @@ public class BabyController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "Room" && state.isFlying)
+        {
+            state.isFlying = false;
+            state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
+            uiController.UpdateHealthBar(state.health, state.currentHealth);
+        }
+        else
+        {
+            // TODO: maybe when we throw successfully into a station, set flying to false
+            state.isFlying = false;
+        }
+    }
+
+    private void HandlePickedUp()
+    {
+        state.isFlying = false;
+    }
+
+    public void HandleKicked()
+    {
+        state.isFlying = true;
+    }
 }

@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
         var obj = interactable.gameObject;
 
         // Check that we're indeed kicking a baby and not other innocent objects
-        if (obj.GetComponent<BabyState>() != null)
+        var babyController = obj.GetComponent<BabyController>();
+        if (babyController != null)
         {
             // Origin position of the kick, i.e. players feet
             var kickOrigin = gameObject.transform.position;
@@ -78,6 +79,8 @@ public class PlayerController : MonoBehaviour
             // Apply kick force
             var babyRigidbody = obj.GetComponent<Rigidbody>();
             babyRigidbody?.AddForceAtPosition(forceDirection * KICK_SPEED, kickOrigin, ForceMode.VelocityChange);
+
+            babyController.HandleKicked();
         }
     }
 

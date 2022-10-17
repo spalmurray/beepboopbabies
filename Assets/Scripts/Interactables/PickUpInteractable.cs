@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PickUpInteractable : Interactable
 {
+    public delegate void PickedUpEvent();
+
+    public event PickedUpEvent HandlePickedUp;
+        
     public bool isPickedUp;
 
     public override void Interact(GameObject other)
@@ -28,6 +32,7 @@ public class PickUpInteractable : Interactable
         // set the agent to non interactable so Triggers won't collide with it
         gameObject.layer = LayerMask.NameToLayer("NonInteractable");
         isPickedUp = true;
+        HandlePickedUp?.Invoke();
     }
 
     private void Drop(AgentState state)
