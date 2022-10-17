@@ -17,6 +17,8 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
+        if (ScoreManager.Instance.IsGameOver) return;
+        
         if (GameIsPaused)
             Resume();
         else
