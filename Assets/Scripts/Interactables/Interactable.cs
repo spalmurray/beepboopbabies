@@ -8,7 +8,7 @@ public abstract class Interactable : MonoBehaviour
     protected Outline outline;
     public abstract void Interact(GameObject playerObject);
 
-    public void Start()
+    public void Awake()
     {
         outline = gameObject.GetComponent<Outline>();
     }

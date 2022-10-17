@@ -23,7 +23,9 @@ public class StationPickUpBabyTrigger : MonoBehaviour
         if (station.baby == null && babyController && !babyInteractable.isPickedUp)
         {
             babyInteractable.PickUp(state);
+            babyController.inStation = true;
             station.baby = babyController;
+            station.InvokePlaceEvent();
         }
     }
 }

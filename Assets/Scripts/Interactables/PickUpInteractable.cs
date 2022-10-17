@@ -31,7 +31,7 @@ public class PickUpInteractable : Interactable
         state.interactable = null;
         // set the agent to non interactable so Triggers won't collide with it
         gameObject.layer = LayerMask.NameToLayer("NonInteractable");
-        if (outline != null) outline.OutlineMode = Outline.Mode.OutlineHidden;
+        outline.OutlineMode = Outline.Mode.OutlineHidden;
         isPickedUp = true;
         HandlePickedUp?.Invoke();
     }

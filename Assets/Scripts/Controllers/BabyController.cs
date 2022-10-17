@@ -8,14 +8,13 @@ public class BabyController : MonoBehaviour
 {
     // Start is called before the first frame update
     public BabyUIController uiController;
+    private Collider collider;
 
+    private Rigidbody rb;
     // every one 1 second decrement by 2 units
-    [SerializeField] private float delayTimeEnergy = 1f;
-    [SerializeField] private float decrementAmount = 2f;
-    [SerializeField] private float delayTimeDiaper = 1f;
+    [SerializeField] private float decrementAmountEnergy = 2f;
     [SerializeField] private float decrementAmountDiaper = 2f;
     private BabyState state;
-
     [SerializeField] private float funDecreasePerSecondIdle = 2f;
     [SerializeField] private float funIncreasePerSecondFlying = 25f;
     [SerializeField] private float healthDecreasePerDrop = 25;
@@ -24,32 +23,81 @@ public class BabyController : MonoBehaviour
     {
         set => state.inStation = value;
     }
+    
 
-    public bool IsFlying
-    {
-        get => state.isFlying;
-        set => state.isFlying = value;
-    }
-
-    public void Start()
+    public void Awake()
     {
         state = GetComponent<BabyState>();
-        StartCoroutine(DecreaseEnergy());
-        StartCoroutine(DecreaseDiaper());
+        collider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+    }
+    
+    public void OnEnable()
+    {
         GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
     }
+    
+    public void OnDisable()
+    {
+        GetComponent<PickUpInteractable>().HandlePickedUp -= HandlePickedUp;
+    }
 
+    public void KickBaby(GameObject kicker, float KICK_SPEED, float KICK_UPWARD_ANGLE)
+    {
+        var kickOrigin = kicker.transform.position;
+        var lowY = kicker.GetComponent<Collider>().bounds.min.y;
+        kickOrigin.y = lowY;
+        // Get direction of kick, rotate upward by KICK_UPWARD_ANGLE degrees
+        var kickOriginDirection = gameObject.transform.position - kickOrigin;
+        var x = kickOriginDirection.x;
+        var z = kickOriginDirection.z;
+        var y = Mathf.Sqrt(x * x + z * z) * Mathf.Tan(Mathf.Deg2Rad * KICK_UPWARD_ANGLE);
+        var forceDirection = new Vector3(x, y, z);
+        forceDirection.Normalize();
+        // Apply kick force
+        rb.AddForceAtPosition(forceDirection * KICK_SPEED, kickOrigin, ForceMode.VelocityChange);
+        HandleKicked();
+    }
+    
     private void Update()
     {
-        if (state.isFlying)
+        CheckOnGround();
+        HandleFun();
+        DecreaseDiaper();
+        DecreaseEnergy();
+        SetAlwaysActive();
+    }
+
+    private void CheckOnGround()
+    {
+        float maxDist = Convert.ToSingle(collider.bounds.extents.y + 0.1);
+        var mask = LayerMask.NameToLayer("Player");
+        state.onGround = Physics.Raycast(transform.position, -Vector3.up, maxDist, mask);
+    }
+
+    private void SetAlwaysActive()
+    {
+        bool? healthAlwaysActive = null;
+        bool? energyAlwaysActive = null;
+        bool? diaperAlwaysActive = null;
+        bool? funAlwaysActive = null;
+        if (state.currentHealth < state.healthWarnThreshold)
         {
-            state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
+            healthAlwaysActive = true;
         }
-        else
+        if (state.currentEnergy < state.energyWarnThreshold)
         {
-            state.currentFun = Mathf.Max(state.currentFun - funDecreasePerSecondIdle * Time.deltaTime, 0);
+            energyAlwaysActive = true;
         }
-        uiController.UpdateFunBar(state.fun, state.currentFun);
+        if (state.currentDiaper < state.diaperWarnThreshold)
+        {
+            diaperAlwaysActive = true;
+        }
+        if (state.currentFun < state.funWarnThreshold)
+        {
+            funAlwaysActive = true;
+        }
+        uiController.SetAlwaysActive(healthAlwaysActive, energyAlwaysActive, diaperAlwaysActive, funAlwaysActive);
     }
 
     public void IncreaseEnergy(float incrementAmount)
@@ -73,31 +121,37 @@ public class BabyController : MonoBehaviour
         uiController.UpdateHealthBar(state.health, state.currentHealth);
     }
 
-    private IEnumerator DecreaseEnergy()
+    private void HandleFun()
     {
-        var wait = new WaitForSeconds(delayTimeEnergy);
-        while (true)
+        if (state.isFlying)
         {
-            yield return wait;
-            if (state.energy >= 0 && !state.inStation)
-            {
-                state.currentEnergy -= decrementAmount;
-                uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
-            }
+            Debug.Log("Is Flying ");
+            state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
+            uiController.SetAlwaysActive(fun:true);
+        }
+        else
+        {
+            state.currentFun = Mathf.Max(state.currentFun - funDecreasePerSecondIdle * Time.deltaTime, 0);
+            uiController.SetAlwaysActive(fun:false);
+        }
+        uiController.UpdateFunBar(state.fun, state.currentFun);
+    }
+
+    private void DecreaseEnergy()
+    {
+        if (state.currentEnergy >= 0 && !state.inStation)
+        {
+            state.currentEnergy = Mathf.Max(state.currentEnergy - decrementAmountEnergy * Time.deltaTime, 0);
+            uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
         }
     }
 
-    private IEnumerator DecreaseDiaper()
+    private void DecreaseDiaper()
     {
-        var wait = new WaitForSeconds(delayTimeDiaper);
-        while (true)
+        if (state.currentDiaper >= 0 && !state.inStation)
         {
-            yield return wait;
-            if (state.diaper >= 0 && !state.inStation)
-            {
-                state.currentDiaper -= decrementAmountDiaper;
-                uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
-            }
+            state.currentDiaper = Mathf.Max(state.currentDiaper - decrementAmountDiaper * Time.deltaTime, 0);
+            uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
         }
     }
 
@@ -108,7 +162,18 @@ public class BabyController : MonoBehaviour
             state.isFlying = false;
             state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
             uiController.UpdateHealthBar(state.health, state.currentHealth);
+            StartCoroutine(TemporaryAlert(health: true));
         }
+    }
+
+    private IEnumerator TemporaryAlert(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null)
+    {
+        uiController.SetAlwaysActive(health, energy, diaper, fun);
+        yield return new WaitForSeconds(1f);
+        if (health.GetValueOrDefault(false)) uiController.SetAlwaysActive(health: false);
+        if (energy.GetValueOrDefault(false)) uiController.SetAlwaysActive(energy: false);
+        if (diaper.GetValueOrDefault(false)) uiController.SetAlwaysActive(diaper: false);
+        if (fun.GetValueOrDefault(false)) uiController.SetAlwaysActive(fun: false);
     }
 
     private void HandlePickedUp()

@@ -16,6 +16,8 @@ public class InteractableTrigger : MonoBehaviour
             state.interactable = interactableObj;
             var outline = otherObject.GetComponent<Outline>();
             outline.OutlineMode = Outline.Mode.OutlineAll;
+            var ui = otherObject.GetComponentInChildren<BabyUIController>();
+            if (ui != null) ui.EnableStatusBars();
         }
     }
 
@@ -26,8 +28,10 @@ public class InteractableTrigger : MonoBehaviour
         if (state.interactable != null && ReferenceEquals(interactableObj, state.interactable))
         {
             state.interactable = null;
-            var outline = otherObject.GetComponent<Outline>();
-            outline.OutlineMode = Outline.Mode.OutlineHidden;
+            var ui = otherObject.GetComponentInChildren<BabyUIController>();
+            if (ui != null) ui.DisableStatusBars();
         }
+        var outline = otherObject.GetComponent<Outline>();
+        if (outline != null) outline.OutlineMode = Outline.Mode.OutlineHidden;
     }
 }
