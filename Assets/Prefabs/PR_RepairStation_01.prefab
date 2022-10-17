@@ -484,6 +484,8 @@ GameObject:
   - component: {fileID: 34339620422360554}
   - component: {fileID: 6415321226130956295}
   - component: {fileID: 1458540885699979834}
+  - component: {fileID: 7347218242280224488}
+  - component: {fileID: 7087967453854887535}
   m_Layer: 0
   m_Name: PR_RepairStation_01
   m_TagString: Interactable
@@ -558,7 +560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5467cb5856545bf4f846eb1e5232824d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {fileID: 2972028759422228049}
   baby: {fileID: 0}
 --- !u!65 &1458540885699979834
 BoxCollider:
@@ -573,6 +574,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71, y: 0.48, z: 0.52}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7347218242280224488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534426928652648016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7e1d1064ccf27429ba6b50d06f11a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpPoint: {fileID: 2972028759422228049}
+  pickedUpObject: {fileID: 0}
+  interactable: {fileID: 0}
+--- !u!114 &7087967453854887535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534426928652648016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703a377673b17b449a367477d704c2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4537213533095146392
 GameObject:
   m_ObjectHideFlags: 0

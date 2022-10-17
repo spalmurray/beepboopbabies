@@ -25,6 +25,12 @@ public class BabyController : MonoBehaviour
         set => state.inStation = value;
     }
 
+    public bool IsFlying
+    {
+        get => state.isFlying;
+        set => state.isFlying = value;
+    }
+
     public void Start()
     {
         state = GetComponent<BabyState>();
@@ -97,17 +103,11 @@ public class BabyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Room" && state.isFlying)
         {
             state.isFlying = false;
             state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
             uiController.UpdateHealthBar(state.health, state.currentHealth);
-        }
-        else
-        {
-            // TODO: maybe when we throw successfully into a station, set flying to false
-            state.isFlying = false;
         }
     }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AgentState))]
 public class StationInteractable : Interactable
 {
-    public Transform center;
     public BabyController baby;
 
     public override void Interact(GameObject other)
@@ -14,23 +14,21 @@ public class StationInteractable : Interactable
         {
             var otherGameObj = otherAgent.pickedUpObject.gameObject;
             // check if the pick up object is a baby (has a BabyController)
-            var babyController = otherGameObj.GetComponent<BabyController>();
-            if (babyController == null) return;
-            var otherTransform = otherGameObj.transform;
-            otherTransform.parent = center;
-            otherTransform.localPosition = Vector3.zero;
-            otherAgent.pickedUpObject = null;
-            baby = babyController;
+            var babyState = otherGameObj.GetComponent<BabyController>();
+            if (babyState == null) return;
+            var babyInteractable = otherGameObj.GetComponent<PickUpInteractable>();
+            babyInteractable.Drop(otherAgent);
+            babyInteractable.PickUp(GetComponent<AgentState>());
+            baby = babyState;
             baby.inStation = true;
         }
         else if (baby != null)
         {
             // Check if other agent does not have a pick up Object
             if (otherAgent.pickedUpObject != null) return;
-            var babyTransform = baby.transform;
-            babyTransform.parent = otherAgent.pickUpPoint;
-            babyTransform.localPosition = Vector3.zero;
-            otherAgent.pickedUpObject = baby.gameObject.GetComponent<PickUpInteractable>();
+            var babyInteractable = baby.gameObject.GetComponent<PickUpInteractable>();
+            babyInteractable.Drop(GetComponent<AgentState>());
+            babyInteractable.PickUp(otherAgent);
             baby.inStation = false;
             baby = null;
         }
