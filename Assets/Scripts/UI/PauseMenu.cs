@@ -10,6 +10,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject initialButton;
 
+    private void OnEnable()
+    {
+       // Pause();
+    }
+
     public void TogglePause()
     {
         if (GameIsPaused)
@@ -23,6 +28,18 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+
+        //Time.timeScale = 1f;
+        //SceneManager.LoadScene("Scene1");
+    }
+    public void LoadGame()
+    {
+        //pauseMenuUI.SetActive(false);
+        //Time.timeScale = 1f;
+        //GameIsPaused = false;
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Scene1");
     }
 
     public void Pause()
