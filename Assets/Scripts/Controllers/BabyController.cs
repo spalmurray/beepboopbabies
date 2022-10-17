@@ -65,7 +65,13 @@ public class BabyController : MonoBehaviour
         state.currentDiaper = Math.Clamp(state.currentDiaper, 0f, state.diaper);
         uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
     }
-
+    
+    public void IncreaseHealth(float incrementAmount)
+    {
+        state.currentHealth += incrementAmount;
+        state.currentHealth = Math.Clamp(state.currentHealth, 0f, state.health);
+        uiController.UpdateHealthBar(state.health, state.currentHealth);
+    }
 
     private IEnumerator DecreaseEnergy()
     {

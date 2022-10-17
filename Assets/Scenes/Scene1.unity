@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3139,6 +3139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_RepairStation_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4534426928652648016, guid: a5b6c4d494a7af1c68f5ae1c98d214fe, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3615524728663929743, guid: a5b6c4d494a7af1c68f5ae1c98d214fe, type: 3}
     - {fileID: 3615524728663929740, guid: a5b6c4d494a7af1c68f5ae1c98d214fe, type: 3}
@@ -4696,7 +4700,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35654
+  m_Name: pb_Mesh26218
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
