@@ -10,20 +10,25 @@ public class BabyController : MonoBehaviour
     public BabyUIController uiController;
 
     // every one 1 second decrement by 2 units
-    [SerializeField] private float delayTime = 1f;
+    [SerializeField] private float delayTimeEnergy = 1f;
     [SerializeField] private float decrementAmount = 2f;
-    [SerializeField] private float delayTimediaper = 1f;
-    [SerializeField] private float decrementAmountdiaper = 2f;
+    [SerializeField] private float delayTimeDiaper = 1f;
+    [SerializeField] private float decrementAmountDiaper = 2f;
     private BabyState state;
 
-    public bool rechargeBaby
+    [SerializeField] private float funDecreasePerSecondIdle = 2f;
+    [SerializeField] private float funIncreasePerSecondFlying = 25f;
+    [SerializeField] private float healthDecreasePerDrop = 25;
+
+    public bool inStation
     {
-        set => state.rechargeBaby = value;
+        set => state.inStation = value;
     }
 
-    public bool rediaperBaby
+    public bool IsFlying
     {
-        set => state.rediaperBaby = value;
+        get => state.isFlying;
+        set => state.isFlying = value;
     }
 
     public void Start()
@@ -31,6 +36,20 @@ public class BabyController : MonoBehaviour
         state = GetComponent<BabyState>();
         StartCoroutine(DecreaseEnergy());
         StartCoroutine(DecreaseDiaper());
+        GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
+    }
+
+    private void Update()
+    {
+        if (state.isFlying)
+        {
+            state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
+        }
+        else
+        {
+            state.currentFun = Mathf.Max(state.currentFun - funDecreasePerSecondIdle * Time.deltaTime, 0);
+        }
+        uiController.UpdateFunBar(state.fun, state.currentFun);
     }
 
     public void IncreaseEnergy(float incrementAmount)
@@ -46,35 +65,59 @@ public class BabyController : MonoBehaviour
         state.currentDiaper = Math.Clamp(state.currentDiaper, 0f, state.diaper);
         uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
     }
-
+    
+    public void IncreaseHealth(float incrementAmount)
+    {
+        state.currentHealth += incrementAmount;
+        state.currentHealth = Math.Clamp(state.currentHealth, 0f, state.health);
+        uiController.UpdateHealthBar(state.health, state.currentHealth);
+    }
 
     private IEnumerator DecreaseEnergy()
     {
-        var wait = new WaitForSeconds(delayTime);
+        var wait = new WaitForSeconds(delayTimeEnergy);
         while (true)
         {
             yield return wait;
-            if (state.energy >= 0 && !state.rechargeBaby)
+            if (state.energy >= 0 && !state.inStation)
             {
                 state.currentEnergy -= decrementAmount;
                 uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
             }
         }
     }
-    
 
     private IEnumerator DecreaseDiaper()
     {
-        var wait = new WaitForSeconds(delayTimediaper);
+        var wait = new WaitForSeconds(delayTimeDiaper);
         while (true)
         {
             yield return wait;
-            if (state.diaper >= 0 && !state.rediaperBaby)
+            if (state.diaper >= 0 && !state.inStation)
             {
-                state.currentDiaper -= decrementAmountdiaper;
+                state.currentDiaper -= decrementAmountDiaper;
                 uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
             }
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Room" && state.isFlying)
+        {
+            state.isFlying = false;
+            state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
+            uiController.UpdateHealthBar(state.health, state.currentHealth);
+        }
+    }
+
+    private void HandlePickedUp()
+    {
+        state.isFlying = false;
+    }
+
+    public void HandleKicked()
+    {
+        state.isFlying = true;
+    }
 }
