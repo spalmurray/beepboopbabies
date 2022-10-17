@@ -14,13 +14,14 @@ public class StationInteractable : Interactable
         {
             var otherGameObj = otherAgent.pickedUpObject.gameObject;
             // check if the pick up object is a baby (has a BabyController)
-            var babyState = otherGameObj.GetComponent<BabyController>();
-            if (babyState == null) return;
+            var babyController = otherGameObj.GetComponent<BabyController>();
+            if (babyController == null) return;
             var otherTransform = otherGameObj.transform;
             otherTransform.parent = center;
             otherTransform.localPosition = Vector3.zero;
             otherAgent.pickedUpObject = null;
-            baby = babyState;
+            baby = babyController;
+            baby.inStation = true;
         }
         else if (baby != null)
         {
@@ -30,6 +31,7 @@ public class StationInteractable : Interactable
             babyTransform.parent = otherAgent.pickUpPoint;
             babyTransform.localPosition = Vector3.zero;
             otherAgent.pickedUpObject = baby.gameObject.GetComponent<PickUpInteractable>();
+            baby.inStation = false;
             baby = null;
         }
     }

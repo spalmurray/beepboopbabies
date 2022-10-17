@@ -11,6 +11,7 @@ public class BabyState : AgentState
     public float currentDiaper;
     public float currentHealth;
     public float currentFun;
+    public bool inStation = false;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool isFlying = false;

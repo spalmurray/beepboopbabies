@@ -10,24 +10,19 @@ public class BabyController : MonoBehaviour
     public BabyUIController uiController;
 
     // every one 1 second decrement by 2 units
-    [SerializeField] private float delayTime = 1f;
+    [SerializeField] private float delayTimeEnergy = 1f;
     [SerializeField] private float decrementAmount = 2f;
-    [SerializeField] private float delayTimediaper = 1f;
-    [SerializeField] private float decrementAmountdiaper = 2f;
+    [SerializeField] private float delayTimeDiaper = 1f;
+    [SerializeField] private float decrementAmountDiaper = 2f;
     private BabyState state;
 
     [SerializeField] private float funDecreasePerSecondIdle = 2f;
     [SerializeField] private float funIncreasePerSecondFlying = 25f;
     [SerializeField] private float healthDecreasePerDrop = 25;
 
-    public bool rechargeBaby
+    public bool inStation
     {
-        set => state.rechargeBaby = value;
-    }
-
-    public bool rediaperBaby
-    {
-        set => state.rediaperBaby = value;
+        set => state.inStation = value;
     }
 
     public void Start()
@@ -35,7 +30,6 @@ public class BabyController : MonoBehaviour
         state = GetComponent<BabyState>();
         StartCoroutine(DecreaseEnergy());
         StartCoroutine(DecreaseDiaper());
-
         GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
     }
 
@@ -75,11 +69,11 @@ public class BabyController : MonoBehaviour
 
     private IEnumerator DecreaseEnergy()
     {
-        var wait = new WaitForSeconds(delayTime);
+        var wait = new WaitForSeconds(delayTimeEnergy);
         while (true)
         {
             yield return wait;
-            if (state.energy >= 0 && !state.rechargeBaby)
+            if (state.energy >= 0 && !state.inStation)
             {
                 state.currentEnergy -= decrementAmount;
                 uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
@@ -89,13 +83,13 @@ public class BabyController : MonoBehaviour
 
     private IEnumerator DecreaseDiaper()
     {
-        var wait = new WaitForSeconds(delayTimediaper);
+        var wait = new WaitForSeconds(delayTimeDiaper);
         while (true)
         {
             yield return wait;
-            if (state.diaper >= 0 && !state.rediaperBaby)
+            if (state.diaper >= 0 && !state.inStation)
             {
-                state.currentDiaper -= decrementAmountdiaper;
+                state.currentDiaper -= decrementAmountDiaper;
                 uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
             }
         }
