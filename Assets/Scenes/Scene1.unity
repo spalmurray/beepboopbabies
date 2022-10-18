@@ -3506,8 +3506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2196ef6d98c4f95a4151d674b393ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Image: {fileID: 0}
-  audioClip: {fileID: 0}
+  Image: {fileID: 1781861026}
+  audioClip: {fileID: 8300000, guid: 3c37e028d0e4539ffb3ff077dbfffb39, type: 3}
 --- !u!114 &1181025128
 MonoBehaviour:
   m_ObjectHideFlags: 0
