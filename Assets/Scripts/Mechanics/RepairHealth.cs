@@ -10,9 +10,31 @@ public class RepairHealth : MonoBehaviour
     
     public float healthIncreasePerSecond = 5f;
 
-    private void Start()
+    private void Awake()
     {
         station = GetComponent<StationInteractable>();
+    }
+    
+    private void OnEnable()
+    {
+        station.HandlePlaceEvent += onPlaceEvent;
+    }
+
+    private void OnDisable()
+    {
+        station.HandlePlaceEvent -= onPlaceEvent;
+    }
+
+    private void onPlaceEvent(bool placeInStation)
+    {
+        if (placeInStation)
+        {
+            station.baby.uiController.SetAlwaysActive(health: true);
+        }
+        else
+        {
+            station.baby.uiController.SetAlwaysActive(health: false);
+        }
     }
 
     private void Update()
