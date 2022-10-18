@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject Image;//Clock UI
     public AudioClip audioClip;//Audio for Clock
     private int score;
-    private float CurrentTime = 10;//CountDown
+    private float CurrentTime = 120;//CountDown
     private float AllTime;//Toal time for CountDown
     
     public static ScoreManager Instance 
