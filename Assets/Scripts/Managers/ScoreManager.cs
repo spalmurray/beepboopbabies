@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
-public delegate void ScoreUpdate(int score);
 public delegate void TimeUpdate(int time);
 public delegate void GameOverHandler();
 
@@ -9,32 +10,33 @@ public class ScoreManager : MonoBehaviour
 {
     public GameObject Image;//Clock UI
     public AudioClip audioClip;//Audio for Clock
-    private int score;
-    private float CurrentTime = 120;//CountDown
-    private float AllTime;//Toal time for CountDown
-    
+    private int totalStars;
+    private int numberOfParents;
+
     public static ScoreManager Instance 
     { 
         get; private set; 
     }
 
-    public float CurrentTime1 
-    { 
-        get => CurrentTime; set => CurrentTime = value; //CountDown bar uasage
-    }
-
-    public float AllTime1 
-    { 
-        get => AllTime; set => AllTime = value; //CountDown bar uasage
-    }
-
+    public float CurrentTime { get; private set; } = 120;
+    public float AllTime { get; private set; }
+    
     public bool IsGameOver { get; private set; }
+
+    // Final score, which is the average of "stars" of each parent
+    public float FinalScore => (float) totalStars / numberOfParents;
 
     private void Awake()
     {
         Instance = this;
         AllTime = CurrentTime;
     }
+
+    private void Start()
+    {
+        numberOfParents = FindObjectOfType<ParentSpawnManager>().NumberOfParents;
+    }
+
     private void Update()
     {
         UpdateTime();
@@ -58,24 +60,26 @@ public class ScoreManager : MonoBehaviour
         HandleGameOver?.Invoke();
     }
 
-    // Event to notify that score has updated
-    public event ScoreUpdate NotifyScoreUpdate;
     public event TimeUpdate NotifyTimeUpdate;
     public event GameOverHandler HandleGameOver;
 
-    public int GetScore()
-    {
-        return score;
-    }
-
-    public void UpdateScore(int delta)
-    {
-        score += delta;
-        NotifyScoreUpdate?.Invoke(score);
-    }
-    public void UpdateTime()
+    private void UpdateTime()
     {
         CurrentTime -= Time.deltaTime;
         NotifyTimeUpdate?.Invoke((int)CurrentTime);
+    }
+
+    public void RegisterPickedUpBaby(BabyState babyState)
+    {
+        totalStars += new[]
+            {
+                (babyState.currentEnergy, babyState.energy),
+                (babyState.currentHealth, babyState.health),
+                (babyState.currentDiaper, babyState.diaper),
+                (babyState.currentFun, babyState.fun),
+                (babyState.currentOil, babyState.oil),
+            }
+            .Select(tuple => tuple.Item1 / tuple.Item2)
+            .Count(percent => percent >= 0.75f);
     }
 }

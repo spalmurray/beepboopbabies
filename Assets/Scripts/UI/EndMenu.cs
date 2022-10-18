@@ -7,6 +7,7 @@ public class EndMenu : MonoBehaviour
 {
     public GameObject endMenuUI;
     public Button initialButton;
+    public StarsUIController starsUIController;
     
     void Start()
     {
@@ -17,5 +18,6 @@ public class EndMenu : MonoBehaviour
     {
         endMenuUI.SetActive(true);
         initialButton.Select();
+        starsUIController.ShowStars(ScoreManager.Instance.FinalScore);
     }
 }

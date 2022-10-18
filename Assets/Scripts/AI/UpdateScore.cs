@@ -10,14 +10,15 @@ using UnityEngine;
 [Help("Updates the Score by specified amount")]
 public class UpdateScore : GOAction
 {
-    [InParam("score")] public int score;
+    [InParam("state")] public AgentState state;
 
     // Main class method, invoked by the execution engine.
     public override TaskStatus OnUpdate()
     {
         var hud = GameObject.Find("HUD");
         var scoreManager = hud.GetComponent<ScoreManager>();
-        scoreManager.UpdateScore(score);
+        var babyState = state.pickedUpObject.GetComponent<BabyState>();
+        scoreManager.RegisterPickedUpBaby(babyState);
         return TaskStatus.COMPLETED;
     } // OnUpdate
 }

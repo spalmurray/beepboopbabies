@@ -18,9 +18,9 @@ public class TimeUIController : MonoBehaviour
     private void Update()
     {
         //Realtime CountDown bar
-        image_Fill.fillAmount = ScoreManager.Instance.CurrentTime1 / ScoreManager.Instance.AllTime1;
+        image_Fill.fillAmount = ScoreManager.Instance.CurrentTime / ScoreManager.Instance.AllTime;
         //Real time light change
-        light.intensity = ScoreManager.Instance.CurrentTime1 / ScoreManager.Instance.AllTime1;
+        light.intensity = ScoreManager.Instance.CurrentTime / ScoreManager.Instance.AllTime;
     }
 
     private void OnDestroy()

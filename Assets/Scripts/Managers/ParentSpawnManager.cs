@@ -19,6 +19,8 @@ public class ParentSpawnManager : MonoBehaviour
     
     private BehaviorExecutor behaviorExecutor;
 
+    public int NumberOfParents => leavePoints.Count;
+
     private void Start()
     {
         childNames = new(){ "Bob", "Anna", "Gaston", "Lemmy"};
@@ -27,7 +29,7 @@ public class ParentSpawnManager : MonoBehaviour
 
     private IEnumerator SpawnMultipleParents()
     {
-        for (var i = 0; i < leavePoints.Count; i++)
+        for (var i = 0; i < NumberOfParents; i++)
         {
             yield return new WaitForSeconds(delayTime);
             SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
