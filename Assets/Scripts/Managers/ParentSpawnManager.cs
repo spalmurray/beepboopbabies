@@ -14,10 +14,14 @@ public class ParentSpawnManager : MonoBehaviour
 
     // time between spawning each parent
     public float delayTime = 2f;
+
+    public List<string> childNames;
+    
     private BehaviorExecutor behaviorExecutor;
 
     private void Start()
     {
+        childNames = new(){ "Bob", "Anna", "Gaston", "Lemmy"};
         StartCoroutine(SpawnMultipleParents());
     }
 
@@ -26,18 +30,21 @@ public class ParentSpawnManager : MonoBehaviour
         for (var i = 0; i < leavePoints.Count; i++)
         {
             yield return new WaitForSeconds(delayTime);
-            SpawnParent(arrivePoints[i].position, leavePoints[i].position);
+            SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
         }
     }
 
-    private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint)
+    private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName)
     {
         var parentInstance = Instantiate(parent, start.position, Quaternion.identity);
         var childInstance = Instantiate(child, Vector3.zero, Quaternion.identity);
+        var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
         // Programmatically make the parent pick up the child
-        interactable.Interact(parentInstance);
+        interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
+        Debug.Log("spawning " + childName);
+        childState.name = childName;
         behaviorExecutor = parentInstance.GetComponent<BehaviorExecutor>();
         if (behaviorExecutor != null)
         {

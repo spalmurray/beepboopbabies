@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BabyUIController : MonoBehaviour
 {
+    [SerializeField] private TMP_Text nameText;
     [SerializeField] private Image healthbarSprite;
     [SerializeField] private Image energybarSprite;
     [SerializeField] private Image diaperbarSprite;
@@ -25,6 +27,11 @@ public class BabyUIController : MonoBehaviour
     private void Start()
     {
         _cam = Camera.main;
+    }
+    
+    public void SetName(string name)
+    {
+        nameText.text = name;
     }
 
     // Update is called once per frame
@@ -73,7 +80,6 @@ public class BabyUIController : MonoBehaviour
         energyAlwaysActive = energy.GetValueOrDefault(energyAlwaysActive.GetValueOrDefault(false));
         diaperAlwaysActive = diaper.GetValueOrDefault(diaperAlwaysActive.GetValueOrDefault(false));
         funAlwaysActive = fun.GetValueOrDefault(funAlwaysActive.GetValueOrDefault(false));
-        Debug.Log("health: " + healthAlwaysActive + " energy: " + energyAlwaysActive + " diaper: " + diaperAlwaysActive + " fun: " + funAlwaysActive);
         SetActive();
     }
 

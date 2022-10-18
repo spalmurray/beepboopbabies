@@ -31,7 +31,11 @@ public class BabyController : MonoBehaviour
         collider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
     }
-    
+
+    public void Start()
+    {
+        uiController.SetName(state.name);
+    }
     public void OnEnable()
     {
         GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
@@ -125,7 +129,6 @@ public class BabyController : MonoBehaviour
     {
         if (state.isFlying)
         {
-            Debug.Log("Is Flying ");
             state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
             uiController.SetAlwaysActive(fun:true);
         }
