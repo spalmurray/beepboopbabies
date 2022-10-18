@@ -5,13 +5,7 @@ using UnityEngine;
 public class StationInteractable : Interactable
 {
     public BabyController baby;
-    public delegate void PlaceEvent(bool placeInStation);
-    public event PlaceEvent HandlePlaceEvent;
-    
-    public void InvokePlaceEvent()
-    {
-        HandlePlaceEvent?.Invoke(true);
-    }
+
     public override void Interact(GameObject other)
     {
         var otherAgent = other.GetComponent<AgentState>();
@@ -26,7 +20,6 @@ public class StationInteractable : Interactable
             babyInteractable.Drop(otherAgent);
             babyInteractable.PickUp(GetComponent<AgentState>());
             baby = babyState;
-            HandlePlaceEvent?.Invoke(true);
             baby.inStation = true;
         }
         else if (baby != null)
@@ -37,7 +30,6 @@ public class StationInteractable : Interactable
             babyInteractable.Drop(GetComponent<AgentState>());
             babyInteractable.PickUp(otherAgent);
             baby.inStation = false;
-            HandlePlaceEvent?.Invoke(false);
             baby = null;
         }
     }

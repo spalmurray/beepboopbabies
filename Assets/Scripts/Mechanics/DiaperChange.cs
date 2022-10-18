@@ -1,6 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(StationInteractable))]
 public class DiaperChange : MonoBehaviour
 {
     // increment amount for each tick
@@ -9,31 +10,9 @@ public class DiaperChange : MonoBehaviour
     // Start is called before the first frame update
     private StationInteractable station;
 
-    private void Awake()
+    private void Start()
     {
         station = GetComponent<StationInteractable>();
-    }
-    
-    private void OnEnable()
-    {
-        station.HandlePlaceEvent += onPlaceEvent;
-    }
-
-    private void OnDisable()
-    {
-        station.HandlePlaceEvent -= onPlaceEvent;
-    }
-
-    private void onPlaceEvent(bool placeInStation)
-    {
-        if (placeInStation)
-        {
-            station.baby.uiController.SetAlwaysActive(diaper: true);
-        }
-        else
-        {
-            station.baby.uiController.SetAlwaysActive(diaper: false);
-        }
     }
 
     // Update is called once per frame
