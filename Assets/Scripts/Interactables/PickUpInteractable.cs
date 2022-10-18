@@ -7,6 +7,12 @@ public class PickUpInteractable : Interactable
     public event PickedUpEvent HandlePickedUp;
         
     public bool isPickedUp;
+    private Rigidbody rb;
+    public void Awake()
+    {
+        base.Awake();
+        rb = GetComponent<Rigidbody>();
+    }
     
     public override void Interact(GameObject other)
     {
@@ -26,7 +32,7 @@ public class PickUpInteractable : Interactable
         transform.parent = state.pickUpPoint.transform;
         transform.localPosition = Vector3.zero;
         state.pickedUpObject = this;
-        GetComponent<Rigidbody>().isKinematic = true;
+        rb.isKinematic = true;
         // clear the interactable slot so the agent can interact with other objects
         state.interactable = null;
         // set the agent to non interactable so Triggers won't collide with it
@@ -39,7 +45,7 @@ public class PickUpInteractable : Interactable
     public void Drop(AgentState state)
     {
         state.pickedUpObject = null;
-        GetComponent<Rigidbody>().isKinematic = false;
+        rb.isKinematic = false;
         transform.parent = null;
         // reset to default so object can be interactable again
         gameObject.layer = LayerMask.NameToLayer("Default");

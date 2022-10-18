@@ -43,7 +43,6 @@ public class ParentSpawnManager : MonoBehaviour
         // Programmatically make the parent pick up the child
         interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
-        Debug.Log("spawning " + childName);
         childState.name = childName;
         behaviorExecutor = parentInstance.GetComponent<BehaviorExecutor>();
         if (behaviorExecutor != null)

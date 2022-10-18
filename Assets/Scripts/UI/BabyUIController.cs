@@ -9,19 +9,22 @@ public class BabyUIController : MonoBehaviour
     [SerializeField] private Image energybarSprite;
     [SerializeField] private Image diaperbarSprite;
     [SerializeField] private Image funbarSprite;
+    [SerializeField] private Image oilbarSprite;
     [SerializeField] private GameObject healthbar;
     [SerializeField] private GameObject energybar;
     [SerializeField] private GameObject diaperbar;
     [SerializeField] private GameObject funbar;
+    [SerializeField] private GameObject oilbar;
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private Image dialogImage;
     [SerializeField] private Transform babyLocation;
     [SerializeField] private float height = 3f;
-    private bool healthActive, energyActive, diaperActive, funActive;
+    private bool healthActive, energyActive, diaperActive, funActive, oilActive;
     private bool? healthAlwaysActive = false;
     private bool? energyAlwaysActive = false;
     private bool? diaperAlwaysActive = false;
     private bool? funAlwaysActive = false;
+    private bool? oilAlwaysActive = false;
     private Camera _cam;
 
     private void Start()
@@ -52,6 +55,7 @@ public class BabyUIController : MonoBehaviour
         energybar.SetActive(energyAlwaysActive.GetValueOrDefault(false) || energyActive);
         diaperbar.SetActive(diaperAlwaysActive.GetValueOrDefault(false) || diaperActive);
         funbar.SetActive(funAlwaysActive.GetValueOrDefault(false) || funActive);
+        oilbar.SetActive(oilAlwaysActive.GetValueOrDefault(false) || oilActive);
     }
 
     public void UpdateHealthBar(float maxHealth, float currentHealth)
@@ -74,12 +78,18 @@ public class BabyUIController : MonoBehaviour
         funbarSprite.fillAmount = currentFun / maxFun;
     }
     
-    public void SetAlwaysActive(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null)
+    public void UpdateOilBar(float maxOil, float currentOil)
+    {
+        oilbarSprite.fillAmount = currentOil / maxOil;
+    }
+    
+    public void SetAlwaysActive(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null, bool? oil = null)
     {
         healthAlwaysActive = health.GetValueOrDefault(healthAlwaysActive.GetValueOrDefault(false));
         energyAlwaysActive = energy.GetValueOrDefault(energyAlwaysActive.GetValueOrDefault(false));
         diaperAlwaysActive = diaper.GetValueOrDefault(diaperAlwaysActive.GetValueOrDefault(false));
         funAlwaysActive = fun.GetValueOrDefault(funAlwaysActive.GetValueOrDefault(false));
+        oilAlwaysActive = oil.GetValueOrDefault(oilAlwaysActive.GetValueOrDefault(false));
         SetActive();
     }
 
@@ -89,6 +99,7 @@ public class BabyUIController : MonoBehaviour
         energyActive = true;
         diaperActive = true;
         funActive = true;
+        oilActive = true;
         SetActive();
     }
 
@@ -98,6 +109,7 @@ public class BabyUIController : MonoBehaviour
         energyActive = false;
         diaperActive = false;
         funActive = false;
+        oilActive = false;
         SetActive();
     }
 

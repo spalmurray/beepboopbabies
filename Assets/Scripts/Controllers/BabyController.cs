@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BabyState))]
-[RequireComponent(typeof(PickUpInteractable))]
+[RequireComponent(typeof(BabyPickUpInteractable))]
 public class BabyController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -14,6 +14,8 @@ public class BabyController : MonoBehaviour
     // every one 1 second decrement by 2 units
     [SerializeField] private float decrementAmountEnergy = 2f;
     [SerializeField] private float decrementAmountDiaper = 2f;
+    [SerializeField] private float oilDrinkAmountOil = 2f;
+    [SerializeField] private float decrementAmountOil = 2f;
     private BabyState state;
     [SerializeField] private float funDecreasePerSecondIdle = 2f;
     [SerializeField] private float funIncreasePerSecondFlying = 25f;
@@ -67,6 +69,7 @@ public class BabyController : MonoBehaviour
     {
         CheckOnGround();
         HandleFun();
+        HandleOil();
         DecreaseDiaper();
         DecreaseEnergy();
         SetAlwaysActive();
@@ -85,6 +88,7 @@ public class BabyController : MonoBehaviour
         bool? energyAlwaysActive = null;
         bool? diaperAlwaysActive = null;
         bool? funAlwaysActive = null;
+        bool? oilAlwaysActive = null;
         if (state.currentHealth < state.healthWarnThreshold)
         {
             healthAlwaysActive = true;
@@ -101,7 +105,11 @@ public class BabyController : MonoBehaviour
         {
             funAlwaysActive = true;
         }
-        uiController.SetAlwaysActive(healthAlwaysActive, energyAlwaysActive, diaperAlwaysActive, funAlwaysActive);
+        if (state.currentOil < state.oilWarnThreshold)
+        {
+            oilAlwaysActive = true;
+        }
+        uiController.SetAlwaysActive(healthAlwaysActive, energyAlwaysActive, diaperAlwaysActive, funAlwaysActive, oilAlwaysActive);
     }
 
     public void IncreaseEnergy(float incrementAmount)
@@ -140,6 +148,32 @@ public class BabyController : MonoBehaviour
         uiController.UpdateFunBar(state.fun, state.currentFun);
     }
 
+    private void HandleOil()
+    {
+        if (state.pickedUpObject is BottleInteractable drinkBottle && state.currentOil <= state.oil)
+        {
+            drinkBottle.DecreaseAmount(oilDrinkAmountOil * Time.deltaTime);
+            // if bottle is empty, drop it
+            if (drinkBottle.currentAmount <= 0)
+            {
+                drinkBottle.Drop(state);
+                return;
+            }
+            state.currentOil = Mathf.Min(state.currentOil + oilDrinkAmountOil * Time.deltaTime, state.oil);
+            uiController.UpdateOilBar(state.oil, state.currentOil);
+        }
+        // if we are fill to the max drop the bottle
+        else if (state.pickedUpObject is BottleInteractable dropBottle && state.currentOil >= state.oil)
+        {
+            dropBottle.Drop(state);
+        } 
+        else 
+        {
+            state.currentOil = Mathf.Max(state.currentOil - decrementAmountOil * Time.deltaTime, 0);
+            uiController.UpdateOilBar(state.oil, state.currentOil);
+        }
+    }
+
     private void DecreaseEnergy()
     {
         if (state.currentEnergy >= 0 && !state.inStation)
@@ -169,14 +203,15 @@ public class BabyController : MonoBehaviour
         }
     }
 
-    private IEnumerator TemporaryAlert(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null)
+    private IEnumerator TemporaryAlert(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null, bool? oil = null)
     {
-        uiController.SetAlwaysActive(health, energy, diaper, fun);
+        uiController.SetAlwaysActive(health, energy, diaper, fun, oil);
         yield return new WaitForSeconds(1f);
         if (health.GetValueOrDefault(false)) uiController.SetAlwaysActive(health: false);
         if (energy.GetValueOrDefault(false)) uiController.SetAlwaysActive(energy: false);
         if (diaper.GetValueOrDefault(false)) uiController.SetAlwaysActive(diaper: false);
         if (fun.GetValueOrDefault(false)) uiController.SetAlwaysActive(fun: false);
+        if (oil.GetValueOrDefault(false)) uiController.SetAlwaysActive(oil: false);
     }
 
     private void HandlePickedUp()
