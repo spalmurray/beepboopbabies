@@ -32,15 +32,17 @@ public class ParentSpawnManager : MonoBehaviour
 
     private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint)
     {
+        Debug.Log("Spawn Parents");
         var parentInstance = Instantiate(parent, start.position, Quaternion.identity);
         var childInstance = Instantiate(child, Vector3.zero, Quaternion.identity);
         var interactable = childInstance.GetComponent<PickUpInteractable>();
         // Programmatically make the parent pick up the child
         interactable.Interact(parentInstance);
-        parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
         behaviorExecutor = parentInstance.GetComponent<BehaviorExecutor>();
         if (behaviorExecutor != null)
         {
+            var instanceId = childInstance.GetInstanceID();
+            behaviorExecutor.SetBehaviorParam("InstanceId", instanceId);
             behaviorExecutor.SetBehaviorParam("LeavePoint", leavePoint);
             behaviorExecutor.SetBehaviorParam("ArrivePoint", arrivePoint);
         }

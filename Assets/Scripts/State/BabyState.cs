@@ -7,11 +7,6 @@ public class BabyState : AgentState
     public float health = 100f;
     public float diaper = 100f;
     public float fun = 100f;
-    // the values at which the players will be warned that this babies needs attention
-    public float energyWarnThreshold = 25f;
-    public float healthWarnThreshold = 25f;
-    public float diaperWarnThreshold = 25f;
-    public float funWarnThreshold = 25f;
     public float currentEnergy;
     public float currentDiaper;
     public float currentHealth;
@@ -20,7 +15,6 @@ public class BabyState : AgentState
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool isFlying = false;
-    [HideInInspector] public bool onGround = false;
 
     private void Start()
     {

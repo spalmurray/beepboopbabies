@@ -58,12 +58,29 @@ public class PlayerController : MonoBehaviour
         var interactable = state.interactable;
         if (interactable == null) return;
         var obj = interactable.gameObject;
+
         // Check that we're indeed kicking a baby and not other innocent objects
         var babyController = obj.GetComponent<BabyController>();
         if (babyController != null)
         {
             // Origin position of the kick, i.e. players feet
-            babyController.KickBaby(gameObject, KICK_SPEED, KICK_UPWARD_ANGLE);
+            var kickOrigin = gameObject.transform.position;
+            var lowY = gameObject.GetComponent<Collider>().bounds.min.y;
+            kickOrigin.y = lowY;
+
+            // Get direction of kick, rotate upward by KICK_UPWARD_ANGLE degrees
+            var kickOriginDirection = obj.transform.position - kickOrigin;
+            var x = kickOriginDirection.x;
+            var z = kickOriginDirection.z;
+            var y = Mathf.Sqrt(x * x + z * z) * Mathf.Tan(Mathf.Deg2Rad * KICK_UPWARD_ANGLE);
+            var forceDirection = new Vector3(x, y, z);
+            forceDirection.Normalize();
+
+            // Apply kick force
+            var babyRigidbody = obj.GetComponent<Rigidbody>();
+            babyRigidbody?.AddForceAtPosition(forceDirection * KICK_SPEED, kickOrigin, ForceMode.VelocityChange);
+
+            babyController.HandleKicked();
         }
     }
 
