@@ -827,9 +827,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7744276255607753948}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3454413051622440516}
@@ -888,14 +888,17 @@ MonoBehaviour:
   health: 100
   diaper: 100
   fun: 100
+  oil: 100
   energyWarnThreshold: 25
   healthWarnThreshold: 25
   diaperWarnThreshold: 25
   funWarnThreshold: 25
+  oilWarnThreshold: 25
   currentEnergy: 0
   currentDiaper: 0
   currentHealth: 0
   currentFun: 0
+  currentOil: 0
   inStation: 0
   rechargeBaby: 0
   rediaperBaby: 0
@@ -948,6 +951,8 @@ MonoBehaviour:
   uiController: {fileID: 2879155038907133379}
   decrementAmountEnergy: 2
   decrementAmountDiaper: 2
+  oilDrinkAmountOil: 2
+  decrementAmountOil: 2
   funDecreasePerSecondIdle: 2
   funIncreasePerSecondFlying: 25
   healthDecreasePerDrop: 25
