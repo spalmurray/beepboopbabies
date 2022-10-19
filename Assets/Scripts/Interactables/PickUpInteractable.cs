@@ -1,37 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PickUpInteractable : Interactable
+public class PickUpInteractable : Interactable
 {
-    public bool isPickedUp = false;
+    public delegate void PickedUpEvent();
 
-    public override void Interact(GameObject playerObject)
+    public event PickedUpEvent HandlePickedUp;
+        
+    public bool isPickedUp;
+    private Rigidbody rb;
+    public void Awake()
     {
-        isPickedUp = !isPickedUp;
+        base.Awake();
+        rb = GetComponent<Rigidbody>();
+    }
+    
+    public override void Interact(GameObject other)
+    {
+        var state = other.GetComponent<AgentState>();
+        if (state == null) return;
 
-        if (isPickedUp)
-        {
-            PickUp(playerObject);
-        }
+        if (!isPickedUp)
+            PickUp(state);
         else
-        {
-            Drop(playerObject);
-        }
+            Drop(state);
     }
 
-    protected virtual void PickUp(GameObject playerObject)
+    public void PickUp(AgentState state)
     {
-        var player = playerObject.GetComponent<PlayerMovement>();
-        transform.parent = player.pickUpPosition.transform;
-        transform.eulerAngles = Vector3.zero;
+        // already has a picked up an object so do nothing
+        if (state.pickedUpObject != null) return;
+        transform.parent = state.pickUpPoint.transform;
         transform.localPosition = Vector3.zero;
-        GetComponent<Rigidbody>().isKinematic = true;
+        state.pickedUpObject = this;
+        rb.isKinematic = true;
+        // clear the interactable slot so the agent can interact with other objects
+        state.interactable = null;
+        // set the agent to non interactable so Triggers won't collide with it
+        gameObject.layer = LayerMask.NameToLayer("NonInteractable");
+        outline.OutlineMode = Outline.Mode.OutlineHidden;
+        isPickedUp = true;
+        HandlePickedUp?.Invoke();
     }
 
-    protected virtual void Drop(GameObject playerObject)
+    public void Drop(AgentState state)
     {
-        GetComponent<Rigidbody>().isKinematic = false;
+        state.pickedUpObject = null;
+        rb.isKinematic = false;
         transform.parent = null;
+        // reset to default so object can be interactable again
+        gameObject.layer = LayerMask.NameToLayer("Default");
+        isPickedUp = false;
     }
 }

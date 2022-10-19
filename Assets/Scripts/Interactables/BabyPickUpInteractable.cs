@@ -4,59 +4,28 @@ using UnityEngine;
 
 public class BabyPickUpInteractable : PickUpInteractable
 {
-    private BabyState state;
-
-    private bool hasDroppedOff;
-
-    private GameObject touchingDropOffObject;
-
-    private void Start()
+    public override void Interact(GameObject other)
     {
-        state = GetComponent<BabyState>();
-    }
-
-    protected override void Drop(GameObject playerObject)
-    {
-        base.Drop(playerObject);
-
-        if (!hasDroppedOff && touchingDropOffObject != null)
+        var controller = GetComponent<BabyController>();
+        var agent = GetComponent<AgentState>();
+        var otherAgent = other.GetComponent<AgentState>();
+        if (otherAgent == null) return;
+        if (otherAgent.pickedUpObject is BottleInteractable drinkBottle)
         {
-            DropOffBaby();
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (hasDroppedOff || touchingDropOffObject != null || !IsValidDropOffObject(collision.gameObject))
+            drinkBottle.Drop(otherAgent);
+            drinkBottle.PickUp(agent);
+            controller.uiController.SetAlwaysActive(oil: true);
+        } 
+        else if (agent.pickedUpObject is BottleInteractable dropBottle && otherAgent.pickedUpObject == null)
         {
-            return;
+            dropBottle.Drop(agent);
+            dropBottle.PickUp(otherAgent);
+            controller.uiController.SetAlwaysActive(oil: false);
         }
-
-        touchingDropOffObject = collision.gameObject;
-
-        if (!isPickedUp)
+        else
         {
-            DropOffBaby();
+            base.Interact(other);
         }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (ReferenceEquals(collision.gameObject, touchingDropOffObject))
-        {
-            touchingDropOffObject = null;
-        }
-    }
-
-    private bool IsValidDropOffObject(GameObject gameObject)
-    {
-        var dropOff = gameObject.gameObject.GetComponent<BabyDropOff>();
-        return dropOff != null && dropOff.babyId == state.id;
-    }
-
-    private void DropOffBaby()
-    {
-        hasDroppedOff = true;
-        ScoreManager.Instance.UpdateScore(1);
     }
 }
+
