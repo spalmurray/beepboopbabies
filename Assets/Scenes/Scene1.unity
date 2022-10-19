@@ -1366,6 +1366,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 531655338}
+    - target: {fileID: 6500176077691030440, guid: 462ddde224dd5634faedff7b002fd3aa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5de52793f201616d3bb9025e5bfabd44, type: 2}
     - target: {fileID: 6500176077691030441, guid: 462ddde224dd5634faedff7b002fd3aa, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1685,7 +1689,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-18384
+  m_Name: pb_Mesh-1284
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6530,6 +6534,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -2357884022608881519, guid: f2ec0003c7d6f4b908433f094959674b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5de52793f201616d3bb9025e5bfabd44, type: 2}
     - target: {fileID: 919132149155446097, guid: f2ec0003c7d6f4b908433f094959674b, type: 3}
       propertyPath: m_Name
       value: PR_Room_Jess
