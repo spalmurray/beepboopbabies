@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7164,6 +7164,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1996560891}
     m_Modifications:
+    - target: {fileID: 1774535633932042731, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
+      propertyPath: m_Mass
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6298007407753152709, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
       propertyPath: m_Name
       value: bottle
@@ -7171,6 +7175,18 @@ PrefabInstance:
     - target: {fileID: 6641917690092425855, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641917690092425855, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641917690092425855, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641917690092425855, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 6641917690092425855, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
       propertyPath: m_LocalPosition.x
