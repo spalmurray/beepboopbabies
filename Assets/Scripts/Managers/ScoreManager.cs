@@ -80,6 +80,6 @@ public class ScoreManager : MonoBehaviour
                 (babyState.currentOil, babyState.oil),
             }
             .Select(tuple => tuple.Item1 / tuple.Item2)
-            .Count(percent => percent >= 0.75f);
+            .Count(percent => percent >= 0.5f);
     }
 }

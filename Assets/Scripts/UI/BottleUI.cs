@@ -24,6 +24,7 @@ public class BottleUI : MonoBehaviour
         var eulerAngles = trans.eulerAngles;
         eulerAngles.y = 0;
         trans.eulerAngles = eulerAngles;
+        EnableStatusBars();
     }
 
     public void UpdateBar(float max, float current)
@@ -33,7 +34,7 @@ public class BottleUI : MonoBehaviour
     
     public void DisableStatusBars()
     {
-        fillbar.SetActive(false);
+        // fillbar.SetActive(false);
     }
     
     public void EnableStatusBars()

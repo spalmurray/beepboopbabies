@@ -176,7 +176,7 @@ public class BabyController : MonoBehaviour
 
     private void DecreaseEnergy()
     {
-        if (state.currentEnergy >= 0 && !state.inStation)
+        if (state.currentEnergy >= 0)
         {
             state.currentEnergy = Mathf.Max(state.currentEnergy - decrementAmountEnergy * Time.deltaTime, 0);
             uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
@@ -185,7 +185,7 @@ public class BabyController : MonoBehaviour
 
     private void DecreaseDiaper()
     {
-        if (state.currentDiaper >= 0 && !state.inStation)
+        if (state.currentDiaper >= 0)
         {
             state.currentDiaper = Mathf.Max(state.currentDiaper - decrementAmountDiaper * Time.deltaTime, 0);
             uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
