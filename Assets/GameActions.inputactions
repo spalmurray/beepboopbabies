@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "Kick",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "b5058af6-ee5f-487d-88e7-b26a876a34a7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Double",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pause",
