@@ -31,7 +31,8 @@ public class KickTrajectoryRenderer : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(currentPosition, currentVelocity.normalized);
         // Loop until hit something or distance is too great
-        while (!Physics.Raycast(ray, out hit, trajectoryVertDist) && Vector3.Distance(startPosition, currentPosition) < maxCurveLength)
+        while (!(Physics.Raycast(ray, out hit, trajectoryVertDist) && !hit.collider.isTrigger)
+               && Vector3.Distance(startPosition, currentPosition) < maxCurveLength)
         {
             // Time to travel distance of trajectoryVertDist
             var t = trajectoryVertDist / currentVelocity.magnitude;

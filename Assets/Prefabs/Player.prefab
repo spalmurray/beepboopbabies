@@ -369,6 +369,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
+  maxKickSpeed: 15
+  startingKickSpeed: 7.5
+  kickSpeedIncrease: 10
+  maxKickDirectionChange: 45
+  kickDirectionChangeSpeed: 120
 --- !u!120 &1212026515537025829
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -435,7 +440,7 @@ LineRenderer:
       serializedVersion: 2
       key0: {r: 0.0058945417, g: 1, b: 0, a: 0.6392157}
       key1: {r: 1, g: 0.9473174, b: 0, a: 0.38039216}
-      key2: {r: 1, g: 0.06491597, b: 0, a: 0}
+      key2: {r: 1, g: 0.06491597, b: 0, a: 0.20784314}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -480,8 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab673a963db87b94a96c764c4a9707d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 0, y: 0, z: 0}
-  startVelocity: {x: 0, y: 0, z: 0}
   trajectoryVertDist: 0.25
   maxCurveLength: 20
 --- !u!1001 &2396951144566284877

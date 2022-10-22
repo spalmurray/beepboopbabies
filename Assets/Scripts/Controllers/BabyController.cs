@@ -48,14 +48,18 @@ public class BabyController : MonoBehaviour
         GetComponent<PickUpInteractable>().HandlePickedUp -= HandlePickedUp;
     }
 
-    public void KickBaby(GameObject kicker, float kickSpeed, float kickUpwardAngle)
+    public void KickBaby(Vector3 velocityChange)
     {
-        var velocityChange = CalculateKickVelocityChange(kicker, kickSpeed, kickUpwardAngle);
         rb.AddForceAtPosition(velocityChange, transform.position, ForceMode.VelocityChange);
         HandleKicked();
     }
 
-    public Vector3 CalculateKickVelocityChange(GameObject kicker, float kickSpeed, float kickUpwardAngle)
+    public void KickBaby(GameObject kicker, float kickSpeed, float kickUpwardAngle)
+    {
+        KickBaby(CalculateKickVelocityChange(kicker, kickSpeed, kickUpwardAngle));
+    }
+
+    private Vector3 CalculateKickVelocityChange(GameObject kicker, float kickSpeed, float kickUpwardAngle)
     {
         var kickOrigin = kicker.transform.position;
         var lowY = kicker.GetComponent<Collider>().bounds.min.y;
