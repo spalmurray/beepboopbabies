@@ -28,20 +28,20 @@ public class DiaperChange : MonoBehaviour
     {
         if (placeInStation)
         {
-            station.baby.uiController.SetAlwaysActive(diaper: true);
+            station.Baby.uiController.SetAlwaysActive(diaper: true);
         }
         else
         {
-            station.baby.uiController.SetAlwaysActive(diaper: false);
+            station.Baby.uiController.SetAlwaysActive(diaper: false);
         }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (station.baby)
+        if (station.Baby)
         {
-            station.baby.IncreaseDiaper(incrementAmount * Time.deltaTime);
+            station.Baby.IncreaseDiaper(incrementAmount * Time.deltaTime);
         }
     }
 }

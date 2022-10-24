@@ -27,10 +27,14 @@ public class PickUpInteractable : Interactable
 
     public void PickUp(AgentState state)
     {
-        // already has a picked up an object so do nothing
-        if (state.pickedUpObject != null) return;
+        if (state.pickedUpObject)
+        {
+            // Swap picked up object with current
+            state.pickedUpObject.Drop(state);
+        }
         transform.parent = state.pickUpPoint.transform;
         transform.localPosition = Vector3.zero;
+        transform.rotation = Quaternion.identity;
         state.pickedUpObject = this;
         rb.isKinematic = true;
         // clear the interactable slot so the agent can interact with other objects

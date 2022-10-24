@@ -21,12 +21,6 @@ public class BabyController : MonoBehaviour
     [SerializeField] private float funIncreasePerSecondFlying = 25f;
     [SerializeField] private float healthDecreasePerDrop = 25;
 
-    public bool inStation
-    {
-        set => state.inStation = value;
-    }
-    
-
     public void Awake()
     {
         state = GetComponent<BabyState>();
