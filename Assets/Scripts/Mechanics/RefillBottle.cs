@@ -28,20 +28,20 @@ public class RefillBottle : MonoBehaviour
     {
         if (placeInStation)
         {
-            station.pickUpObject.uiController.EnableStatusBars();
+            station.pickedUpObject.uiController.EnableStatusBars();
         }
         else
         {
-            station.pickUpObject.uiController.DisableStatusBars();
+            station.pickedUpObject.uiController.DisableStatusBars();
         }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (station.pickUpObject)
+        if (station.pickedUpObject)
         {
-            station.pickUpObject.IncreaseAmount(incrementAmount * Time.deltaTime);
+            station.pickedUpObject.IncreaseAmount(incrementAmount * Time.deltaTime);
         }
     }
 }

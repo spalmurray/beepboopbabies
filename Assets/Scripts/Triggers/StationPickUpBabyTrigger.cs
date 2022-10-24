@@ -17,15 +17,13 @@ public class StationPickUpBabyTrigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var babyController = collision.gameObject.GetComponent<BabyController>();
-        var babyInteractable = collision.gameObject.GetComponent<PickUpInteractable>();
+        if (station.pickedUpObject) return;
         
-        if (station.baby == null && babyController && !babyInteractable.isPickedUp)
+        var babyInteractable = collision.gameObject.GetComponent<BabyPickUpInteractable>();
+        
+        if (babyInteractable && !babyInteractable.isPickedUp)
         {
-            babyInteractable.PickUp(state);
-            babyController.inStation = true;
-            station.baby = babyController;
-            station.InvokePlaceEvent();
+            station.PickUpObject(babyInteractable);
         }
     }
 }

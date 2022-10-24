@@ -19,7 +19,6 @@ public class BabyState : AgentState
     [HideInInspector] public float currentHealth;
     [HideInInspector] public float currentFun;
     [HideInInspector] public float currentOil;
-    [HideInInspector] public bool inStation = false;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;

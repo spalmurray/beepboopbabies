@@ -29,19 +29,19 @@ public class RepairHealth : MonoBehaviour
     {
         if (placeInStation)
         {
-            station.baby.uiController.SetAlwaysActive(health: true);
+            station.Baby.uiController.SetAlwaysActive(health: true);
         }
         else
         {
-            station.baby.uiController.SetAlwaysActive(health: false);
+            station.Baby.uiController.SetAlwaysActive(health: false);
         }
     }
 
     private void Update()
     {
-        if (station.baby)
+        if (station.Baby)
         {
-            station.baby.IncreaseHealth(healthIncreasePerSecond * Time.deltaTime);
+            station.Baby.IncreaseHealth(healthIncreasePerSecond * Time.deltaTime);
         }
     }
 }
