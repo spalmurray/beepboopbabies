@@ -5,36 +5,50 @@ using UnityEngine;
 [RequireComponent(typeof(AgentState))]
 public class GenericStationInteractable<T> : Interactable where T : PickUpInteractable
 {
-    public T pickUpObject;
+    public T pickedUpObject;
     public delegate void PlaceEvent(bool placeInStation);
     public event PlaceEvent HandlePlaceEvent;
     
-    public void InvokePlaceEvent()
+    public void PickUpObject(T obj, AgentState otherAgent = null)
     {
+        if (otherAgent)
+        {
+            obj.Drop(otherAgent);
+        }
+        obj.PickUp(GetComponent<AgentState>());
+        pickedUpObject = obj;
         HandlePlaceEvent?.Invoke(true);
     }
+    
     public override void Interact(GameObject other)
     {
         var otherAgent = other.GetComponent<AgentState>();
         if (otherAgent == null) return;
-        if (pickUpObject == null && otherAgent.pickedUpObject != null)
+
+        if (otherAgent.pickedUpObject != null && otherAgent.pickedUpObject is not T) return;
+        var newPickUpObject = otherAgent.pickedUpObject as T;
+
+        var agent = GetComponent<AgentState>();
+        var droppingObject = pickedUpObject;
+        
+        if (droppingObject)
         {
-            var otherGameObj = otherAgent.pickedUpObject.gameObject;
-            var pickUpObj = otherGameObj.GetComponent<T>();
-            pickUpObj.Drop(otherAgent);
-            pickUpObj.PickUp(GetComponent<AgentState>());
-            pickUpObject = pickUpObj;
-            HandlePlaceEvent?.Invoke(true);
-        }
-        else if (pickUpObject != null)
-        {
-            // Check if other agent does not have a pick up Object
-            if (otherAgent.pickedUpObject != null) return;
-            pickUpObject.Drop(GetComponent<AgentState>());
-            pickUpObject.PickUp(otherAgent);
+            // Drop current object in station
+            droppingObject.Drop(agent);
             HandlePlaceEvent?.Invoke(false);
-            pickUpObject = null;
+            pickedUpObject = null;
+        }
+
+        if (newPickUpObject)
+        {
+            // Put new object in station
+            PickUpObject(newPickUpObject, otherAgent);
+        }
+
+        if (droppingObject)
+        {
+            // Let the other agent pick up the dropped object
+            droppingObject.PickUp(otherAgent);
         }
     }
-
 }

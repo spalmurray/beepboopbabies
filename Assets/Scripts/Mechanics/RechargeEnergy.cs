@@ -28,20 +28,20 @@ public class RechargeEnergy : MonoBehaviour
     {
         if (placeInStation)
         {
-            station.baby.uiController.SetAlwaysActive(energy: true);
+            station.Baby.uiController.SetAlwaysActive(energy: true);
         }
         else
         {
-            station.baby.uiController.SetAlwaysActive(energy: false);
+            station.Baby.uiController.SetAlwaysActive(energy: false);
         }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (station.baby)
+        if (station.Baby)
         {
-            station.baby.IncreaseEnergy(incrementAmount * Time.deltaTime);
+            station.Baby.IncreaseEnergy(incrementAmount * Time.deltaTime);
         }
     }
 }
