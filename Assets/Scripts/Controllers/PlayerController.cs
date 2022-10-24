@@ -22,11 +22,15 @@ public class PlayerController : MonoBehaviour
     private AgentState state;
 
     private KickTrajectoryRenderer kickTrajectoryRenderer;
-    private bool isKicking;
     private float kickSpeed;
     private float kickDirectionChange;
     private BabyController kickingBaby;
 
+    private bool IsKicking => kickingBaby != null;
+
+    private bool IsKickingPickedUpBaby =>
+        state.pickedUpObject && state.pickedUpObject.gameObject == kickingBaby.gameObject;
+    
     private Vector3 KickDirection
     {
         get
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero && !isKicking)
+        if (move != Vector3.zero && !IsKicking)
         {
             transform.forward = move;
         }
@@ -69,7 +73,7 @@ public class PlayerController : MonoBehaviour
         playerVelocity.z = move.z;
         playerVelocity.y += Physics.gravity.y * Time.deltaTime;
 
-        if (isKicking)
+        if (IsKicking)
         {
             // Adjust kick angle
             if (move != Vector3.zero)
@@ -98,7 +102,8 @@ public class PlayerController : MonoBehaviour
                 playerVelocity.z = 0;
             }
             
-            if (!state.interactable || kickingBaby.gameObject != state.interactable.gameObject)
+            if (!IsKickingPickedUpBaby &&
+                (!state.interactable || kickingBaby.gameObject != state.interactable.gameObject))
             {
                 // Either baby went too far away, or another object entered
                 ResetKick();
@@ -140,21 +145,28 @@ public class PlayerController : MonoBehaviour
         if (value.Get<float>() != 0)
         {
             ResetKick();
-            
-            // Only start kicking if valid target in range
-            var interactable = state.interactable;
-            if (interactable == null) return;
-            var obj = interactable.gameObject;
-            // Check that we're indeed kicking a baby and not other innocent objects
-            var babyController = obj.GetComponent<BabyController>();
 
-            isKicking = true;
-            kickingBaby = babyController;
+            // Check if we have a picked up baby to kick
+            if (state.pickedUpObject)
+            {
+                kickingBaby = state.pickedUpObject.GetComponent<BabyController>();
+            }
+            
+            // If no picked up baby, check if there's a baby in interact range
+            if (!kickingBaby && state.interactable)
+            {
+                kickingBaby = state.interactable.GetComponent<BabyController>();
+            }
         }
-        else if (isKicking)
+        else if (IsKicking)
         {
             // Release if was previously still kicking
             // Origin position of the kick, i.e. players feet
+            if (IsKickingPickedUpBaby)
+            {
+                // Drop picked up baby before kicking
+                state.pickedUpObject.Interact(gameObject);
+            }
             kickingBaby.KickBaby(KickDirection * kickSpeed);
             ResetKick();
         }
@@ -162,7 +174,6 @@ public class PlayerController : MonoBehaviour
 
     private void ResetKick()
     {
-        isKicking = false;
         kickingBaby = null;
         kickSpeed = startingKickSpeed;
         kickDirectionChange = 0;
