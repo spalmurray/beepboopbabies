@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ParentSpawnManager : MonoBehaviour
 {
-    public GameObject parent;
-    public GameObject child;
+    public GameObject[] parent;
+    public GameObject[] child;
     public Transform start;
 
     public List<Transform> leavePoints;
@@ -16,14 +16,14 @@ public class ParentSpawnManager : MonoBehaviour
     public float delayTime = 2f;
 
     public List<string> childNames;
-    
+
     private BehaviorExecutor behaviorExecutor;
 
     public int NumberOfParents => leavePoints.Count;
 
     private void Start()
     {
-        childNames = new(){ "Bob", "Anna", "Gaston", "Lemmy"};
+        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy" };
         StartCoroutine(SpawnMultipleParents());
     }
 
@@ -31,15 +31,18 @@ public class ParentSpawnManager : MonoBehaviour
     {
         for (var i = 0; i < NumberOfParents; i++)
         {
-            yield return new WaitForSeconds(delayTime);
+            float delayRandom = Random.Range(2f, 9f);//You can change parents spawn time here
+            //yield return new WaitForSeconds(delayTime);
+            yield return new WaitForSeconds(delayRandom);
             SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
         }
     }
 
     private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName)
     {
-        var parentInstance = Instantiate(parent, start.position, Quaternion.identity);
-        var childInstance = Instantiate(child, Vector3.zero, Quaternion.identity);
+        int index = Random.Range(0, 8);//randomize the color, parent and child will have same color
+        var parentInstance = Instantiate(parent[index], start.position, Quaternion.identity);
+        var childInstance = Instantiate(child[index], Vector3.zero, Quaternion.identity);
         var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
         // Programmatically make the parent pick up the child
