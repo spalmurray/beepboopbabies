@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc0da51579594143972e102fbb7a878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpObject: {fileID: 0}
+  pickedUpObject: {fileID: 0}
 --- !u!114 &7304842307962446238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba9968a40ceb454ba756da62b3f9c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incrementAmount: 10
+  incrementAmount: 50
 --- !u!65 &4366813594347580427
 BoxCollider:
   m_ObjectHideFlags: 0

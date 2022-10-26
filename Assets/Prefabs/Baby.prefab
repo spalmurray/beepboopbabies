@@ -899,7 +899,6 @@ MonoBehaviour:
   currentHealth: 0
   currentFun: 0
   currentOil: 0
-  inStation: 0
   rechargeBaby: 0
   rediaperBaby: 0
   rechargeOil: 0
@@ -949,9 +948,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiController: {fileID: 2879155038907133379}
-  decrementAmountEnergy: 2
-  decrementAmountDiaper: 2
-  oilDrinkAmountOil: 5
+  decrementAmountEnergy: 1.5
+  decrementAmountDiaper: 1.5
+  oilDrinkAmountOil: 25
   decrementAmountOil: 2
   funDecreasePerSecondIdle: 2
   funIncreasePerSecondFlying: 100
