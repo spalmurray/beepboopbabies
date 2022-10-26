@@ -951,7 +951,7 @@ MonoBehaviour:
   uiController: {fileID: 2879155038907133379}
   decrementAmountEnergy: 2
   decrementAmountDiaper: 2
-  oilDrinkAmountOil: 5
+  oilDrinkAmountOil: 15
   decrementAmountOil: 2
   funDecreasePerSecondIdle: 2
   funIncreasePerSecondFlying: 100

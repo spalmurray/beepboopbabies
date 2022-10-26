@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPickedUp: 0
   maxAmount: 100
-  currentAmount: 0
+  currentAmount: 100
   uiController: {fileID: 672843657561300510}
 --- !u!1 &7606361102304014150
 GameObject:
