@@ -899,7 +899,6 @@ MonoBehaviour:
   currentHealth: 0
   currentFun: 0
   currentOil: 0
-  inStation: 0
   rechargeBaby: 0
   rediaperBaby: 0
   rechargeOil: 0
@@ -1601,6 +1600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScaledBaby
       objectReference: {fileID: 0}
+    - target: {fileID: 3774007543706777614, guid: 60c4a31289b6e9f4ba8196067759a9a9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2c595d5ed5f904b4983b8bf9c95ad8eb, type: 2}
     - target: {fileID: 5866666021909216657, guid: 60c4a31289b6e9f4ba8196067759a9a9, type: 3}
       propertyPath: m_Controller
       value: 
