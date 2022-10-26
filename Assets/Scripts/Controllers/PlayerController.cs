@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     public float maxKickSpeed = 15;
     public float startingKickSpeed = 7.5f;
     public float kickSpeedIncrease = 10;
-    public float maxKickDirectionChange = 45;
-    public float kickDirectionChangeSpeed = 120;
+    public float moveRotationSpeed = 1000;
+    public float kickRotationSpeed = 150;
 
     private CharacterController controller;
     private Vector2 inputDirection;
@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 
     private KickTrajectoryRenderer kickTrajectoryRenderer;
     private float kickSpeed;
-    private float kickDirectionChange;
     private BabyController kickingBaby;
 
     private bool IsKicking => kickingBaby != null;
@@ -36,10 +35,8 @@ public class PlayerController : MonoBehaviour
         get
         {
             var forward = transform.forward;
-            var originalDirection = Mathf.Atan2(forward.z, forward.x);
-            var currentDirection = StandardizeAngle(originalDirection + kickDirectionChange);
-            var x = Mathf.Cos(currentDirection);
-            var z = Mathf.Sin(currentDirection);
+            var x = forward.x;
+            var z = forward.z;
             var y = Mathf.Sqrt(x * x + z * z) * Mathf.Tan(Mathf.Deg2Rad * KICK_UPWARD_ANGLE);
             return new Vector3(x, y, z).normalized;
         }
@@ -64,9 +61,13 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero && !IsKicking)
+        if (move != Vector3.zero)
         {
-            transform.forward = move;
+            var targetRotation = Quaternion.LookRotation(move, Vector3.up);
+            var rotationDegrees = (IsKicking ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
+            Debug.Log(moveRotationSpeed + ", " + IsKicking);
+            Debug.Log(Time.deltaTime + ", " + rotationDegrees);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationDegrees);
         }
 
         playerVelocity.x = move.x;
@@ -75,32 +76,9 @@ public class PlayerController : MonoBehaviour
 
         if (IsKicking)
         {
-            // Adjust kick angle
-            if (move != Vector3.zero)
-            {
-                // Adjust kick direction
-                var forward = transform.forward;
-                var targetDirection = Mathf.Atan2(move.z, move.x);
-                var originalDirection = Mathf.Atan2(forward.z, forward.x);
-                var currentDirection = StandardizeAngle(originalDirection + kickDirectionChange);
-
-                // Check whether to increase angle or decrease
-                var changeMultiplier = targetDirection > currentDirection ? 1 : -1;
-                if (Mathf.Abs(targetDirection - currentDirection) > Mathf.PI) changeMultiplier *= -1;
-                
-                var directionChange = changeMultiplier * kickDirectionChangeSpeed * Mathf.Deg2Rad * Time.deltaTime;
-
-                // Ensure direction is within max range
-                kickDirectionChange = Mathf.Clamp(
-                    kickDirectionChange + directionChange,
-                    -maxKickDirectionChange * Mathf.Deg2Rad,
-                    maxKickDirectionChange * Mathf.Deg2Rad
-                );
-
-                // Prevent moving when kicking
-                playerVelocity.x = 0;
-                playerVelocity.z = 0;
-            }
+            // Prevent moving when kicking
+            playerVelocity.x = 0;
+            playerVelocity.z = 0;
             
             if (!IsKickingPickedUpBaby &&
                 (!state.interactable || kickingBaby.gameObject != state.interactable.gameObject))
@@ -146,16 +124,18 @@ public class PlayerController : MonoBehaviour
         {
             ResetKick();
 
-            // Check if we have a picked up baby to kick
             if (state.pickedUpObject)
             {
+                // This may be null if the picked up object is not a baby
                 kickingBaby = state.pickedUpObject.GetComponent<BabyController>();
             }
-            
-            // If no picked up baby, check if there's a baby in interact range
-            if (!kickingBaby && state.interactable)
+            else if (state.interactable)
             {
-                kickingBaby = state.interactable.GetComponent<BabyController>();
+                // If interactable object is a baby, then pick it up before starting kick
+                var baby = state.interactable.GetComponent<BabyController>();
+                if (!baby) return;
+                state.interactable.Interact(gameObject);
+                kickingBaby = baby;
             }
         }
         else if (IsKicking)
@@ -176,14 +156,10 @@ public class PlayerController : MonoBehaviour
     {
         kickingBaby = null;
         kickSpeed = startingKickSpeed;
-        kickDirectionChange = 0;
     }
 
     public void OnPause()
     {
         FindObjectOfType<PauseMenu>().TogglePause();
     }
-
-    // Adjust angle in radians to be in (-pi, pi]
-    private static float StandardizeAngle(float angle) => Mathf.Repeat(angle + Mathf.PI, 2 * Mathf.PI) - Mathf.PI;
 }

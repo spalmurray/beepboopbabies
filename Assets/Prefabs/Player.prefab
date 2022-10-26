@@ -372,8 +372,8 @@ MonoBehaviour:
   maxKickSpeed: 15
   startingKickSpeed: 7.5
   kickSpeedIncrease: 10
-  maxKickDirectionChange: 45
-  kickDirectionChangeSpeed: 120
+  moveRotationSpeed: 1000
+  kickRotationSpeed: 150
 --- !u!120 &1212026515537025829
 LineRenderer:
   m_ObjectHideFlags: 0
