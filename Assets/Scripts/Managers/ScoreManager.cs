@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
         get; private set; 
     }
 
-    public float CurrentTime { get; private set; } = 120;
+    public float CurrentTime { get; private set; } = 150; //set total game length
     public float AllTime { get; private set; }
     
     public bool IsGameOver { get; private set; }

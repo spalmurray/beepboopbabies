@@ -37,6 +37,7 @@ public class PickUpInteractable : Interactable
         transform.rotation = Quaternion.identity;
         state.pickedUpObject = this;
         rb.isKinematic = true;
+        rb.detectCollisions = false;
         // clear the interactable slot so the agent can interact with other objects
         state.interactable = null;
         // set the agent to non interactable so Triggers won't collide with it
@@ -50,6 +51,7 @@ public class PickUpInteractable : Interactable
     {
         state.pickedUpObject = null;
         rb.isKinematic = false;
+        rb.detectCollisions = true;
         transform.parent = null;
         // reset to default so object can be interactable again
         gameObject.layer = LayerMask.NameToLayer("Default");
