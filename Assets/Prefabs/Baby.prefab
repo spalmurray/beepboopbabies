@@ -948,9 +948,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiController: {fileID: 2879155038907133379}
+<<<<<<< HEAD
   decrementAmountEnergy: 1.5
   decrementAmountDiaper: 1.5
   oilDrinkAmountOil: 25
+=======
+  decrementAmountEnergy: 2
+  decrementAmountDiaper: 2
+  oilDrinkAmountOil: 15
+>>>>>>> df2b0a160453c739fee2998885cbe9bd7d936286
   decrementAmountOil: 2
   funDecreasePerSecondIdle: 2
   funIncreasePerSecondFlying: 100
