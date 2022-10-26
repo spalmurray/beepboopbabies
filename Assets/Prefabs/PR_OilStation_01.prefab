@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba9968a40ceb454ba756da62b3f9c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incrementAmount: 10
+  incrementAmount: 25
 --- !u!65 &4366813594347580427
 BoxCollider:
   m_ObjectHideFlags: 0
