@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
 {
     public GameObject Image;//Clock UI
     public AudioClip audioClip;//Audio for Clock
+    public AudioSource AudioSource;//Audio for countdown
     private int totalStars;
     private int numberOfParents;
 
@@ -18,7 +19,7 @@ public class ScoreManager : MonoBehaviour
         get; private set; 
     }
 
-    public float CurrentTime { get; private set; } = 150; //set total game length
+    public float CurrentTime { get; private set; } = 150f; //set total game length
     public float AllTime { get; private set; }
     
     public bool IsGameOver { get; private set; }
@@ -35,6 +36,8 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         numberOfParents = FindObjectOfType<ParentSpawnManager>().NumberOfParents;
+        AudioSource = GetComponent<AudioSource>();
+        AudioSource.PlayDelayed(145.0f);
     }
 
     private void Update()

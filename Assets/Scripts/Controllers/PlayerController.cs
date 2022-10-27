@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AgentState))]
 [RequireComponent(typeof(KickTrajectoryRenderer))]
+
+
+
+
 public class PlayerController : MonoBehaviour
 {
     public const float PLAYER_VELOCITY_MULTIPLYIER = 10.0f;
@@ -15,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float kickSpeedIncrease = 10;
     public float moveRotationSpeed = 1000;
     public float kickRotationSpeed = 150;
-
+    public AudioClip audioPickup;//Audio for Pickup
     private CharacterController controller;
     private Vector2 inputDirection;
     private Vector3 playerVelocity;
@@ -112,10 +116,13 @@ public class PlayerController : MonoBehaviour
     public void OnInteract()
     {
         //case 1: interact with object detected by collider
-        if (state.interactable != null)
+        if (state.interactable != null) {
             state.interactable.Interact(gameObject);
-        //case 2: interact with the object we picked up
-        else if (state.pickedUpObject != null) state.pickedUpObject.Interact(gameObject);
+            GetComponent<AudioSource>().PlayOneShot(audioPickup);// the audio for pickup
+        } else if (state.pickedUpObject != null) {//case 2: interact with the object we picked up
+            state.pickedUpObject.Interact(gameObject);
+            }
+            
     }
 
     public void OnKick(InputValue value)
