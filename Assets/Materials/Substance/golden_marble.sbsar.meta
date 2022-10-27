@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dc024d567ba0dc045a71d9209f520a2f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 38cc1b3a4807cb8479ffa05d44bc9eaf, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/Substance/golden_marble.sbsar

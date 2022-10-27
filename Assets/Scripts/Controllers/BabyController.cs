@@ -9,6 +9,7 @@ public class BabyController : MonoBehaviour
     // Start is called before the first frame update
     public BabyUIController uiController;
     private Collider collider;
+    private Renderer renderer;
 
     private Rigidbody rb;
     // every one 1 second decrement by 2 units

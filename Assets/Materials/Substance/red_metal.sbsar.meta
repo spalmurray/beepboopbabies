@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 289aa38f030c2f945b26ce9f4c077565
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: f1bb65dc0d12aef47942d278d6a14684, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/Substance/red_metal.sbsar

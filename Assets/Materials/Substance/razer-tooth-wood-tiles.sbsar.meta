@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 964c5b47566219147bd560e840d48c41
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: c9bbc9a9d8bafeb4fba1354264175f9b, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/Substance/razer-tooth-wood-tiles.sbsar

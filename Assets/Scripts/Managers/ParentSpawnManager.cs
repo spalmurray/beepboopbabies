@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ParentSpawnManager : MonoBehaviour
@@ -7,7 +8,8 @@ public class ParentSpawnManager : MonoBehaviour
     public GameObject[] parent;
     public GameObject[] child;
     public Transform start;
-
+    // random materials to assigned to parent and child objects
+    public List<Material> materials;
     public List<Transform> leavePoints;
 
     public List<Transform> arrivePoints;
@@ -20,6 +22,8 @@ public class ParentSpawnManager : MonoBehaviour
     private BehaviorExecutor behaviorExecutor;
 
     public int NumberOfParents => leavePoints.Count;
+    // both parent and child will have 4 unique materials assigned to them
+    private int MaterialCount = 4;
 
     private void Start()
     {
@@ -31,8 +35,7 @@ public class ParentSpawnManager : MonoBehaviour
     {
         for (var i = 0; i < NumberOfParents; i++)
         {
-            float delayRandom = Random.Range(2f, 9f);//You can change parents spawn time here
-            //yield return new WaitForSeconds(delayTime);
+            float delayRandom = Random.Range(1f, delayTime);//You can change parents spawn time here
             yield return new WaitForSeconds(delayRandom);
             SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
         }
@@ -40,11 +43,26 @@ public class ParentSpawnManager : MonoBehaviour
 
     private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName)
     {
-        int index = Random.Range(0, 8);//randomize the color, parent and child will have same color
-        var parentInstance = Instantiate(parent[index], start.position, Quaternion.identity);
-        var childInstance = Instantiate(child[index], Vector3.zero, Quaternion.identity);
+        int indexP = Random.Range(0, parent.Length);
+        int indexC = Random.Range(0, child.Length);
+        //randomize the color, parent and child will have same color
+        var parentInstance = Instantiate(parent[indexP], start.position, Quaternion.identity);
+        var childInstance = Instantiate(child[indexC], Vector3.zero, Quaternion.identity);
         var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
+        var mat = materials.PickRandom(MaterialCount).ToArray();
+        // assign parent and child same materials
+        var parentRenderer = parentInstance.GetComponentInChildren<Renderer>();
+        var childRenderer = childInstance.GetComponentInChildren<Renderer>();
+        var parentMat = parentRenderer.sharedMaterials;
+        var childMat = childRenderer.sharedMaterials;
+        for (int i = 0; i < MaterialCount; i++)
+        {
+            parentMat[i] = mat[i];
+            childMat[i] = mat[i];
+        }
+        parentRenderer.sharedMaterials = parentMat;
+        childRenderer.sharedMaterials = childMat;
         // Programmatically make the parent pick up the child
         interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ec8840f396c6a7343af51d44a101349c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: a92d50d6e557ddc43bdeccd54cd7361d, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/Substance/camouflage_001 (1).sbsar

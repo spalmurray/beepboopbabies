@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f606f78f9d6596342bb83a7e6b3a28a9
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 30d9f46d53d3de74da781cbefd567cf5, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Materials/Substance/metal_yellow_01.sbsar
