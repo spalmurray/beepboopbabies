@@ -5681,22 +5681,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6ec62ce7667f4eb493c37c83e3c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent:
-  - {fileID: 4096187092205034572, guid: 90bc95f35a8b366479e29740e4f7d417, type: 3}
-  child:
-  - {fileID: 7744276255607753948, guid: 2a439929ae370fb4983f4c9a92583aa6, type: 3}
+  parent: {fileID: 4096187092205034572, guid: 90bc95f35a8b366479e29740e4f7d417, type: 3}
+  childContainer: {fileID: 7744276255607753948, guid: 2a439929ae370fb4983f4c9a92583aa6, type: 3}
   start: {fileID: 332136481}
-  materials:
-  - {fileID: 2100000, guid: d7052b4d63e744242b52d0f2d18abb7b, type: 2}
-  - {fileID: 2100000, guid: 2654a1b911872eb49b0ba01bbf2edc7b, type: 2}
-  - {fileID: 2100000, guid: 43327280741161b4baa7df576bf70002, type: 2}
-  - {fileID: 2100000, guid: 5412f033928a40d4286e51fac9ac7a0d, type: 2}
-  - {fileID: 2100000, guid: 1c94089b0749b3d45a4db2c3264f5551, type: 2}
-  - {fileID: 2100000, guid: 0dcebd9a18c27e8408a9c1877ebfba6f, type: 2}
-  - {fileID: 2100000, guid: cd908c531aa23d143b5c5cda8353a4cd, type: 2}
-  - {fileID: 2100000, guid: d7d7b5854bb7bf44e83c148f5579ad16, type: 2}
-  - {fileID: 2100000, guid: 6a55ad218d36a2e4698db868807c4006, type: 2}
-  - {fileID: 2100000, guid: 09b2274d2a170754b94e6ee5dd424a70, type: 2}
+  parentTexture:
+  - {fileID: 2800000, guid: f22e0e49dbfe5c04b8f6361d1dc4a923, type: 3}
+  - {fileID: 2800000, guid: 219466cb736d66e4b994075d3bc4fcaa, type: 3}
+  - {fileID: 2800000, guid: 9676d0d187309804e8cf41abfbb0607b, type: 3}
+  - {fileID: 2800000, guid: 4c33e8c514561684ea6abe9a580a76a9, type: 3}
+  - {fileID: 2800000, guid: b17cf5531f4447943b7b623e29c387b7, type: 3}
+  parentTextureEyes: {fileID: 2800000, guid: 74cb328f059f0b341bd7b307718d187e, type: 3}
+  childTexture:
+  - {fileID: 2800000, guid: 19f198cb26cf46d429e02164c6470462, type: 3}
+  - {fileID: 2800000, guid: 9ca3228dbcd503d4f867c5f5fc2e1eda, type: 3}
+  - {fileID: 2800000, guid: 7984862f6bda42343b78d6f268bc7dd1, type: 3}
+  - {fileID: 2800000, guid: 638d81667330cae4593790e1f1861461, type: 3}
+  - {fileID: 2800000, guid: b9900ed7d9e495748adbc19781767992, type: 3}
+  childTextureEyes: {fileID: 2800000, guid: 7de5fb72d35e7914e8d92d2e1039e88b, type: 3}
   leavePoints:
   - {fileID: 686596189}
   - {fileID: 545778507}
@@ -5707,6 +5708,11 @@ MonoBehaviour:
   - {fileID: 1631266112}
   - {fileID: 1395829473}
   - {fileID: 1763772686}
+  HairAccessories:
+  - {fileID: 4103631786271907172, guid: cf35aae450712f7499cc9e1c09c832a6, type: 3}
+  ChestAccessories:
+  - {fileID: 6172532021018021186, guid: 543e26a091ab6734fa78b9b3d6dcc6a9, type: 3}
+  - {fileID: 4103631786271907172, guid: cf35aae450712f7499cc9e1c09c832a6, type: 3}
   delayTime: 10
   childNames: []
 --- !u!1 &1609792221

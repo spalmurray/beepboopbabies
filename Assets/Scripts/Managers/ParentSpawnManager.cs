@@ -17,8 +17,6 @@ public class ParentSpawnManager : MonoBehaviour
     public Texture2D childTextureEyes;
     public List<Transform> leavePoints;
     public List<Transform> arrivePoints;
-    // basic baby to add accessories to
-    public GameObject baseBaby;
     // list of accessories to add to the baby
     public List<GameObject> HairAccessories;
     public List<GameObject> ChestAccessories;
@@ -75,8 +73,7 @@ public class ParentSpawnManager : MonoBehaviour
         var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
         // instaniate base baby
-        var baseBabyObject = Instantiate(baseBaby, Vector3.zero, Quaternion.identity);
-        
+
         // assign the child name
         var parentMat = new Material(Shader.Find("Custom/BlendShader"));
         var childMat = new Material(Shader.Find("Custom/BlendShader"));
@@ -96,11 +93,8 @@ public class ParentSpawnManager : MonoBehaviour
         childMat.SetColor("_Color", randomColor);
         
         // add the accessories
-        AddAccesory(HairAccessories, baseBabyObject);
-        AddAccesory(ChestAccessories, baseBabyObject);
-        
-        // assign child base to child container
-        baseBabyObject.transform.SetParent(childInstance.transform);
+        AddAccesory(HairAccessories, childInstance);
+        AddAccesory(ChestAccessories, childInstance);
         
         // assign the material to the parent and child
         parentInstance.GetComponentInChildren<Renderer>().material = parentMat;
