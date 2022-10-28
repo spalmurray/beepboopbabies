@@ -5736,7 +5736,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: afa652b0a2d890f2a987a0d4984a9fa4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9631d554679965f49866b1a81815b5ac, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -7661,19 +7661,39 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1c94089b0749b3d45a4db2c3264f5551, type: 2}
     - target: {fileID: 5912701085178991998, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
       propertyPath: m_Size.x
-      value: 0.03
+      value: 0.030000001
       objectReference: {fileID: 0}
     - target: {fileID: 5912701085178991998, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
       propertyPath: m_Size.y
-      value: 0.13
+      value: 0.11449994
       objectReference: {fileID: 0}
     - target: {fileID: 5912701085178991998, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
       propertyPath: m_Size.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 5912701085178991998, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
+      propertyPath: m_Center.y
+      value: 0.005130082
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912701085178991998, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
+      propertyPath: m_Center.z
+      value: -0.00034624207
+      objectReference: {fileID: 0}
     - target: {fileID: 6162220831128311347, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162220831128311347, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162220831128311347, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162220831128311347, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6162220831128311347, guid: d46fc1abacd5792f49209daef0f1ba31, type: 3}
       propertyPath: m_LocalPosition.x
