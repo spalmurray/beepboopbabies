@@ -30,6 +30,6 @@ public class TimeUIController : MonoBehaviour
 
     private void UpdateTimeText(int score)
     {
-        timeText.text = "Time: " + score;
+        timeText.text = "Time :" + score;
     }
 }
