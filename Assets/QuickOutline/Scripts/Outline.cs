@@ -91,15 +91,24 @@ public class Outline : MonoBehaviour {
 
     outlineMaskMaterial.name = "OutlineMask (Instance)";
     outlineFillMaterial.name = "OutlineFill (Instance)";
-
     // Retrieve or generate smooth normals
     LoadSmoothNormals();
-
     // Apply material properties immediately
     needsUpdate = true;
   }
 
+  public void Recalculate()
+  {
+    // Cache renderers
+    renderers = GetComponentsInChildren<Renderer>();
+    // Retrieve or generate smooth normals
+    LoadSmoothNormals();
+    // Apply material properties immediately
+    needsUpdate = true;
+  }
+  
   void OnEnable() {
+    Debug.Log("On Enable");
     foreach (var renderer in renderers) {
 
       // Append outline shaders
@@ -138,6 +147,7 @@ public class Outline : MonoBehaviour {
   }
 
   void OnDisable() {
+    Debug.Log("On Disable");
     foreach (var renderer in renderers) {
 
       // Remove outline shaders
@@ -181,6 +191,7 @@ public class Outline : MonoBehaviour {
 
     // Retrieve or generate smooth normals
     foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+      Debug.Log("Generating normals " + meshFilter.gameObject.name);
 
       // Skip if smooth normals have already been adopted
       if (!registeredMeshes.Add(meshFilter.sharedMesh)) {
