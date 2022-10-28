@@ -69,8 +69,6 @@ public class PlayerController : MonoBehaviour
         {
             var targetRotation = Quaternion.LookRotation(move, Vector3.up);
             var rotationDegrees = (IsKicking ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
-            Debug.Log(moveRotationSpeed + ", " + IsKicking);
-            Debug.Log(Time.deltaTime + ", " + rotationDegrees);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationDegrees);
         }
 
