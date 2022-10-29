@@ -21,5 +21,10 @@ public class BottleInteractable : PickUpInteractable
         currentAmount -= decrementAmount;
         currentAmount = Math.Clamp(currentAmount, 0f, maxAmount);
         uiController.UpdateBar(maxAmount, currentAmount);
+
+        if (currentAmount <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

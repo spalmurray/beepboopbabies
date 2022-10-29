@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 3691265187519322420}
   - component: {fileID: 3796740492869891460}
   - component: {fileID: 3796740492869891466}
-  - component: {fileID: 2808273484110389611}
   - component: {fileID: 2877248870693677077}
-  - component: {fileID: 7304842307962446238}
   - component: {fileID: 4366813594347580427}
   - component: {fileID: 2985415443932064408}
   m_Layer: 0
@@ -76,21 +74,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &2808273484110389611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4067263441984455566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d7e1d1064ccf27429ba6b50d06f11a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickUpPoint: {fileID: 3357349764719518319}
-  pickedUpObject: {fileID: 0}
-  interactable: {fileID: 0}
 --- !u!114 &2877248870693677077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,20 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc0da51579594143972e102fbb7a878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickedUpObject: {fileID: 0}
---- !u!114 &7304842307962446238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4067263441984455566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba9968a40ceb454ba756da62b3f9c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  incrementAmount: 50
+  oilBottle: {fileID: 6298007407753152709, guid: d54cb4c6632463d4baf0bc173f7b651f, type: 3}
+  spawnBottleCooldown: 1.5
 --- !u!65 &4366813594347580427
 BoxCollider:
   m_ObjectHideFlags: 0
