@@ -30,6 +30,8 @@ public class BottleUI : MonoBehaviour
     public void UpdateBar(float max, float current)
     {
         fillSprite.fillAmount = current / max;
+        if (current <= 0)
+            transform.parent.gameObject.SetActive(false);
     }
     
     public void DisableStatusBars()

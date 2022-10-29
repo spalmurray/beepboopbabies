@@ -14,11 +14,11 @@ public class BabyState : AgentState
     public float diaperWarnThreshold = 25f;
     public float funWarnThreshold = 25f;
     public float oilWarnThreshold = 25f;
-    [HideInInspector] public float currentEnergy;
-    [HideInInspector] public float currentDiaper;
-    [HideInInspector] public float currentHealth;
-    [HideInInspector] public float currentFun;
-    [HideInInspector] public float currentOil;
+    public float currentEnergy;
+    public float currentDiaper;
+    public float currentHealth;
+    public float currentFun;
+    public float currentOil;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;
@@ -27,10 +27,56 @@ public class BabyState : AgentState
 
     private void Start()
     {
-        currentEnergy = energy;
-        currentHealth = health;
-        currentDiaper = diaper;
-        currentFun = fun;
-        currentOil = oil;
+        
+        float randomNeeds = Random.Range(0.5f, 0.7f);//set random needs to 50%-70%
+        int index = Random.Range(0, 5);//random choose one of the needs
+        switch (index)
+        {
+            case 0:
+                // Debug.Log("UpdateHealthBar");
+                currentEnergy = energy * randomNeeds;
+                currentHealth = health;
+                currentDiaper = diaper;
+                currentFun = fun;
+                currentOil = oil;
+                break;
+            case 1:
+                currentEnergy = energy;
+                currentHealth = health * randomNeeds;
+                transform.GetChild(1).GetComponent<BabyUIController>().UpdateHealthBar(health, currentHealth);
+                currentDiaper = diaper;
+                currentFun = fun;
+                currentOil = oil;
+                break;
+            case 2:
+                currentEnergy = energy;
+                currentHealth = health;
+                currentDiaper = diaper * randomNeeds;
+                currentFun = fun;
+                currentOil = oil;
+                break;
+            case 3:
+                currentEnergy = energy;
+                currentHealth = health;
+                currentDiaper = diaper;
+                currentFun = fun * randomNeeds;
+                currentOil = oil;
+                break;
+            case 4:
+                currentEnergy = energy;
+                currentHealth = health;
+                currentDiaper = diaper;
+                currentFun = fun;
+                currentOil = oil * randomNeeds;
+                break;
+            default:
+                Debug.LogError("error needs");
+                break;
+        }
+        //currentEnergy = energy;
+        //currentHealth = health;
+        //currentDiaper = diaper;
+        //currentFun = fun;
+        //currentOil = oil;
     }
 }
