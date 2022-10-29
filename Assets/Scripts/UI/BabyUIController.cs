@@ -30,8 +30,32 @@ public class BabyUIController : MonoBehaviour
     private void Start()
     {
         _cam = Camera.main;
+        //baby随机其中一个条剪掉50%-30%
+        //int index = Random.Range(0, 5);
+        //Debug.Log("生成随机数");
+        //switch (index)
+        //{
+        //    case 0:
+        //        Debug.Log("生成随机数UpdateHealthBar");
+        //        UpdateHealthBar(1, 0.4f);
+        //        break;
+        //    case 1:
+        //        UpdateEnergyBar(1, 0.4f);
+        //        break;
+        //    case 2:
+        //        UpdateDiaperBar(1, 0.4f);
+        //        break;
+        //    case 3:
+        //        UpdateFunBar(1, 0.4f);
+        //        break;
+        //    case 4:
+        //        UpdateOilBar(1, 0.4f);
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
-    
+
     public void SetName(string name)
     {
         nameText.text = name;
@@ -42,7 +66,7 @@ public class BabyUIController : MonoBehaviour
     {
         // make the UI face towards the camera
         var trans = transform;
-        trans.position = babyLocation.position +  height * Vector3.up;
+        trans.position = babyLocation.position + height * Vector3.up;
         trans.rotation = Quaternion.LookRotation(trans.position - _cam.transform.position);
         var eulerAngles = trans.eulerAngles;
         eulerAngles.y = 0;
@@ -72,17 +96,17 @@ public class BabyUIController : MonoBehaviour
     {
         diaperbarSprite.fillAmount = currentDiaper / maxDiaper;
     }
-    
+
     public void UpdateFunBar(float maxFun, float currentFun)
     {
         funbarSprite.fillAmount = currentFun / maxFun;
     }
-    
+
     public void UpdateOilBar(float maxOil, float currentOil)
     {
         oilbarSprite.fillAmount = currentOil / maxOil;
     }
-    
+
     public void SetAlwaysActive(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null, bool? oil = null)
     {
         healthAlwaysActive = health.GetValueOrDefault(healthAlwaysActive.GetValueOrDefault(false));

@@ -108,7 +108,7 @@ public class Outline : MonoBehaviour {
   }
   
   void OnEnable() {
-    Debug.Log("On Enable");
+   // Debug.Log("On Enable");
     foreach (var renderer in renderers) {
 
       // Append outline shaders
@@ -147,7 +147,7 @@ public class Outline : MonoBehaviour {
   }
 
   void OnDisable() {
-    Debug.Log("On Disable");
+    //Debug.Log("On Disable");
     foreach (var renderer in renderers) {
 
       // Remove outline shaders
@@ -191,7 +191,7 @@ public class Outline : MonoBehaviour {
 
     // Retrieve or generate smooth normals
     foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
-      Debug.Log("Generating normals " + meshFilter.gameObject.name);
+      //Debug.Log("Generating normals " + meshFilter.gameObject.name);
 
       // Skip if smooth normals have already been adopted
       if (!registeredMeshes.Add(meshFilter.sharedMesh)) {
