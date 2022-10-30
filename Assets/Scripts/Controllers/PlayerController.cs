@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AgentState))]
 [RequireComponent(typeof(KickTrajectoryRenderer))]
-
-
-
-
 public class PlayerController : MonoBehaviour
 {
     public const float PLAYER_VELOCITY_MULTIPLYIER = 10.0f;
@@ -24,6 +20,22 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputDirection;
     private Vector3 playerVelocity;
     private AgentState state;
+
+    private bool mouseMoved;
+    private Vector3 mouseAimingPosition = Vector2.zero;
+
+    private bool IsAimingWithMouse => mouseMoved && IsKicking;
+    private bool IsAimingWithKeyboard => IsKicking && Keyboard.current != null && !mouseMoved;
+    
+    private Vector3 MouseAimingDirection
+    {
+        get
+        {
+            var diff = mouseAimingPosition - transform.position;
+            diff.y = 0;
+            return diff.normalized;
+        }
+    }
 
     private KickTrajectoryRenderer kickTrajectoryRenderer;
     private float kickSpeed;
@@ -65,10 +77,11 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero)
+        if (move != Vector3.zero || IsAimingWithMouse)
         {
-            var targetRotation = Quaternion.LookRotation(move, Vector3.up);
-            var rotationDegrees = (IsKicking ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
+            var targetDirection = IsAimingWithMouse ? MouseAimingDirection : move;
+            var targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            var rotationDegrees = (IsAimingWithKeyboard ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationDegrees);
         }
 
@@ -104,6 +117,8 @@ public class PlayerController : MonoBehaviour
         }
         
         controller.Move(playerVelocity * Time.deltaTime);
+
+        mouseMoved = false;
     }
 
     public void OnMove(InputValue value)
@@ -119,8 +134,19 @@ public class PlayerController : MonoBehaviour
             GetComponent<AudioSource>().PlayOneShot(audioPickup);// the audio for pickup
         } else if (state.pickedUpObject != null) {//case 2: interact with the object we picked up
             state.pickedUpObject.Interact(gameObject);
-            }
-            
+        }
+    }
+
+    public void OnMouseMove(InputValue value)
+    {
+        var position = value.Get<Vector2>();
+        var ray = Camera.main.ScreenPointToRay(new Vector3(position.x, position.y, 0));
+        
+        // Check where the mouse pointer intersect with the plane at y=0
+        var plane = new Plane(Vector3.up, Vector3.zero);
+        if (!plane.Raycast(ray, out var distance)) return;
+        mouseMoved = true;
+        mouseAimingPosition = ray.GetPoint(distance);
     }
 
     public void OnKick(InputValue value)
