@@ -21,11 +21,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private AgentState state;
 
-    private bool mouseMoved;
+    private bool isAimingWithMouse;
     private Vector3 mouseAimingPosition = Vector2.zero;
 
-    private bool IsAimingWithMouse => mouseMoved && IsKicking;
-    private bool IsAimingWithKeyboard => IsKicking && Keyboard.current != null && !mouseMoved;
+    private bool IsKickingWithMouse => isAimingWithMouse && IsKicking;
+    private bool IsKickingWithKeyboard => IsKicking && Keyboard.current != null && !isAimingWithMouse;
     
     private Vector3 MouseAimingDirection
     {
@@ -43,9 +43,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsKicking => kickingObject != null;
 
-    private bool IsKickingPickedUpBaby =>
-        state.pickedUpObject && state.pickedUpObject.gameObject == kickingObject.gameObject;
-    
     private Vector3 KickDirection
     {
         get
@@ -77,11 +74,16 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero || IsAimingWithMouse)
+        if (move != Vector3.zero || IsKickingWithMouse)
         {
-            var targetDirection = IsAimingWithMouse ? MouseAimingDirection : move;
+            if (move != Vector3.zero && IsKicking)
+            {
+                // Keyboard input received, use that instead of mouse
+                isAimingWithMouse = false;
+            }
+            var targetDirection = IsKickingWithMouse ? MouseAimingDirection : move;
             var targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
-            var rotationDegrees = (IsAimingWithKeyboard ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
+            var rotationDegrees = (IsKickingWithKeyboard ? kickRotationSpeed : moveRotationSpeed) * Time.deltaTime;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationDegrees);
         }
 
@@ -95,10 +97,10 @@ public class PlayerController : MonoBehaviour
             playerVelocity.x = 0;
             playerVelocity.z = 0;
             
-            if (!IsKickingPickedUpBaby &&
-                (!state.interactable || kickingObject.gameObject != state.interactable.gameObject))
+            if (kickingObject != state.pickedUpObject)
             {
                 // Either baby went too far away, or another object entered
+                // Note: I think this case can happen if another player snatches your baby while you're kicking lol
                 ResetKick();
             }
             else
@@ -117,8 +119,6 @@ public class PlayerController : MonoBehaviour
         }
         
         controller.Move(playerVelocity * Time.deltaTime);
-
-        mouseMoved = false;
     }
 
     public void OnMove(InputValue value)
@@ -145,16 +145,28 @@ public class PlayerController : MonoBehaviour
         // Check where the mouse pointer intersect with the plane at y=0
         var plane = new Plane(Vector3.up, Vector3.zero);
         if (!plane.Raycast(ray, out var distance)) return;
-        mouseMoved = true;
+        if (IsKicking)
+        {
+            // Use mouse to aim when mouse moved while kicking
+            isAimingWithMouse = true;
+        }
         mouseAimingPosition = ray.GetPoint(distance);
     }
 
+    public void OnMouseKick(InputValue value)
+    {
+        // When we kick using left click, default to aiming towards mouse location
+        // even when mouse hasn't moved
+        isAimingWithMouse = true;
+        OnKick(value);
+    }
+    
     public void OnKick(InputValue value)
     {
-        if (value.Get<float>() != 0)
+        var buttonDown = value.Get<float>() != 0;
+        
+        if (buttonDown && !IsKicking)
         {
-            ResetKick();
-
             if (state.pickedUpObject)
             {
                 // This may be null if the picked up object is not kickable
@@ -169,15 +181,12 @@ public class PlayerController : MonoBehaviour
                 kickingObject = kickObj;
             }
         }
-        else if (IsKicking)
+        else if (!buttonDown && IsKicking)
         {
             // Release if was previously still kicking
-            // Origin position of the kick, i.e. players feet
-            if (IsKickingPickedUpBaby)
-            {
-                // Drop picked up baby before kicking
-                state.pickedUpObject.Interact(gameObject);
-            }
+            // Drop picked up object before kicking
+            state.pickedUpObject.Interact(gameObject);
+            
             kickingObject.Kick(KickDirection * kickSpeed);
             ResetKick();
         }
@@ -187,6 +196,7 @@ public class PlayerController : MonoBehaviour
     {
         kickingObject = null;
         kickSpeed = startingKickSpeed;
+        isAimingWithMouse = false;
     }
 
     public void OnPause()

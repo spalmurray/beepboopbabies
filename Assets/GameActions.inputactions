@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MouseKick",
+                    "type": "Value",
+                    "id": "1aa2d436-c5f9-49d5-86e9-aba5df3282e3",
+                    "expectedControlType": "Double",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -314,17 +323,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ad93535b-32f1-4a47-a628-796a4834a533",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Kick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "097ec281-7aaf-4c9c-aed6-5e2b35bfc224",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -353,6 +351,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MouseMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c5d6ce4-1b75-4d3e-8031-a4b8241acd33",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MouseKick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
