@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BabyPickUpInteractable : PickUpInteractable
+public class BabyPickUpInteractable : KickableInteractable
 {
     public override void Interact(GameObject other)
     {

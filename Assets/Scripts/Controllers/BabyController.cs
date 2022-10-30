@@ -10,6 +10,7 @@ public class BabyController : MonoBehaviour
     public BabyUIController uiController;
     private Collider collider;
     private Renderer renderer;
+    private BabyPickUpInteractable interactable;
 
     private Rigidbody rb;
     // every one 1 second decrement by 2 units
@@ -27,6 +28,7 @@ public class BabyController : MonoBehaviour
         state = GetComponent<BabyState>();
         collider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        interactable = GetComponent<BabyPickUpInteractable>();
     }
 
     public void Start()
@@ -35,40 +37,16 @@ public class BabyController : MonoBehaviour
     }
     public void OnEnable()
     {
-        GetComponent<PickUpInteractable>().HandlePickedUp += HandlePickedUp;
+        interactable.HandlePickedUp += HandlePickedUp;
+        interactable.HandleKicked += HandleKicked;
     }
     
     public void OnDisable()
     {
-        GetComponent<PickUpInteractable>().HandlePickedUp -= HandlePickedUp;
+        interactable.HandlePickedUp -= HandlePickedUp;
+        interactable.HandleKicked -= HandleKicked;
     }
 
-    public void KickBaby(Vector3 velocityChange)
-    {
-        rb.AddForceAtPosition(velocityChange, transform.position, ForceMode.VelocityChange);
-        HandleKicked();
-    }
-
-    public void KickBaby(GameObject kicker, float kickSpeed, float kickUpwardAngle)
-    {
-        KickBaby(CalculateKickVelocityChange(kicker, kickSpeed, kickUpwardAngle));
-    }
-
-    private Vector3 CalculateKickVelocityChange(GameObject kicker, float kickSpeed, float kickUpwardAngle)
-    {
-        var kickOrigin = kicker.transform.position;
-        var lowY = kicker.GetComponent<Collider>().bounds.min.y;
-        kickOrigin.y = lowY;
-        // Get direction of kick, rotate upward by KICK_UPWARD_ANGLE degrees
-        var kickOriginDirection = gameObject.transform.position - kickOrigin;
-        var x = kickOriginDirection.x;
-        var z = kickOriginDirection.z;
-        var y = Mathf.Sqrt(x * x + z * z) * Mathf.Tan(Mathf.Deg2Rad * kickUpwardAngle);
-        var forceDirection = new Vector3(x, y, z);
-        forceDirection.Normalize();
-        return forceDirection * kickSpeed;
-    }
-    
     private void Update()
     {
         CheckOnGround();
@@ -223,7 +201,7 @@ public class BabyController : MonoBehaviour
         state.isFlying = false;
     }
 
-    public void HandleKicked()
+    private void HandleKicked()
     {
         state.isFlying = true;
     }

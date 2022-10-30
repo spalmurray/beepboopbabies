@@ -29,9 +29,9 @@ public class ParentInteractable : StationInteractable
         {
             // kick the baby if its not ours
             Debug.Log("This is not my kid expecting: " + state.childId + " got: " + other.gameObject.GetInstanceID());
-            var interactable = pickedUpObject.GetComponent<PickUpInteractable>();
+            var interactable = pickedUpObject.GetComponent<BabyPickUpInteractable>();
             interactable.Drop(other.GetComponent<AgentState>());
-            babyController.KickBaby(gameObject, KICK_SPEED, KICK_UPWARD_ANGLE);
+            interactable.Kick(gameObject, KICK_SPEED, KICK_UPWARD_ANGLE);
         }
 
     }

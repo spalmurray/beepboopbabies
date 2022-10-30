@@ -39,12 +39,12 @@ public class PlayerController : MonoBehaviour
 
     private KickTrajectoryRenderer kickTrajectoryRenderer;
     private float kickSpeed;
-    private BabyController kickingBaby;
+    private KickableInteractable kickingObject;
 
-    private bool IsKicking => kickingBaby != null;
+    private bool IsKicking => kickingObject != null;
 
     private bool IsKickingPickedUpBaby =>
-        state.pickedUpObject && state.pickedUpObject.gameObject == kickingBaby.gameObject;
+        state.pickedUpObject && state.pickedUpObject.gameObject == kickingObject.gameObject;
     
     private Vector3 KickDirection
     {
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
             playerVelocity.z = 0;
             
             if (!IsKickingPickedUpBaby &&
-                (!state.interactable || kickingBaby.gameObject != state.interactable.gameObject))
+                (!state.interactable || kickingObject.gameObject != state.interactable.gameObject))
             {
                 // Either baby went too far away, or another object entered
                 ResetKick();
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
             {
                 kickSpeed = Mathf.Min(kickSpeed + kickSpeedIncrease * Time.deltaTime, maxKickSpeed);
                 
-                var rigidBody = kickingBaby.gameObject.GetComponent<Rigidbody>();
+                var rigidBody = kickingObject.gameObject.GetComponent<Rigidbody>();
                 var kickVelocity = rigidBody.velocity + KickDirection * kickSpeed;
                 
                 kickTrajectoryRenderer.DrawTrajectory(rigidBody.position, kickVelocity);
@@ -157,16 +157,16 @@ public class PlayerController : MonoBehaviour
 
             if (state.pickedUpObject)
             {
-                // This may be null if the picked up object is not a baby
-                kickingBaby = state.pickedUpObject.GetComponent<BabyController>();
+                // This may be null if the picked up object is not kickable
+                kickingObject = state.pickedUpObject.GetComponent<KickableInteractable>();
             }
             else if (state.interactable)
             {
-                // If interactable object is a baby, then pick it up before starting kick
-                var baby = state.interactable.GetComponent<BabyController>();
-                if (!baby) return;
+                // If interactable object is kickable, then pick it up before starting kick
+                var kickObj = state.interactable.GetComponent<KickableInteractable>();
+                if (!kickObj) return;
                 state.interactable.Interact(gameObject);
-                kickingBaby = baby;
+                kickingObject = kickObj;
             }
         }
         else if (IsKicking)
@@ -178,14 +178,14 @@ public class PlayerController : MonoBehaviour
                 // Drop picked up baby before kicking
                 state.pickedUpObject.Interact(gameObject);
             }
-            kickingBaby.KickBaby(KickDirection * kickSpeed);
+            kickingObject.Kick(KickDirection * kickSpeed);
             ResetKick();
         }
     }
 
     private void ResetKick()
     {
-        kickingBaby = null;
+        kickingObject = null;
         kickSpeed = startingKickSpeed;
     }
 

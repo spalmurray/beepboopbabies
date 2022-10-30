@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BottleInteractable : PickUpInteractable
+public class BottleInteractable : KickableInteractable
 {
     public float maxAmount = 100f;
     public float currentAmount = 0f;
