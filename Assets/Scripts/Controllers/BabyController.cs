@@ -8,10 +8,8 @@ public class BabyController : MonoBehaviour
 {
     // Start is called before the first frame update
     public BabyUIController uiController;
-    private Collider collider;
     private Renderer renderer;
     private BabyPickUpInteractable interactable;
-
     private Rigidbody rb;
     // every one 1 second decrement by 2 units
     [SerializeField] private float decrementAmountEnergy = 2f;
@@ -26,7 +24,6 @@ public class BabyController : MonoBehaviour
     public void Awake()
     {
         state = GetComponent<BabyState>();
-        collider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         interactable = GetComponent<BabyPickUpInteractable>();
     }
@@ -49,20 +46,13 @@ public class BabyController : MonoBehaviour
 
     private void Update()
     {
-        CheckOnGround();
         HandleFun();
         HandleOil();
         DecreaseDiaper();
         DecreaseEnergy();
         SetAlwaysActive();
     }
-
-    private void CheckOnGround()
-    {
-        float maxDist = Convert.ToSingle(collider.bounds.extents.y + 0.1);
-        var mask = LayerMask.NameToLayer("Player");
-        state.onGround = Physics.Raycast(transform.position, -Vector3.up, maxDist, mask);
-    }
+    
 
     private void SetAlwaysActive()
     {

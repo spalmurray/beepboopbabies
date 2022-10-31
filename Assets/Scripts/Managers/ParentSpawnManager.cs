@@ -25,7 +25,7 @@ public class ParentSpawnManager : MonoBehaviour
 
     public List<string> childNames;
 
-    private BehaviorExecutor behaviorExecutor;
+    private BehaviorExecutor behaviorExecutorParent;
 
     public int NumberOfParents => leavePoints.Count;
 
@@ -52,7 +52,7 @@ public class ParentSpawnManager : MonoBehaviour
     private void AddAccesory(List<GameObject> accessories, GameObject baseBaby)
     {
         int randomIndex = Random.Range(0, accessories.Count + 1);
-        // if random index is 0 don't add teh accessory
+        // if random index is 0 don't add the accessory
         if (randomIndex == 0)
         {
             return;
@@ -72,8 +72,6 @@ public class ParentSpawnManager : MonoBehaviour
         var childInstance = Instantiate(childContainer, Vector3.zero, Quaternion.identity);
         var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
-        // instaniate base baby
-
         // assign the child name
         var parentMat = new Material(Shader.Find("Custom/BlendShader"));
         var childMat = new Material(Shader.Find("Custom/BlendShader"));
@@ -91,6 +89,7 @@ public class ParentSpawnManager : MonoBehaviour
         var randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);;
         parentMat.SetColor("_Color", randomColor);
         childMat.SetColor("_Color", randomColor);
+        
         
         // add the accessories
         AddAccesory(HairAccessories, childInstance);
@@ -112,11 +111,16 @@ public class ParentSpawnManager : MonoBehaviour
         interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
         childState.name = childName;
-        behaviorExecutor = parentInstance.GetComponent<BehaviorExecutor>();
-        if (behaviorExecutor != null)
+        behaviorExecutorParent = parentInstance.GetComponent<BehaviorExecutor>();
+        if (behaviorExecutorParent != null)
         {
-            behaviorExecutor.SetBehaviorParam("LeavePoint", leavePoint);
-            behaviorExecutor.SetBehaviorParam("ArrivePoint", arrivePoint);
+            behaviorExecutorParent.SetBehaviorParam("LeavePoint", leavePoint);
+            behaviorExecutorParent.SetBehaviorParam("ArrivePoint", arrivePoint);
+        }
+        var behaviorExecutorChild = childInstance.GetComponent<BehaviorExecutor>();
+        if (behaviorExecutorChild != null)
+        {
+            behaviorExecutorChild.SetBehaviorParam("wanderArea", GameObject.Find("Floor"));
         }
     }
 }

@@ -28,8 +28,10 @@ public class BabyState : AgentState
     private void Start()
     {
         
-        float randomNeeds = Random.Range(0.5f, 0.7f);//set random needs to 50%-70%
-        int index = Random.Range(0, 5);//random choose one of the needs
+        float randomNeeds = Random.Range(0.5f, 0.7f);
+        //set random needs to 50%-70%
+        int index = Random.Range(0, 5);
+        //random choose one of the needs
         switch (index)
         {
             case 0:
@@ -73,10 +75,5 @@ public class BabyState : AgentState
                 Debug.LogError("error needs");
                 break;
         }
-        //currentEnergy = energy;
-        //currentHealth = health;
-        //currentDiaper = diaper;
-        //currentFun = fun;
-        //currentOil = oil;
     }
 }
