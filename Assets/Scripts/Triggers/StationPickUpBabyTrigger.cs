@@ -1,28 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AgentState))]
 [RequireComponent(typeof(StationInteractable))]
 public class StationPickUpBabyTrigger : MonoBehaviour
 {
-    private AgentState state;
     private StationInteractable station;
     
     void Start()
     {
-        state = GetComponent<AgentState>();
+        Debug.Log("Picked up trigger");
         station = GetComponent<StationInteractable>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (station.pickedUpObject) return;
-        
-        var babyInteractable = collision.gameObject.GetComponent<BabyPickUpInteractable>();
-        
-        if (babyInteractable && !babyInteractable.isPickedUp)
+        var babyInteractable = other.gameObject.GetComponent<BabyPickUpInteractable>();
+        var state = other.gameObject.GetComponent<BabyState>();
+        if (babyInteractable && !babyInteractable.isPickedUp && state && state.isFlying)
         {
+            Debug.Log("Picked up: " + other.gameObject.name);
             station.PickUpObject(babyInteractable);
         }
     }

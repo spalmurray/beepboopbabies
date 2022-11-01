@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BabyState : AgentState
@@ -19,10 +20,14 @@ public class BabyState : AgentState
     public float currentHealth;
     public float currentFun;
     public float currentOil;
+    public float explosionRadius = 10f;
+    public float explosionForce = 50f;
+    public List<GameObject> peers = new();
+    public bool isSad = false;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;
-    [HideInInspector] public bool isFlying = false;
+    public bool isFlying = false;
     [HideInInspector] public bool onGround = false;
 
     private void Start()
@@ -35,7 +40,6 @@ public class BabyState : AgentState
         switch (index)
         {
             case 0:
-                // Debug.Log("UpdateHealthBar");
                 currentEnergy = energy * randomNeeds;
                 currentHealth = health;
                 currentDiaper = diaper;
@@ -45,7 +49,6 @@ public class BabyState : AgentState
             case 1:
                 currentEnergy = energy;
                 currentHealth = health * randomNeeds;
-                transform.GetChild(1).GetComponent<BabyUIController>().UpdateHealthBar(health, currentHealth);
                 currentDiaper = diaper;
                 currentFun = fun;
                 currentOil = oil;

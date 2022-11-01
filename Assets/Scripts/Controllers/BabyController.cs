@@ -8,9 +8,19 @@ public class BabyController : MonoBehaviour
 {
     // Start is called before the first frame update
     public BabyUIController uiController;
+    public GameObject Floor;
+    public GameObject explosionEffect;
+    public GameObject smokeEffect;
     private Renderer renderer;
     private BabyPickUpInteractable interactable;
-    private Rigidbody rb;
+    private BehaviorExecutor behaviorExecutor;
+    // variable used to track consequences if any of the stats fell to zero
+    private bool isLocked;
+    private bool healthZero;
+    private bool energyZero;
+    private bool oilZero;
+    private bool funZero;
+    
     // every one 1 second decrement by 2 units
     [SerializeField] private float decrementAmountEnergy = 2f;
     [SerializeField] private float decrementAmountDiaper = 2f;
@@ -24,8 +34,8 @@ public class BabyController : MonoBehaviour
     public void Awake()
     {
         state = GetComponent<BabyState>();
-        rb = GetComponent<Rigidbody>();
         interactable = GetComponent<BabyPickUpInteractable>();
+        behaviorExecutor = GetComponent<BehaviorExecutor>();
     }
 
     public void Start()
@@ -51,8 +61,57 @@ public class BabyController : MonoBehaviour
         DecreaseDiaper();
         DecreaseEnergy();
         SetAlwaysActive();
+        HandleConsequence();
     }
-    
+
+    public void HandleConsequence()
+    {
+        var healthIsZero = Mathf.Approximately(state.currentHealth, 0.0f);
+        var funIsZero = Mathf.Approximately(state.currentFun, 0.0f);
+        // Consequence for health (baby will explode if health is 0)
+        if (healthIsZero && !healthZero)
+        {
+            healthZero = true;
+            // explodes when health is 0
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, state.explosionRadius);
+            foreach (Collider nearbyObject in colliders)
+            {
+                // kick every baby nearby
+                var baby = nearbyObject.GetComponent<BabyPickUpInteractable>();
+                if (baby != null)
+                {
+                    baby.KickExplosive(state.explosionForce, transform.position, state.explosionRadius);
+                }
+            }
+        }
+        else if (!healthIsZero)
+        {
+            healthZero = false;
+        }
+        
+        // Consequence for fun (baby will start kicking other babies if fun is 0)
+        if (funIsZero && !funZero)
+        {
+            funZero = true;
+            state.isSad = true;
+        } else if (!funIsZero)
+        {
+            funZero = false;
+            state.isSad = false;
+        }
+        
+        if (isLocked && state.currentHealth > 0.0f && state.currentEnergy > 0.0f && state.currentOil > 0.0f)
+        {
+            isLocked = false;
+            interactable.UnlockBaby();
+        }
+        else if (!isLocked && (healthZero || energyZero || oilZero))
+        {
+            isLocked = true;
+            interactable.LockBaby();
+        }
+    }
 
     private void SetAlwaysActive()
     {
@@ -126,7 +185,7 @@ public class BabyController : MonoBehaviour
         {
             drinkBottle.DecreaseAmount(oilDrinkAmountOil * Time.deltaTime);
             // if bottle is empty, drop it
-            if (drinkBottle.currentAmount <= 0)
+            if (Mathf.Approximately(drinkBottle.currentAmount, 0))
             {
                 drinkBottle.Drop(state);
                 return;
@@ -166,15 +225,16 @@ public class BabyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Room" && state.isFlying)
+        if (ReferenceEquals(collision.gameObject, Floor) && state.isFlying)
         {
             state.isFlying = false;
             state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
             uiController.UpdateHealthBar(state.health, state.currentHealth);
+            interactable.EnableAI();
             StartCoroutine(TemporaryAlert(health: true));
         }
     }
-
+    
     private IEnumerator TemporaryAlert(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null, bool? oil = null)
     {
         uiController.SetAlwaysActive(health, energy, diaper, fun, oil);
@@ -194,5 +254,6 @@ public class BabyController : MonoBehaviour
     private void HandleKicked()
     {
         state.isFlying = true;
+        interactable.DisableAI();
     }
 }

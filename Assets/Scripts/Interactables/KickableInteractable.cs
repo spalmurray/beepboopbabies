@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,21 @@ public class KickableInteractable : PickUpInteractable
 {
     public delegate void KickHandler();
     public event KickHandler HandleKicked;
+    public float explosiveOffset = 5f;
     
+    public void KickExplosive(float explosiveForce, Vector3 explosionPosition, float explosionRadius)
+    {
+        var transformCache = transform;
+        var pos = transformCache.position;
+        pos += explosiveOffset * Vector3.up;
+        transformCache.position = pos;
+        rb.AddExplosionForce(explosiveForce, explosionPosition, explosionRadius);
+        HandleKicked?.Invoke();
+    }
+
     public void Kick(Vector3 velocityChange)
     {
-        GetComponent<Rigidbody>().AddForceAtPosition(velocityChange, transform.position, ForceMode.VelocityChange);
+        rb.AddForceAtPosition(velocityChange, transform.position, ForceMode.VelocityChange);
         HandleKicked?.Invoke();
     }
 

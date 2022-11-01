@@ -128,11 +128,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract()
     {
-        //case 1: interact with object detected by collider
         if (state.interactable != null) {
+            //case 1: interact with object detected by collider
             state.interactable.Interact(gameObject);
             GetComponent<AudioSource>().PlayOneShot(audioPickup);// the audio for pickup
-        } else if (state.pickedUpObject != null) {//case 2: interact with the object we picked up
+        } else if (state.pickedUpObject != null) { 
+            //case 2: interact with the object we picked up
             state.pickedUpObject.Interact(gameObject);
         }
     }

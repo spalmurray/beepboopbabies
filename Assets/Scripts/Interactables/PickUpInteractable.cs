@@ -7,7 +7,7 @@ public class PickUpInteractable : Interactable
     public event PickedUpEvent HandlePickedUp;
         
     public bool isPickedUp;
-    private Rigidbody rb;
+    protected Rigidbody rb;
     public void Awake()
     {
         base.Awake();

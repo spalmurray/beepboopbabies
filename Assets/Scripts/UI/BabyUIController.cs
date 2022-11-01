@@ -30,30 +30,6 @@ public class BabyUIController : MonoBehaviour
     private void Start()
     {
         _cam = Camera.main;
-        //baby随机其中一个条剪掉50%-30%
-        //int index = Random.Range(0, 5);
-        //Debug.Log("生成随机数");
-        //switch (index)
-        //{
-        //    case 0:
-        //        Debug.Log("生成随机数UpdateHealthBar");
-        //        UpdateHealthBar(1, 0.4f);
-        //        break;
-        //    case 1:
-        //        UpdateEnergyBar(1, 0.4f);
-        //        break;
-        //    case 2:
-        //        UpdateDiaperBar(1, 0.4f);
-        //        break;
-        //    case 3:
-        //        UpdateFunBar(1, 0.4f);
-        //        break;
-        //    case 4:
-        //        UpdateOilBar(1, 0.4f);
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
     public void SetName(string name)

@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Shootable
   - Interactable
-  - Obstacle
-  - MainLight
   layers:
   - Default
   - TransparentFX
@@ -14,11 +13,11 @@ TagManager:
   - NonInteractable
   - Water
   - UI
-  - Player
   - 
   - 
-  - 
-  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -41,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

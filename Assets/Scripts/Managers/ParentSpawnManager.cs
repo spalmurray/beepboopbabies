@@ -24,10 +24,13 @@ public class ParentSpawnManager : MonoBehaviour
     public float delayTime = 2f;
 
     public List<string> childNames;
+    public GameObject floor;
 
     private BehaviorExecutor behaviorExecutorParent;
 
     public int NumberOfParents => leavePoints.Count;
+    // track all babies in the game
+    public List<GameObject> children = new();
 
     private void Start()
     {
@@ -46,6 +49,17 @@ public class ParentSpawnManager : MonoBehaviour
             float delayRandom = Random.Range(1f, delayTime);//You can change parents spawn time here
             yield return new WaitForSeconds(delayRandom);
             SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
+        }
+        // loop over each child
+        Debug.Log("Setting peers");
+        foreach (GameObject child in children)
+        {
+            var state = child.GetComponent<BabyState>();
+            if (state != null)
+            {
+                List<GameObject> peers = children.Where(c => c.GetInstanceID() != child.GetInstanceID()).ToList();
+                state.peers = peers;
+            }
         }
     }
     
@@ -72,6 +86,9 @@ public class ParentSpawnManager : MonoBehaviour
         var childInstance = Instantiate(childContainer, Vector3.zero, Quaternion.identity);
         var childState = childInstance.GetComponent<BabyState>();
         var interactable = childInstance.GetComponent<PickUpInteractable>();
+        var childController = childInstance.GetComponent<BabyController>();
+        // the floor is used to determine if the baby is on the ground or not
+        childController.Floor = floor;
         // assign the child name
         var parentMat = new Material(Shader.Find("Custom/BlendShader"));
         var childMat = new Material(Shader.Find("Custom/BlendShader"));
@@ -100,7 +117,7 @@ public class ParentSpawnManager : MonoBehaviour
         foreach (var childRenderer in childInstance.GetComponentsInChildren<Renderer>())
             childRenderer.material = childMat;
         
-        // invoke the outline recalcuate method to account for the extra gameobject added
+        // invoke the outline recalculate method to account for the extra gameobject added
         // TODO: this is hack to get the outline to work, need to find a better way
         var outline = childInstance.GetComponent<Outline>();
         outline.Recalculate();
@@ -122,5 +139,6 @@ public class ParentSpawnManager : MonoBehaviour
         {
             behaviorExecutorChild.SetBehaviorParam("wanderArea", GameObject.Find("Floor"));
         }
+        children.Add(childInstance);
     }
 }

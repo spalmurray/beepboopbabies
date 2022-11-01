@@ -11,11 +11,15 @@ public class InteractableTrigger : MonoBehaviour
         if (other.gameObject.layer.Equals(LayerMask.NameToLayer("NonInteractable"))) return;
         var otherObject = other.gameObject;
         var interactableObj = otherObject.GetComponent<Interactable>();
+        // don't interact with stations if we do not have a baby and station is empty
+        if (interactableObj is StationInteractable interactable && state.pickedUpObject == null
+                                                                && interactable.Baby == null) return;
         if (state.interactable == null && interactableObj != null)
         {
             state.interactable = interactableObj;
             var outline = otherObject.GetComponent<Outline>();
             outline.OutlineMode = Outline.Mode.OutlineAll;
+            // NOTE: this only applies to bottle interactables
             var ui = otherObject.GetComponentInChildren<BabyUIController>();
             if (ui != null) ui.EnableStatusBars();
         }
@@ -31,6 +35,7 @@ public class InteractableTrigger : MonoBehaviour
             var ui = otherObject.GetComponentInChildren<BabyUIController>();
             if (ui != null) ui.DisableStatusBars();
         }
+
         var outline = otherObject.GetComponent<Outline>();
         if (outline != null) outline.OutlineMode = Outline.Mode.OutlineHidden;
     }
