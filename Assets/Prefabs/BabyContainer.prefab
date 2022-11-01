@@ -883,7 +883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPickedUp: 0
-  explosiveOffset: 5
+  explosiveOffset: 2
 --- !u!114 &3857294514830663872
 MonoBehaviour:
   m_ObjectHideFlags: 0
