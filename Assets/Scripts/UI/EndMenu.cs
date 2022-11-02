@@ -8,9 +8,12 @@ public class EndMenu : MonoBehaviour
     public GameObject endMenuUI;
     public Button initialButton;
     public StarsUIController starsUIController;
+    public Button NextLevel;
+    public Button Menu;
     
     void Start()
     {
+        NextLevel.enabled = false;
         ScoreManager.Instance.HandleGameOver += ShowMenu;
     }
 
@@ -19,5 +22,13 @@ public class EndMenu : MonoBehaviour
         endMenuUI.SetActive(true);
         initialButton.Select();
         starsUIController.ShowStars(ScoreManager.Instance.FinalScore);
+    }
+
+    void Update() {
+        if (ScoreManager.Instance.FinalScore >= 2.5) {
+            NextLevel.enabled = true;
+        } else {
+            NextLevel.enabled = false;
+        }
     }
 }
