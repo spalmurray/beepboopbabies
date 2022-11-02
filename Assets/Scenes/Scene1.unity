@@ -5075,6 +5075,7 @@ MonoBehaviour:
   endMenuUI: {fileID: 656003625}
   initialButton: {fileID: 1481349824}
   starsUIController: {fileID: 310070015}
+  NextLevelButton: {fileID: 2073916988}
   NextLevel: {fileID: 2073916991}
   Menu: {fileID: 0}
 --- !u!114 &1448595098
