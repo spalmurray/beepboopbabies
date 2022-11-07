@@ -4081,6 +4081,57 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1223101232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223101234}
+  - component: {fileID: 1223101233}
+  m_Layer: 0
+  m_Name: CharacterUpdate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1223101233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223101232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190f7a86f1df3cb47b1ad75ceaea80aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0.9803922, g: 0.8431373, b: 0.20784315, a: 1}
+  - {r: 0.97647065, g: 0.078431375, b: 0.20000002, a: 1}
+  - {r: 0.14117648, g: 0.87843144, b: 0.15294118, a: 1}
+  - {r: 0.050980397, g: 0.60784316, b: 1, a: 1}
+  index: -1
+  CharacterNum: 0
+--- !u!4 &1223101234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223101232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1244525218
 GameObject:
   m_ObjectHideFlags: 0
@@ -8019,8 +8070,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_RepairStation_01
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 185379612077160651, guid: 0d4221071ffcdf04c83af6c56221edb8, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d4221071ffcdf04c83af6c56221edb8, type: 3}
 --- !u!1 &4238545690459156860 stripped
 GameObject:
@@ -8110,6 +8160,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532866, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.9256724
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532866, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.9165292
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532866, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.037164055
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532866, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.014780404
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51e8b45e38b0446479d179f3bd4414be, type: 3}
