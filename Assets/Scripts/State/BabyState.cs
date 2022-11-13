@@ -22,14 +22,17 @@ public class BabyState : AgentState
     public float currentOil;
     public float explosionRadius = 10f;
     public float explosionForce = 50f;
-    public List<GameObject> peers = new();
+    public List<GameObject> peers = new List<GameObject>();
     public bool isSad = false;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;
     public bool isFlying = false;
     [HideInInspector] public bool onGround = false;
-
+    public float  GetCurrent()
+    {
+        return (currentEnergy + currentDiaper + currentHealth + currentFun + currentOil) / 500;
+    }
     private void Start()
     {
         
