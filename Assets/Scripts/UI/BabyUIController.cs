@@ -48,7 +48,41 @@ public class BabyUIController : MonoBehaviour
         eulerAngles.y = 0;
         trans.eulerAngles = eulerAngles;
     }
-
+    public float getHealthBar()
+    {
+         if (healthbarSprite.fillAmount.Equals(0))
+            return 0;
+        else
+            return healthbarSprite.fillAmount > 0.5f ? 1 : 0.5f;
+    }
+    public float getEnergyBar()
+    {
+        if (energybarSprite.fillAmount.Equals(0))
+            return 0;
+        else
+            return energybarSprite.fillAmount > 0.5f ? 1 : 0.5f;
+    }
+    public float getDiaperBar()
+    {
+        if (diaperbarSprite.fillAmount.Equals(0))
+            return 0;
+        else
+            return diaperbarSprite.fillAmount > 0.5f ? 1 : 0.5f;
+    }
+    public float getFunBar()
+    {
+        if (funbarSprite.fillAmount.Equals(0))
+            return 0;
+        else
+            return funbarSprite.fillAmount > 0.5f ? 1 : 0.5f;
+    }
+    public float getOilBar()
+    {
+        if (oilbarSprite.fillAmount.Equals(0))
+            return 0;
+        else
+            return oilbarSprite.fillAmount > 0.5f ? 1 : 0.5f;
+    }
     public void SetActive()
     {
         healthbar.SetActive(healthAlwaysActive.GetValueOrDefault(false) || healthActive);

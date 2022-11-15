@@ -13,16 +13,21 @@ public class TimerClock : MonoBehaviour
     void Start()
     {
         timeon = true;
+        //TimerTxt.text = "8:00";
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeon) {
-            if (timeleft > 0) {
-                timeleft -= Time.deltaTime;
+        if (timeon)
+        {
+            if (timeleft > 0)
+            {
+                timeleft += Time.deltaTime * 4;
                 updateTimer(timeleft);
-            } else {
+            }
+            else
+            {
                 Debug.Log("time is up");
                 timeleft = 0;
                 timeon = false;
@@ -30,10 +35,15 @@ public class TimerClock : MonoBehaviour
         }
     }
 
-    void updateTimer(float CurrentTime) {
+    void updateTimer(float CurrentTime)
+    {
         CurrentTime += 1;
         float min = Mathf.FloorToInt(CurrentTime / 60);
         float sec = Mathf.FloorToInt(CurrentTime % 60);
-        TimerTxt.text = string.Format("{0:00} : {1:00}", min, sec);
+        if (min + 6 <= 12)
+            TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6, sec);
+        else
+            TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6 - 12, sec);
+
     }
 }
