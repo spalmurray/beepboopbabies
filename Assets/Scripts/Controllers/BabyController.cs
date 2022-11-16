@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(BabyPickUpInteractable))]
 public class BabyController : MonoBehaviour
 {
+    public AudioSource explodeSound;
+    
     // Start is called before the first frame update
     public BabyUIController uiController;
     public GameObject Floor;
@@ -20,6 +22,7 @@ public class BabyController : MonoBehaviour
     private bool energyZero;
     private bool oilZero;
     private bool funZero;
+    
     
     // every one 1 second decrement by 2 units
     [SerializeField] private float decrementAmountEnergy = 2f;
@@ -72,6 +75,8 @@ public class BabyController : MonoBehaviour
         if (healthIsZero && !healthZero)
         {
             healthZero = true;
+            //explodeSound.Stop();
+			explodeSound.Play();
             // explodes when health is 0
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Collider[] colliders = Physics.OverlapSphere(transform.position, state.explosionRadius);
