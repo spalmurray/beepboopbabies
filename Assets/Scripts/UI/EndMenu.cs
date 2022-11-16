@@ -11,19 +11,28 @@ public class EndMenu : MonoBehaviour
     public GameObject NextLevelButton;
     public Button NextLevel;
     public Button Menu;
+    public AudioSource theme;
+	public AudioSource win;
     
     void Start()
     {
         NextLevel.enabled = false;
         ScoreManager.Instance.HandleGameOver += ShowMenu;
+        theme.Play();
+		GetComponent<AudioSource>().Stop();
     }
 
     void ShowMenu()
     {
-        if (ScoreManager.Instance.FinalScore >= 2.5) { 
+        if (ScoreManager.Instance.FinalScore >= 3.0) { 
             endMenuUI.SetActive(true);
             initialButton.Select();
             starsUIController.ShowStars(ScoreManager.Instance.FinalScore);
+            theme.Stop();
+			win.Stop();
+			win.loop = true;
+			win.Play();
+
         } else {
             endMenuUI.SetActive(true);
             initialButton.Select();
@@ -34,8 +43,9 @@ public class EndMenu : MonoBehaviour
     }
 
     void Update() {
-        if (ScoreManager.Instance.FinalScore >= 2.5) {
+        if (ScoreManager.Instance.FinalScore >= 3.0) {
             NextLevel.enabled = true;
+            
         } else {
             NextLevel.enabled = false;
         }
