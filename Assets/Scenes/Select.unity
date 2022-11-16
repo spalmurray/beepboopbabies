@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2665,6 +2665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1139635051}
   - component: {fileID: 1139635050}
+  - component: {fileID: 1139635052}
   m_Layer: 0
   m_Name: CharacterData
   m_TagString: Untagged
@@ -2684,10 +2685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ead0b385a3520e4fadda9c07d17cb3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player1: {fileID: 1724000989}
-  Player2: {fileID: 802861246}
-  Player3: {fileID: 2111566413}
-  Player4: {fileID: 1661980204}
+  players:
+  - {fileID: 1724000989}
+  - {fileID: 802861246}
+  - {fileID: 2111566413}
+  - {fileID: 1661980204}
 --- !u!4 &1139635051
 Transform:
   m_ObjectHideFlags: 0
@@ -2703,6 +2705,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1139635052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139635049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: 4
+  m_AllowJoining: 1
+  m_JoinBehavior: 0
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 3145037374623773210, guid: c547cdf052aadc14d968e614f7f23607,
+    type: 3}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1001 &1184594279
 PrefabInstance:
   m_ObjectHideFlags: 0
