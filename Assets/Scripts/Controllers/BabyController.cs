@@ -207,6 +207,7 @@ public class BabyController : MonoBehaviour
         {
             state.currentOil = Mathf.Max(state.currentOil - decrementAmountOil * Time.deltaTime, 0);
             uiController.UpdateOilBar(state.oil, state.currentOil);
+            uiController.SetAlwaysActive(oil:false);
         }
     }
 
