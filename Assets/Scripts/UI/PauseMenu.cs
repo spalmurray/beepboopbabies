@@ -44,6 +44,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Scene1");
     }
 
+    public void NextLevel()
+    {
+        LevelsManager.Instance.NextLevel();
+        LoadGame();
+    }
+
     public void Pause()
     {
         pauseMenuUI.SetActive(true);

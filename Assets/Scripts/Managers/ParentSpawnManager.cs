@@ -28,13 +28,13 @@ public class ParentSpawnManager : MonoBehaviour
 
     private BehaviorExecutor behaviorExecutorParent;
 
-    public int NumberOfParents => leavePoints.Count;
+    public int NumberOfParents => Mathf.Min(2 + LevelsManager.Instance.Level, leavePoints.Count);
     // track all babies in the game
     public List<GameObject> children = new();
 
     private void Start()
     {
-        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy" };
+        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Temp1", "Temp2", "Temp3", "Temp4" };
         StartCoroutine(SpawnMultipleParents());
         if (parentTexture.Count != childTexture.Count)
         {
@@ -44,11 +44,15 @@ public class ParentSpawnManager : MonoBehaviour
 
     private IEnumerator SpawnMultipleParents()
     {
+        // Shuffle the list of textures so each parent/child gets a unique one
+        var rng = new System.Random();
+        var randomIndices = Enumerable.Range(0, parentTexture.Count).OrderBy(a => rng.Next()).ToList();
+        
         for (var i = 0; i < NumberOfParents; i++)
         {
             float delayRandom = Random.Range(1f, delayTime);//You can change parents spawn time here
             yield return new WaitForSeconds(delayRandom);
-            SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i]);
+            SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i], randomIndices[i]);
         }
         // loop over each child
         Debug.Log("Setting peers");
@@ -78,7 +82,7 @@ public class ParentSpawnManager : MonoBehaviour
         accessory.transform.SetParent(baseBaby.transform);
     }
 
-    private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName)
+    private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName, int randomIndex)
     {
 
         //randomize the color, parent and child will have same color
@@ -93,7 +97,6 @@ public class ParentSpawnManager : MonoBehaviour
         var parentMat = new Material(Shader.Find("Custom/BlendShader"));
         var childMat = new Material(Shader.Find("Custom/BlendShader"));
         // assign the parent and child textures randomly
-        var randomIndex = Random.Range(0, parentTexture.Count);
         var randomParentTexture = parentTexture[randomIndex];
         var randomChildTexture = childTexture[randomIndex];
         // set the parameters of the material
