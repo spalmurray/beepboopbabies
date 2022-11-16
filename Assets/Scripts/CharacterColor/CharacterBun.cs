@@ -25,6 +25,8 @@ public class CharacterBun : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
-        transform.GetChild(index).gameObject.SetActive(true);
+        var activePlayer = transform.GetChild(index).gameObject;
+        activePlayer.SetActive(true);
+        GetComponentInParent<PlayerController>().anim = activePlayer.GetComponent<Animator>();
     }
 }
