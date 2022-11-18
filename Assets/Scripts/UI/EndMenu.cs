@@ -11,6 +11,7 @@ public class EndMenu : MonoBehaviour
     public GameObject NextLevelButton;
     public Button NextLevel;
     public Button Menu;
+    public Button Restart;
     public AudioSource theme;
 	public AudioSource win;
     
@@ -20,6 +21,7 @@ public class EndMenu : MonoBehaviour
         ScoreManager.Instance.HandleGameOver += ShowMenu;
         theme.Play();
 		GetComponent<AudioSource>().Stop();
+        
     }
 
     void ShowMenu()
