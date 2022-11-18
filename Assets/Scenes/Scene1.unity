@@ -2561,6 +2561,21 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.0430667
       objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.8862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4351113331700254615, guid: 5fdba4756ee83234ca21d325f02c28cd,
         type: 3}
       propertyPath: m_RootOrder
@@ -9018,6 +9033,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PR_ChangingTable_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4565045519344408866, guid: 85739a4191a1acc4796b198d67163a18,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0.86666673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565045519344408866, guid: 85739a4191a1acc4796b198d67163a18,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565045519344408866, guid: 85739a4191a1acc4796b198d67163a18,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4565045519344408868, guid: 85739a4191a1acc4796b198d67163a18,
         type: 3}
       propertyPath: m_RootOrder
@@ -9153,6 +9183,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: 0.0430667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.8862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351113331700254611, guid: 5fdba4756ee83234ca21d325f02c28cd,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4351113331700254615, guid: 5fdba4756ee83234ca21d325f02c28cd,
         type: 3}
@@ -9293,6 +9338,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1996560891}
     m_Modifications:
+    - target: {fileID: 185379612077160688, guid: 0d4221071ffcdf04c83af6c56221edb8,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0.08627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 185379612077160688, guid: 0d4221071ffcdf04c83af6c56221edb8,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: 185379612077160688, guid: 0d4221071ffcdf04c83af6c56221edb8,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0.9607844
+      objectReference: {fileID: 0}
     - target: {fileID: 185379612077160694, guid: 0d4221071ffcdf04c83af6c56221edb8,
         type: 3}
       propertyPath: m_Size.x
@@ -9473,6 +9533,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532864, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532864, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.42352945
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203656525165532864, guid: 51e8b45e38b0446479d179f3bd4414be,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0.59607846
       objectReference: {fileID: 0}
     - target: {fileID: 9203656525165532866, guid: 51e8b45e38b0446479d179f3bd4414be,
         type: 3}
