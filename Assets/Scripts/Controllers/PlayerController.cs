@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float kickSpeedIncrease = 10;
     public float moveRotationSpeed = 1000;
     public float kickRotationSpeed = 150;
+    public Animator anim;
     public AudioClip audioPickup;//Audio for Pickup
     private CharacterController controller;
     private Vector2 inputDirection;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private KickTrajectoryRenderer kickTrajectoryRenderer;
     private float kickSpeed;
     private KickableInteractable kickingObject;
+    private static readonly int Walk = Animator.StringToHash("Walk");
 
     private bool IsKicking => kickingObject != null;
 
@@ -124,6 +126,14 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue value)
     {
         inputDirection = value.Get<Vector2>() * PLAYER_VELOCITY_MULTIPLYIER;
+        if (inputDirection != Vector2.zero)
+        {
+            anim.SetBool(Walk, true);
+        }
+        else
+        {
+            anim.SetBool(Walk, false);
+        }
     }
 
     public void OnInteract()
