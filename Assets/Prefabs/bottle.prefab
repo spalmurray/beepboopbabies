@@ -100,7 +100,6 @@ MonoBehaviour:
   explosiveOffset: 5
   maxAmount: 100
   currentAmount: 100
-  uiController: {fileID: 0}
 --- !u!1001 &3657033189951264767
 PrefabInstance:
   m_ObjectHideFlags: 0
