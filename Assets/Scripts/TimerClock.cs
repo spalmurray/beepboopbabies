@@ -34,7 +34,7 @@ public class TimerClock : MonoBehaviour
             }
         }
     }
-
+    bool isPlay = false;
     void updateTimer(float CurrentTime)
     {
         CurrentTime += 1;
@@ -43,7 +43,16 @@ public class TimerClock : MonoBehaviour
         if (min + 6 <= 12)
             TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6, sec);
         else
+        {
             TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6 - 12, sec);
+            //Play Camera Shake
+            if (min + 6 - 12 >= 4 && isPlay == false)
+            {
+                Debug.Log("Play Camera Shake");
+                isPlay = true;
+                EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+            }
+        }
 
     }
 }
