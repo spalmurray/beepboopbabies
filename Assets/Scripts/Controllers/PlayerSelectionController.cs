@@ -14,7 +14,8 @@ public class PlayerSelectionController : MonoBehaviour
     private CharacterData characterData;
 
     private bool moved = false;
-    
+    private bool canLockIn = false;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -22,6 +23,14 @@ public class PlayerSelectionController : MonoBehaviour
         deviceId = playerInput.devices[0].deviceId;
 
         characterData.RegisterDevice(deviceId, playerInput);
+
+        StartCoroutine(WaitBeforeEnablingLockIn());
+    }
+
+    private IEnumerator WaitBeforeEnablingLockIn()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canLockIn = true;
     }
 
     private void OnMove(InputValue value)
@@ -47,6 +56,8 @@ public class PlayerSelectionController : MonoBehaviour
 
     private void OnInteract()
     {
+        if (!canLockIn) return;
+        
         characterData.LockInDevice(deviceId);
     }
 }
