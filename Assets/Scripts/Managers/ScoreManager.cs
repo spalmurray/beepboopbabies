@@ -11,8 +11,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject Image;//Clock UI
     public AudioClip audioClip;//Audio for Clock
     public AudioSource AudioSource;//Audio for countdown
-    private int totalStars;
-    private int numberOfParents;
+    private float totalStars;
 
     public static ScoreManager Instance 
     { 
@@ -25,7 +24,7 @@ public class ScoreManager : MonoBehaviour
     public bool IsGameOver { get; private set; }
 
     // Final score, which is the average of "stars" of each parent
-    public float FinalScore => (float) totalStars / numberOfParents;
+    public float FinalScore => RoundToHalf(totalStars / FindObjectOfType<ParentSpawnManager>().NumberOfParents);
 
     private void Awake()
     {
@@ -35,7 +34,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        numberOfParents = FindObjectOfType<ParentSpawnManager>().NumberOfParents;
         AudioSource = GetComponent<AudioSource>();
         AudioSource.PlayDelayed(145.0f);
     }
@@ -74,7 +72,7 @@ public class ScoreManager : MonoBehaviour
 
     public void RegisterPickedUpBaby(BabyState babyState)
     {
-        totalStars += new[]
+        var stars = new[]
             {
                 (babyState.currentEnergy, babyState.energy),
                 (babyState.currentHealth, babyState.health),
@@ -83,6 +81,14 @@ public class ScoreManager : MonoBehaviour
                 (babyState.currentOil, babyState.oil),
             }
             .Select(tuple => tuple.Item1 / tuple.Item2)
-            .Count(percent => percent >= 0.5f);
+            .Select(RoundToHalf)
+            .Sum();
+        StarsPanel.Instance.ShowStars(stars);
+        totalStars += stars;
+    }
+
+    private float RoundToHalf(float n)
+    {
+        return Mathf.Round(n * 2 + 0.01f) / 2;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4717,6 +4717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164944687}
   - component: {fileID: 1164944688}
+  - component: {fileID: 1164944689}
   m_Layer: 5
   m_Name: StarsPanel
   m_TagString: Untagged
@@ -4761,6 +4762,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e5aed5d5bca2a4dbde0fefd056a763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1164944689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164944686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022abd47626353b4d9daa369829508e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starImages:
+  - {fileID: 111949375}
+  - {fileID: 1956865522}
+  - {fileID: 1022148180}
+  - {fileID: 1254164426}
+  - {fileID: 1448164712}
 --- !u!1 &1172824420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7041032148492392740, guid: d7d268f8509f9b04eb40c073324f875f,
