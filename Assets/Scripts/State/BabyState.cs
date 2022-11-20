@@ -29,13 +29,13 @@ public class BabyState : AgentState
     [HideInInspector] public bool rechargeOil;
     public bool isFlying = false;
     [HideInInspector] public bool onGround = false;
-    public float  GetCurrent()
+    public float GetCurrent()
     {
         return (currentEnergy + currentDiaper + currentHealth + currentFun + currentOil) / 500;
     }
     private void Start()
     {
-        
+
         float randomNeeds = Random.Range(0.5f, 0.7f);
         //set random needs to 50%-70%
         int index = Random.Range(0, 5);
@@ -80,6 +80,27 @@ public class BabyState : AgentState
             default:
                 Debug.LogError("error needs");
                 break;
+        }
+    }
+    bool temp = false;
+    bool mfly = false;
+    private void Update()
+    {
+        if (currentHealth <= 0 && !temp)
+        {
+            temp = true;
+            Debug.Log("dead baby");
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+        }
+        if(isFlying && mfly == false)
+        {
+            Debug.Log("Play sound Kicking Baby");
+            mfly = true;
+            CharacterUpdate.Instance.PlayKickingSound();
+        }
+        if(!isFlying )
+        {
+            mfly = false;
         }
     }
 }

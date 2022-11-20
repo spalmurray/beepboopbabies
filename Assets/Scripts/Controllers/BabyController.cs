@@ -7,7 +7,6 @@ using UnityEngine;
 public class BabyController : MonoBehaviour
 {
     public AudioSource explodeSound;
-    
     // Start is called before the first frame update
     public BabyUIController uiController;
     public GameObject Floor;
