@@ -13,24 +13,28 @@ public class PlayerSelectionController : MonoBehaviour
     private PlayerInput playerInput;
     private CharacterData characterData;
 
-    private bool registered = false;
     private bool moved = false;
-    
+    private bool canLockIn = false;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         characterData = FindObjectOfType<CharacterData>();
         deviceId = playerInput.devices[0].deviceId;
+
+        characterData.RegisterDevice(deviceId, playerInput);
+
+        StartCoroutine(WaitBeforeEnablingLockIn());
+    }
+
+    private IEnumerator WaitBeforeEnablingLockIn()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canLockIn = true;
     }
 
     private void OnMove(InputValue value)
     {
-        if (!registered)
-        {
-            characterData.RegisterDevice(deviceId);
-            registered = true;
-        }
-        
         var x = value.Get<Vector2>().x;
         if (x > moveThreshold)
         {
@@ -48,5 +52,12 @@ public class PlayerSelectionController : MonoBehaviour
         {
             moved = false;
         }
+    }
+
+    private void OnInteract()
+    {
+        if (!canLockIn) return;
+        
+        characterData.LockInDevice(deviceId);
     }
 }
