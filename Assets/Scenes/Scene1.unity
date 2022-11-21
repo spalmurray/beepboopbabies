@@ -7436,8 +7436,18 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 9676d0d187309804e8cf41abfbb0607b, type: 3}
   - {fileID: 2800000, guid: 4c33e8c514561684ea6abe9a580a76a9, type: 3}
   - {fileID: 2800000, guid: b17cf5531f4447943b7b623e29c387b7, type: 3}
+  - {fileID: 2800000, guid: f22e0e49dbfe5c04b8f6361d1dc4a923, type: 3}
+  - {fileID: 2800000, guid: 219466cb736d66e4b994075d3bc4fcaa, type: 3}
+  - {fileID: 2800000, guid: 9676d0d187309804e8cf41abfbb0607b, type: 3}
+  - {fileID: 2800000, guid: 4c33e8c514561684ea6abe9a580a76a9, type: 3}
+  - {fileID: 2800000, guid: b17cf5531f4447943b7b623e29c387b7, type: 3}
   parentTextureEyes: {fileID: 2800000, guid: 74cb328f059f0b341bd7b307718d187e, type: 3}
   childTexture:
+  - {fileID: 2800000, guid: 19f198cb26cf46d429e02164c6470462, type: 3}
+  - {fileID: 2800000, guid: 9ca3228dbcd503d4f867c5f5fc2e1eda, type: 3}
+  - {fileID: 2800000, guid: 7984862f6bda42343b78d6f268bc7dd1, type: 3}
+  - {fileID: 2800000, guid: 638d81667330cae4593790e1f1861461, type: 3}
+  - {fileID: 2800000, guid: b9900ed7d9e495748adbc19781767992, type: 3}
   - {fileID: 2800000, guid: 19f198cb26cf46d429e02164c6470462, type: 3}
   - {fileID: 2800000, guid: 9ca3228dbcd503d4f867c5f5fc2e1eda, type: 3}
   - {fileID: 2800000, guid: 7984862f6bda42343b78d6f268bc7dd1, type: 3}
@@ -7450,7 +7460,17 @@ MonoBehaviour:
   - {fileID: 414001086}
   - {fileID: 1586422567}
   - {fileID: 1803090984}
+  - {fileID: 686596189}
+  - {fileID: 545778507}
+  - {fileID: 414001086}
+  - {fileID: 1586422567}
+  - {fileID: 1803090984}
   arrivePoints:
+  - {fileID: 1908253633}
+  - {fileID: 1631266112}
+  - {fileID: 1395829473}
+  - {fileID: 1763772686}
+  - {fileID: 536396764}
   - {fileID: 1908253633}
   - {fileID: 1631266112}
   - {fileID: 1395829473}
@@ -7461,7 +7481,7 @@ MonoBehaviour:
   ChestAccessories:
   - {fileID: 6172532021018021186, guid: 543e26a091ab6734fa78b9b3d6dcc6a9, type: 3}
   - {fileID: 4103631786271907172, guid: cf35aae450712f7499cc9e1c09c832a6, type: 3}
-  delayTime: 10
+  delayTime: 5
   childNames:
   - 1
   - 1
