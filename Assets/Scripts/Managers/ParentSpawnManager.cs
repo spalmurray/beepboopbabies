@@ -31,7 +31,7 @@ public class ParentSpawnManager : MonoBehaviour
 
     private void Start()
     {
-        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Temp1", "Temp2", "Temp3", "Temp4" };
+        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Chad", "Linda", "Bruce", "Penelope", "Jillian", "Carter" };
         StartCoroutine(SpawnMultipleParents());
         if (parentTexture.Count != childTexture.Count)
         {

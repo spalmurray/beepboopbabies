@@ -1,23 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CharacterData : MonoBehaviour
 {
     public Transform[] players;
+    public GameObject[] playerSelectUIs;
+    public TextMeshProUGUI gameStartingText;
 
     public const int MaxIndex = 4;
 
+    public static List<int> devices = new List<int>();
+    public static Dictionary<int, PlayerInput> deviceToPlayerInput = new Dictionary<int, PlayerInput>();
     // Map device id to its selected index
     public static Dictionary<int, int> deviceToIndex = new Dictionary<int, int>();
 
-    private List<int> devices;
+    private List<bool> lockedIn;
+    
+    // Can start the game when there is at least one player and all players are locked in
+    public bool CanStartGame => lockedIn.Count > 0 && lockedIn.All(x => x);
 
     private void Start()
     {
         devices = new List<int>();
+        lockedIn = new List<bool>();
 
         UpdateCharacters();
     }
@@ -36,7 +47,10 @@ public class CharacterData : MonoBehaviour
         {
             if (devices.Count <= i) break;
             players[i].GetChild(deviceToIndex[devices[i]]).gameObject.SetActive(true);
+            playerSelectUIs[i].SetActive(!lockedIn[i]);
         }
+
+        gameStartingText.SetText(CanStartGame ? "Starting game..." : "");
     }
     
     public void StartGame()
@@ -44,21 +58,50 @@ public class CharacterData : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void RegisterDevice(int deviceId)
+    public void RegisterDevice(int deviceId, PlayerInput playerInput)
     {
         if (devices.Contains(deviceId) || devices.Count >= 4) return;
         
         devices.Add(deviceId);
+        lockedIn.Add(false);
         if (!deviceToIndex.ContainsKey(deviceId))
         {
             deviceToIndex[deviceId] = 0;
         }
+
+        deviceToPlayerInput[deviceId] = playerInput;
         
         UpdateCharacters();
     }
 
+    public void LockInDevice(int deviceId)
+    {
+        var index = devices.IndexOf(deviceId);
+        if (index == -1 || lockedIn[index]) return;
+
+        lockedIn[index] = true;
+        UpdateCharacters();
+        
+        if (CanStartGame)
+        {
+            StartCoroutine(StartGameAfterDelay());
+        }
+    }
+
+    private IEnumerator StartGameAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        if (CanStartGame)
+        {
+            StartGame();
+        }
+    }
+
     public void ModifyIndex(int deviceId, int delta)
     {
+        var index = devices.IndexOf(deviceId);
+        if (index == -1 || lockedIn[index]) return;
+        
         deviceToIndex[deviceId] += delta;
         deviceToIndex[deviceId] %= MaxIndex;
         if (deviceToIndex[deviceId] < 0)
