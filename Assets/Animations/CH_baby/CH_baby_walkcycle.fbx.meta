@@ -19,7 +19,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftFoot' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -27,7 +28,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -83,7 +84,145 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: CH_baby_walkcycle(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: CH_Baby_geo_GRP
+      parentName: CH_baby_walkcycle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Diper_06
+      parentName: CH_Baby_geo_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: CH_Baby_06
+      parentName: CH_Baby_geo_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BowTie_06
+      parentName: CH_Baby_geo_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: CH_Baby_jnt_GRP
+      parentName: CH_baby_walkcycle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: c_hip_jnt
+      parentName: CH_Baby_jnt_GRP
+      position: {x: -1.2918916e-18, y: 0.06348378, z: 0.026539829}
+      rotation: {x: -0.00000001164153, y: -3.3881318e-17, z: 0.000000002910383, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: l_upperleg_jnt
+      parentName: c_hip_jnt
+      position: {x: -0.05820213, y: 0.023000488, z: 1.110223e-18}
+      rotation: {x: 0.000000008245651, y: 0.0000000082179366, z: -0.70591545, w: 0.7082962}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1}
+    - name: l_knee_jnt
+      parentName: l_upperleg_jnt
+      position: {x: 0.06707949, y: 0.0016280988, z: 0}
+      rotation: {x: -0.0000000014551915, y: -4.440892e-16, z: 0.000000059604645, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+    - name: l_foot_jnt
+      parentName: l_knee_jnt
+      position: {x: 0.03600609, y: 0.0053127855, z: 0}
+      rotation: {x: 0.0000000014551917, y: -0.0000000029103835, z: -4.235166e-18,
+        w: 1}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1}
+    - name: r_upperleg_jnt
+      parentName: c_hip_jnt
+      position: {x: 0.0582021, y: 0.02300021, z: -0.000000029676919}
+      rotation: {x: 0.7082962, y: 0.7059154, z: 0.000000031386318, w: -0.000000017981932}
+      scale: {x: 0.9999999, y: 1, z: 1}
+    - name: r_knee_jnt
+      parentName: r_upperleg_jnt
+      position: {x: -0.06707926, y: -0.0016280543, z: -1.3322676e-17}
+      rotation: {x: 0.0000000036379812, y: -0.000000023283068, z: -0.000000059604645,
+        w: 1}
+      scale: {x: 1.0000006, y: 1.0000004, z: 1.0000008}
+    - name: r_foot_jnt
+      parentName: r_knee_jnt
+      position: {x: -0.036006045, y: -0.0053127985, z: -4.440892e-18}
+      rotation: {x: 0.00000000873115, y: 1.7763568e-15, z: 8.470336e-17, w: 1}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000005}
+    - name: c_spine001_jnt
+      parentName: c_hip_jnt
+      position: {x: -0.0001550566, y: 0.04605181, z: 5.5511148e-18}
+      rotation: {x: 0.000000008721335, y: 0.00000000579626, z: 0.0016834908, w: 0.99999857}
+      scale: {x: 1, y: 1, z: 1}
+    - name: c_spine002_jnt
+      parentName: c_spine001_jnt
+      position: {x: 5.295764e-16, y: 0.04222896, z: -4.440892e-18}
+      rotation: {x: -0.000000008731149, y: 2.220446e-15, z: -1.1641538e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: c_neck_jnt
+      parentName: c_spine002_jnt
+      position: {x: 4.440892e-18, y: 0.043735947, z: 0}
+      rotation: {x: 0.000000005862453, y: 6.2582536e-11, z: -0.0035840017, w: 0.99999356}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: c_head_jnt
+      parentName: c_neck_jnt
+      position: {x: 8.3572035e-16, y: 0.11694219, z: 0}
+      rotation: {x: -6.258638e-11, y: 0.0000000057790057, z: 0.0035839991, w: 0.99999356}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: c_topHead_jnt
+      parentName: c_head_jnt
+      position: {x: 2.2204459e-17, y: 0.1269441, z: 2.6645352e-17}
+      rotation: {x: 0.000000005820767, y: -0.000000008731149, z: 0.000000009546056,
+        w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: c_halo_jnt
+      parentName: c_topHead_jnt
+      position: {x: 2.1086803e-17, y: 0.09371652, z: 0}
+      rotation: {x: -0, y: -0, z: 5.0821983e-17, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: l_eye_jnt
+      parentName: c_head_jnt
+      position: {x: -0.055841904, y: -0.024039673, z: 0.09902815}
+      rotation: {x: -0, y: -0, z: 3.6168705e-19, w: 1}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: r_eye_jnt
+      parentName: c_head_jnt
+      position: {x: 0.05567871, y: -0.024414977, z: 0.09902816}
+      rotation: {x: 0.99999434, y: -0.0033669928, z: 0.000000005761937, w: 0.0000000057619376}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1.0000002}
+    - name: l_shoulder_jnt
+      parentName: c_spine002_jnt
+      position: {x: -0.053413372, y: 0.034830384, z: 8.881784e-18}
+      rotation: {x: 0.51638645, y: -0.48305804, z: 0.51638633, w: 0.48305812}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: l_elbow_jnt
+      parentName: l_shoulder_jnt
+      position: {x: 8.881784e-18, y: 0.046437453, z: 3.5527136e-17}
+      rotation: {x: 0.0056022555, y: -0.000000059604645, z: -0.00000010430813, w: 0.9999844}
+      scale: {x: 1.0000002, y: 1, z: 1.0000001}
+    - name: l_hand_jnt
+      parentName: l_elbow_jnt
+      position: {x: 2.1873243e-19, y: 0.02958503, z: -5.458973e-18}
+      rotation: {x: -0, y: -0, z: 8.881783e-16, w: 1}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000001}
+    - name: r_shoulder_jnt
+      parentName: c_spine002_jnt
+      position: {x: 0.054241203, y: 0.034468245, z: -0.000000029676919}
+      rotation: {x: -0.4813209, y: 0.51800597, z: 0.48132104, w: 0.5180059}
+      scale: {x: 1, y: 0.99999976, z: 0.9999997}
+    - name: r_elbow_jnt
+      parentName: r_shoulder_jnt
+      position: {x: -0, y: -0.046437647, z: -0.00000074617236}
+      rotation: {x: 0.005602151, y: -0, z: -0.000000059604645, w: 0.9999844}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000005}
+    - name: r_hand_jnt
+      parentName: r_elbow_jnt
+      position: {x: 8.881784e-18, y: -0.029584512, z: 0.00000024625484}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 0.9999999, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -100,7 +239,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
