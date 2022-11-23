@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     public AudioClip audioPickup;
     public AudioSource walkAudioSource;
+    public AudioSource actionAudioSource;
     private CharacterController controller;
     private Vector2 inputDirection;
     private Vector3 playerVelocity;
@@ -69,8 +70,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller.SetPosition(startPosition);
-        walkAudioSource = GetComponent<AudioSource>();
-        walkAudioSource.loop = true;
     }
 
     private void Update()
@@ -154,7 +153,7 @@ public class PlayerController : MonoBehaviour
         if (state.interactable != null) {
             //case 1: interact with object detected by collider
             state.interactable.Interact(gameObject);
-            GetComponent<AudioSource>().PlayOneShot(audioPickup);// the audio for pickup
+            actionAudioSource.PlayOneShot(audioPickup);// the audio for pickup
         } else if (state.pickedUpObject != null) { 
             //case 2: interact with the object we picked up
             state.pickedUpObject.Interact(gameObject);
