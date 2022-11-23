@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip audioClip;//Audio for Clock
     public AudioSource AudioSource;//Audio for countdown
     private float totalStars;
+    private int currentParents = 0;
 
     public static ScoreManager Instance 
     { 
@@ -34,8 +35,9 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
-        AudioSource.PlayDelayed(145.0f);
+        
+        //AudioSource = GetComponent<AudioSource>();
+        //AudioSource.PlayDelayed(145.0f);
     }
 
     private void Update()
@@ -85,6 +87,12 @@ public class ScoreManager : MonoBehaviour
             .Sum();
         StarsPanel.Instance.ShowStars(stars);
         totalStars += stars;
+        currentParents++;
+
+        if (currentParents == FindObjectOfType<ParentSpawnManager>().NumberOfParents)
+        {
+            StartCoroutine(EndGame());
+        }
     }
 
     private float RoundToHalf(float n)

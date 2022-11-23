@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(StationInteractable))]
+[RequireComponent(typeof(BabyStationAudioPlayer))]
 public class RepairHealth : MonoBehaviour
 {
     private StationInteractable station;
@@ -13,6 +14,10 @@ public class RepairHealth : MonoBehaviour
     private void Awake()
     {
         station = GetComponent<StationInteractable>();
+        
+        var audioPlayer = GetComponent<BabyStationAudioPlayer>();
+        audioPlayer.shouldStartAudio = baby => baby.currentHealth < baby.health - 1;
+        audioPlayer.shouldEndAudio = baby => baby.currentHealth >= baby.health - 1;
     }
     
     private void OnEnable()
