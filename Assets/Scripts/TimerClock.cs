@@ -9,6 +9,7 @@ public class TimerClock : MonoBehaviour
     public float timeleft;
     public bool timeon = false;
     public Text TimerTxt;
+    public AudioSource CD;//Audio for countdown
 
     void Start()
     {
@@ -40,19 +41,22 @@ public class TimerClock : MonoBehaviour
         CurrentTime += 1;
         float min = Mathf.FloorToInt(CurrentTime / 60);
         float sec = Mathf.FloorToInt(CurrentTime % 60);
-        if (min + 6 <= 12)
-            TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6, sec);
-        else
-        {
+
+        if (min + 6 <= 12) {
+            TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6, sec); 
+        } else {
             TimerTxt.text = string.Format("{0:00} : {1:00}", min + 6 - 12, sec);
             //Play Camera Shake
             if (min + 6 - 12 >= 4 && isPlay == false)
             {
                 Debug.Log("Play Camera Shake");
                 isPlay = true;
-                EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+                //EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f); //disabled camera shake at 2mins
             }
+              
         }
-
+        if (min + 6 - 12 >= 5 && sec == 40.0f) {
+            CD.Play();
+        } 
     }
 }

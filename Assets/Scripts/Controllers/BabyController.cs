@@ -158,6 +158,7 @@ public class BabyController : MonoBehaviour
     {
         state.currentDiaper += incrementAmount;
         state.currentDiaper = Math.Clamp(state.currentDiaper, 0f, state.diaper);
+        Debug.Log("diaper" + state.currentDiaper);
         uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
     }
     

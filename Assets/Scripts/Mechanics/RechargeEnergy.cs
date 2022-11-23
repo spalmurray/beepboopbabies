@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(StationInteractable))]
+[RequireComponent(typeof(BabyStationAudioPlayer))]
 public class RechargeEnergy : MonoBehaviour
 {
     // how long it will take to recharge to full
@@ -12,6 +13,10 @@ public class RechargeEnergy : MonoBehaviour
     private void Awake()
     {
         station = GetComponent<StationInteractable>();
+        
+        var audioPlayer = GetComponent<BabyStationAudioPlayer>();
+        audioPlayer.shouldStartAudio = baby => baby.currentEnergy < baby.energy - 1;
+        audioPlayer.shouldEndAudio = baby => baby.currentEnergy >= baby.energy - 1;
     }
 
     private void OnEnable()

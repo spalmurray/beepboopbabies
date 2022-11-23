@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(StationInteractable))]
+[RequireComponent(typeof(BabyStationAudioPlayer))]
 public class DiaperChange : MonoBehaviour
 {
     // increment amount for each tick
@@ -12,6 +13,10 @@ public class DiaperChange : MonoBehaviour
     private void Awake()
     {
         station = GetComponent<StationInteractable>();
+        
+        var audioPlayer = GetComponent<BabyStationAudioPlayer>();
+        audioPlayer.shouldStartAudio = baby => baby.currentDiaper < baby.diaper - 1;
+        audioPlayer.shouldEndAudio = baby => baby.currentDiaper >= baby.diaper - 1;
     }
     
     private void OnEnable()
