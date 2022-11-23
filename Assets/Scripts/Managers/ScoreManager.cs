@@ -34,8 +34,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
-        AudioSource.PlayDelayed(145.0f);
+        //AudioSource = GetComponent<AudioSource>();
+        //AudioSource.PlayDelayed(145.0f);
     }
 
     private void Update()
