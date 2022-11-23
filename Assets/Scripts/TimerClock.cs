@@ -50,7 +50,7 @@ public class TimerClock : MonoBehaviour
             {
                 Debug.Log("Play Camera Shake");
                 isPlay = true;
-                EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+                //EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f); //disabled camera shake at 2mins
             }
         }
 
