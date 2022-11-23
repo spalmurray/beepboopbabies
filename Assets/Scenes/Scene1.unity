@@ -1221,7 +1221,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 86e5dfcf0983a214d889001fcf78dfd7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 95b6e1ed124ad91479d5ce236bfa06c4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6150,6 +6150,7 @@ GameObject:
   - component: {fileID: 1408580406}
   - component: {fileID: 1408580405}
   - component: {fileID: 1408580404}
+  - component: {fileID: 1408580407}
   m_Layer: 5
   m_Name: TimerClock
   m_TagString: Untagged
@@ -6193,6 +6194,7 @@ MonoBehaviour:
   timeleft: 119
   timeon: 0
   TimerTxt: {fileID: 2058641009}
+  CD: {fileID: 435005447}
 --- !u!114 &1408580405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6231,6 +6233,14 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408580402}
   m_CullTransparentMesh: 1
+--- !u!81 &1408580407
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408580402}
+  m_Enabled: 1
 --- !u!1 &1418859363 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8501092524342363287, guid: d7d268f8509f9b04eb40c073324f875f,
