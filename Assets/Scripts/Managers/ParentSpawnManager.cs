@@ -17,9 +17,6 @@ public class ParentSpawnManager : MonoBehaviour
     public Texture2D childTextureEyes;
     public List<Transform> leavePoints;
     public List<Transform> arrivePoints;
-    // list of accessories to add to the baby
-    public List<GameObject> HairAccessories;
-    public List<GameObject> ChestAccessories;
     // time between spawning each parent
     public float delayTime = 2f;
 
@@ -67,21 +64,6 @@ public class ParentSpawnManager : MonoBehaviour
         }
     }
     
-    private void AddAccesory(List<GameObject> accessories, GameObject baseBaby)
-    {
-        int randomIndex = Random.Range(0, accessories.Count + 1);
-        // if random index is 0 don't add the accessory
-        if (randomIndex == 0)
-        {
-            return;
-        }
-        // otherwise add the accessory
-        randomIndex -= 1;
-        
-        GameObject accessory = Instantiate(accessories[randomIndex], Vector3.zero, Quaternion.identity);
-        accessory.transform.SetParent(baseBaby.transform);
-    }
-
     private void SpawnParent(Vector3 arrivePoint, Vector3 leavePoint, string childName, int randomIndex)
     {
 
@@ -111,9 +93,6 @@ public class ParentSpawnManager : MonoBehaviour
         childMat.SetColor("_Color", randomColor);
         
         
-        // add the accessories
-        AddAccesory(HairAccessories, childInstance);
-        AddAccesory(ChestAccessories, childInstance);
         
         // assign the material to the parent and child
         parentInstance.GetComponentInChildren<Renderer>().material = parentMat;
@@ -128,6 +107,7 @@ public class ParentSpawnManager : MonoBehaviour
         outline.enabled = true;
         
         // Programmatically make the parent pick up the child
+        //TODO: investigate how to refactor ParentInteractable into something else other than a station interactable
         interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
         childState.name = childName;
