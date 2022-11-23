@@ -25,7 +25,7 @@ public class ParentSpawnManager : MonoBehaviour
 
     private BehaviorExecutor behaviorExecutorParent;
 
-    public int NumberOfParents => Mathf.Min(2 + LevelsManager.Instance.Level, leavePoints.Count);
+    public int NumberOfParents => Mathf.Min(3 + LevelsManager.Instance.Level, leavePoints.Count);
     // track all babies in the game
     public List<GameObject> children = new();
 
