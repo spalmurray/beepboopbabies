@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     public float moveRotationSpeed = 1000;
     public float kickRotationSpeed = 150;
     public Animator anim;
-    public AudioClip audioPickup;//Audio for Pickup
+    public AudioClip audioPickup;
+    public AudioSource walkAudioSource;
     private CharacterController controller;
     private Vector2 inputDirection;
     private Vector3 playerVelocity;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int Walk = Animator.StringToHash("Walk");
 
     private bool IsKicking => kickingObject != null;
+    private bool IsMoving => !IsKicking && inputDirection != Vector2.zero;
 
     private Vector3 KickDirection
     {
@@ -67,6 +69,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller.SetPosition(startPosition);
+        walkAudioSource = GetComponent<AudioSource>();
+        walkAudioSource.loop = true;
     }
 
     private void Update()
@@ -119,6 +123,23 @@ public class PlayerController : MonoBehaviour
         {
             kickTrajectoryRenderer.ClearTrajectory();
         }
+
+        if (IsMoving && !ScoreManager.Instance.IsGameOver)
+        {
+            anim.SetBool(Walk, true);
+            if (!walkAudioSource.isPlaying)
+            {
+                walkAudioSource.Play();
+            }
+        }
+        else
+        {
+            anim.SetBool(Walk, false);
+            if (walkAudioSource.isPlaying)
+            {
+                walkAudioSource.Stop();
+            }
+        }
         
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -126,14 +147,6 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputValue value)
     {
         inputDirection = value.Get<Vector2>() * PLAYER_VELOCITY_MULTIPLYIER;
-        if (inputDirection != Vector2.zero)
-        {
-            anim.SetBool(Walk, true);
-        }
-        else
-        {
-            anim.SetBool(Walk, false);
-        }
     }
 
     public void OnInteract()
