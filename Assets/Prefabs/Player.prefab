@@ -11291,6 +11291,7 @@ MonoBehaviour:
   kickRotationSpeed: 150
   anim: {fileID: 0}
   audioPickup: {fileID: 8300000, guid: 57f9dc34b37138d4992b6a4e796fc608, type: 3}
+  walkAudioSource: {fileID: 2703530369045109279}
 --- !u!120 &1212026515537025829
 LineRenderer:
   m_ObjectHideFlags: 0
