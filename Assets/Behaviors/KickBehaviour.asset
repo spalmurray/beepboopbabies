@@ -56,27 +56,27 @@ MonoBehaviour:
     id=\"7\" />\r\n          <ActionNode id=\"9\" />\r\n          <ActionNode id=\"8\"
     />\r\n          <ActionNode id=\"10\" />\r\n        </nodes>\r\n      </_nodes>\r\n   
     </BehaviorTree>\r\n    <RepeatDecorator id=\"1\">\r\n      <_data>\r\n       
-    <data breakpoint=\"0\" selected=\"False\" position=\"400.7224 90.7776\" name=\"Repeat\"
+    <data breakpoint=\"0\" selected=\"False\" position=\"403.2224 118.7776\" name=\"Repeat\"
     description=\"Repeats the execution of its child node\" cardinality=\"1\" hasParent=\"False\">\r\n         
     <BehaviorTree id=\"0\" />\r\n          <RepeatDecorator id=\"1\" />\r\n       
     </data>\r\n      </_data>\r\n    </RepeatDecorator>\r\n    <SequenceNode id=\"7\">\r\n     
-    <_data>\r\n        <data breakpoint=\"0\" selected=\"False\" position=\"381 263\"
-    name=\"Sequence\" description=\"Executes all its children in sequence until all
-    of them are successful\" cardinality=\"-1\" hasParent=\"True\">\r\n         
+    <_data>\r\n        <data breakpoint=\"0\" selected=\"False\" position=\"383.5
+    291\" name=\"Sequence\" description=\"Executes all its children in sequence until
+    all of them are successful\" cardinality=\"-1\" hasParent=\"True\">\r\n         
     <BehaviorTree id=\"0\" />\r\n          <SequenceNode id=\"7\" />\r\n         
     <RepeatDecorator id=\"1\" />\r\n        </data>\r\n      </_data>\r\n    </SequenceNode>\r\n   
     <ActionNode id=\"8\">\r\n      <_data>\r\n        <data breakpoint=\"0\" selected=\"True\"
-    position=\"63 480\" name=\"Vector3/GetRandomGameObject\" description=\"Gets a
-    random gameobject\" cardinality=\"0\" hasParent=\"True\">\r\n          <BehaviorTree
+    position=\"65.5 508\" name=\"Vector3/GetRandomGameObject\" description=\"Gets
+    a random gameobject\" cardinality=\"0\" hasParent=\"True\">\r\n          <BehaviorTree
     id=\"0\" />\r\n          <ActionNode id=\"8\" />\r\n          <SequenceNode id=\"7\"
     />\r\n        </data>\r\n      </_data>\r\n    </ActionNode>\r\n    <ActionNode
     id=\"9\">\r\n      <_data>\r\n        <data breakpoint=\"0\" selected=\"False\"
-    position=\"349 478\" name=\"Navigation/MoveToGameObject\" description=\"Moves
+    position=\"351.5 506\" name=\"Navigation/MoveToGameObject\" description=\"Moves
     the game object towards a given target by using a NavMeshAgent\" cardinality=\"0\"
     hasParent=\"True\">\r\n          <BehaviorTree id=\"0\" />\r\n          <ActionNode
     id=\"9\" />\r\n          <SequenceNode id=\"7\" />\r\n        </data>\r\n     
     </_data>\r\n    </ActionNode>\r\n    <ActionNode id=\"10\">\r\n      <_data>\r\n       
-    <data breakpoint=\"0\" selected=\"False\" position=\"600 476\" name=\"MyActions/KickGameObject\"
+    <data breakpoint=\"0\" selected=\"False\" position=\"602.5 504\" name=\"MyActions/KickGameObject\"
     description=\"Kicks a specified gameobject\" cardinality=\"0\" hasParent=\"True\">\r\n         
     <BehaviorTree id=\"0\" />\r\n          <ActionNode id=\"10\" />\r\n         
     <SequenceNode id=\"7\" />\r\n        </data>\r\n      </_data>\r\n    </ActionNode>\r\n 

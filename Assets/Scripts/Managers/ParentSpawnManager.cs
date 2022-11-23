@@ -107,6 +107,7 @@ public class ParentSpawnManager : MonoBehaviour
         outline.enabled = true;
         
         // Programmatically make the parent pick up the child
+        //TODO: investigate how to refactor ParentInteractable into something else other than a station interactable
         interactable.PickUp(parentInstance.GetComponent<AgentState>());
         parentInstance.GetComponent<ParentState>().childId = childInstance.GetInstanceID();
         childState.name = childName;

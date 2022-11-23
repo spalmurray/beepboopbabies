@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2095725289748297671}
   - component: {fileID: 6117963254468257078}
   - component: {fileID: 3269767619768824687}
+  - component: {fileID: 7909687046193076655}
   m_Layer: 0
   m_Name: Parent
   m_TagString: Untagged
@@ -209,6 +210,21 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &7909687046193076655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096187092205034572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062b805bb364c0d459210a52cd268904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 6560056798400788123}
+  agent: {fileID: 4096187092205034611}
+  state: {fileID: 3783832187471141651}
 --- !u!1 &9032089965509646817
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +340,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aba63e30692029449bd0a4b6aa5578a, type: 3}
+--- !u!1 &1515029699441556179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2aba63e30692029449bd0a4b6aa5578a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1857487103842862978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6560056798400788123
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515029699441556179}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ddd377eb70edbee44815c8d503054f10, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4e31be52de707244e942e0d25b90f18c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &2183585908451778665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2aba63e30692029449bd0a4b6aa5578a,
