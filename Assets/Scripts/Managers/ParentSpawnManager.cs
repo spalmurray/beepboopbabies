@@ -52,7 +52,6 @@ public class ParentSpawnManager : MonoBehaviour
             SpawnParent(arrivePoints[i].position, leavePoints[i].position, childNames[i], randomIndices[i]);
         }
         // loop over each child
-        Debug.Log("Setting peers");
         foreach (GameObject child in children)
         {
             var state = child.GetComponent<BabyState>();

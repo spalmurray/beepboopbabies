@@ -7,7 +7,6 @@ public class StationPickUpBabyTrigger : MonoBehaviour
     
     void Start()
     {
-        Debug.Log("Picked up trigger");
         station = GetComponent<StationInteractable>();
     }
 
@@ -18,7 +17,6 @@ public class StationPickUpBabyTrigger : MonoBehaviour
         var state = other.gameObject.GetComponent<BabyState>();
         if (babyInteractable && !babyInteractable.isPickedUp && state && state.isFlying)
         {
-            Debug.Log("Picked up: " + other.gameObject.name);
             station.PickUpObject(babyInteractable);
         }
     }

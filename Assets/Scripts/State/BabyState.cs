@@ -89,12 +89,10 @@ public class BabyState : AgentState
         if (currentHealth <= 0 && !temp)
         {
             temp = true;
-            Debug.Log("dead baby");
             EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
         }
         if(isFlying && mfly == false)
         {
-            Debug.Log("Play sound Kicking Baby");
             mfly = true;
             CharacterUpdate.Instance.PlayKickingSound();
         }
