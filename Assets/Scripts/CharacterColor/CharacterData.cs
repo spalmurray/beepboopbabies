@@ -16,7 +16,7 @@ public class CharacterData : MonoBehaviour
     public const int MaxIndex = 4;
 
     public static List<int> devices = new List<int>();
-    public static Dictionary<int, PlayerInput> deviceToPlayerInput = new Dictionary<int, PlayerInput>();
+    public static Dictionary<int, InputDevice[]> deviceToInputDevices = new Dictionary<int, InputDevice[]>();
     // Map device id to its selected index
     public static Dictionary<int, int> deviceToIndex = new Dictionary<int, int>();
 
@@ -69,7 +69,7 @@ public class CharacterData : MonoBehaviour
             deviceToIndex[deviceId] = 0;
         }
 
-        deviceToPlayerInput[deviceId] = playerInput;
+        deviceToInputDevices[deviceId] = playerInput.devices.ToArray();
         
         UpdateCharacters();
     }
