@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputDirection;
     private Vector3 playerVelocity;
     private AgentState state;
+    private PlayerInput playerInput;
 
     private bool isAimingWithMouse;
     private Vector3 mouseAimingPosition = Vector2.zero;
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
         controller.SetPosition(startPosition);
     }
 
@@ -154,9 +157,11 @@ public class PlayerController : MonoBehaviour
             //case 1: interact with object detected by collider
             state.interactable.Interact(gameObject);
             actionAudioSource.PlayOneShot(audioPickup);// the audio for pickup
+            StartCoroutine(InteractVibrate());
         } else if (state.pickedUpObject != null) { 
             //case 2: interact with the object we picked up
             state.pickedUpObject.Interact(gameObject);
+            StartCoroutine(InteractVibrate());
         }
     }
 
@@ -211,6 +216,7 @@ public class PlayerController : MonoBehaviour
             state.pickedUpObject.Interact(gameObject);
             
             kickingObject.Kick(KickDirection * kickSpeed);
+            StartCoroutine(KickVibrate());
             ResetKick();
         }
     }
@@ -225,5 +231,23 @@ public class PlayerController : MonoBehaviour
     public void OnPause()
     {
         FindObjectOfType<PauseMenu>().TogglePause();
+    }
+
+    private IEnumerator InteractVibrate()
+    {
+        var gamepad = playerInput.GetDevice<Gamepad>();
+        if (gamepad == null) yield break;
+        gamepad.SetMotorSpeeds(0.25f, 0.25f);
+        yield return new WaitForSeconds(0.2f);
+        gamepad.SetMotorSpeeds(0, 0);
+    }
+    
+    private IEnumerator KickVibrate()
+    {
+        var gamepad = playerInput.GetDevice<Gamepad>();
+        if (gamepad == null) yield break;
+        gamepad.SetMotorSpeeds(0.25f, 0.25f);
+        yield return new WaitForSeconds(0.2f);
+        gamepad.SetMotorSpeeds(0, 0);
     }
 }
