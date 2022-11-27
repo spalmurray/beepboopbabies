@@ -74,12 +74,13 @@ public class CharacterData : MonoBehaviour
         UpdateCharacters();
     }
 
-    public void LockInDevice(int deviceId)
+    public void ToggleLockInDevice(int deviceId)
     {
         var index = devices.IndexOf(deviceId);
-        if (index == -1 || lockedIn[index]) return;
+        if (index == -1) return;
 
-        lockedIn[index] = true;
+        // Toggle locked in status
+        lockedIn[index] = !lockedIn[index];
         UpdateCharacters();
         
         if (CanStartGame)
@@ -87,11 +88,15 @@ public class CharacterData : MonoBehaviour
             StartCoroutine(StartGameAfterDelay());
         }
     }
+    
+    // Prevent lock in -> unlock -> lock again, and game immediately starts
+    private int startGameId = 0;
 
     private IEnumerator StartGameAfterDelay()
     {
+        var id = ++startGameId;
         yield return new WaitForSeconds(3);
-        if (CanStartGame)
+        if (CanStartGame && startGameId == id)
         {
             StartGame();
         }

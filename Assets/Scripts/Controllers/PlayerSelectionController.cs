@@ -58,6 +58,6 @@ public class PlayerSelectionController : MonoBehaviour
     {
         if (!canLockIn) return;
         
-        characterData.LockInDevice(deviceId);
+        characterData.ToggleLockInDevice(deviceId);
     }
 }
