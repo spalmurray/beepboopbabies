@@ -71,12 +71,6 @@ public class BabyPickUpInteractable : KickableInteractable
             drinkBottle.PickUp(agent);
             controller.uiController.SetAlwaysActive(oil: true);
         }
-        else if (agent.pickedUpObject is BottleInteractable dropBottle && otherAgent.pickedUpObject == null)
-        {
-            dropBottle.Drop(agent);
-            dropBottle.PickUp(otherAgent);
-            controller.uiController.SetAlwaysActive(oil: false);
-        }
         else
         {
             base.Interact(other);
