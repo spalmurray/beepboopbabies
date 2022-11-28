@@ -21,6 +21,7 @@ public class TimeUIController : MonoBehaviour
         image_Fill.fillAmount = ScoreManager.Instance.CurrentTime / ScoreManager.Instance.AllTime;
         //Real time light change
         light.intensity = ScoreManager.Instance.CurrentTime / ScoreManager.Instance.AllTime;
+        light.transform.localEulerAngles = new Vector3(150 * light.intensity, -30, 0);
     }
 
     private void OnDestroy()

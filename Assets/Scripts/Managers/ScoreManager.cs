@@ -14,14 +14,14 @@ public class ScoreManager : MonoBehaviour
     private float totalStars;
     private int currentParents = 0;
 
-    public static ScoreManager Instance 
-    { 
-        get; private set; 
+    public static ScoreManager Instance
+    {
+        get; private set;
     }
 
     public float CurrentTime { get; private set; } = 150f; //set total game length
     public float AllTime { get; private set; }
-    
+
     public bool IsGameOver { get; private set; }
 
     // Final score, which is the average of "stars" of each parent
@@ -35,7 +35,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        
+
         //AudioSource = GetComponent<AudioSource>();
         //AudioSource.PlayDelayed(145.0f);
     }
@@ -45,6 +45,8 @@ public class ScoreManager : MonoBehaviour
         UpdateTime();
         if (CurrentTime < 0 && !IsGameOver)
         {
+            Debug.Log("New Game Over!");
+            PlayerPrefs.SetFloat("music", 0);
             StartCoroutine(EndGame());
         }
     }
@@ -55,9 +57,9 @@ public class ScoreManager : MonoBehaviour
         Image.SetActive(true);
         Image.GetComponent<AudioSource>().PlayOneShot(audioClip);
         IsGameOver = true;
-        
+
         yield return new WaitForSecondsRealtime(2);
-        
+
         Image.gameObject.SetActive(false);
         transform.gameObject.SetActive(false);
         HandleGameOver?.Invoke();

@@ -14,6 +14,7 @@ public class EndMenu : MonoBehaviour
     public Button Restart;
     public AudioSource theme;
 	public AudioSource win;
+	public AudioSource fail;
     
     void Start()
     {
@@ -40,6 +41,10 @@ public class EndMenu : MonoBehaviour
             initialButton.Select();
             starsUIController.ShowStars(ScoreManager.Instance.FinalScore);
             NextLevelButton.SetActive(false);
+            theme.Stop();
+            fail.Stop();
+            fail.loop = true;
+            fail.Play();
         }
         
     }
