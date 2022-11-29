@@ -22,8 +22,8 @@ public class BabyState : AgentState
     public float currentOil;
     public float explosionRadius = 10f;
     public float explosionForce = 50f;
-    public List<GameObject> peers = new List<GameObject>();
-    public bool isSad = false;
+    public List<GameObject> peers = new();
+    public bool isSad;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;

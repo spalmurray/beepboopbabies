@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractableTrigger : MonoBehaviour
@@ -22,6 +23,8 @@ public class InteractableTrigger : MonoBehaviour
             // NOTE: this only applies to bottle interactables
             var ui = otherObject.GetComponentInChildren<BabyUIController>();
             if (ui != null) ui.EnableStatusBars();
+            var parts = otherObject.GetComponent<BodyPartInteractable>();
+            if (parts != null) parts.SetNameActive(true);
         }
     }
 
@@ -34,6 +37,8 @@ public class InteractableTrigger : MonoBehaviour
             state.interactable = null;
             var ui = otherObject.GetComponentInChildren<BabyUIController>();
             if (ui != null) ui.DisableStatusBars();
+            var parts = otherObject.GetComponent<BodyPartInteractable>();
+            if (parts != null) parts.SetNameActive(false);
         }
 
         var outline = otherObject.GetComponent<Outline>();

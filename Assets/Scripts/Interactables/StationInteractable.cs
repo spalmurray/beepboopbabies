@@ -19,4 +19,6 @@ public class StationInteractable : GenericStationInteractable<BabyPickUpInteract
                return baby;
           }
      }
+
+     public override void FixStationObject() {}
 }

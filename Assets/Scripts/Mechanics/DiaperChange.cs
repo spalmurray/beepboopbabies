@@ -40,13 +40,4 @@ public class DiaperChange : MonoBehaviour
             station.Baby.uiController.SetAlwaysActive(diaper: false);
         }
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        if (station.Baby)
-        {
-            station.Baby.IncreaseDiaper(incrementAmount * Time.deltaTime);
-        }
-    }
 }

@@ -183,6 +183,18 @@ public class PlayerController : MonoBehaviour
         isAimingWithMouse = true;
         OnKick(value);
     }
+
+    public void OnFix()
+    {
+        if (state.interactable != null)
+        {
+            var station = state.interactable.gameObject.GetComponent<StationInteractable>();
+            if (station != null)
+            {
+                station.FixStationObject();
+            }
+        }
+    }
     
     public void OnKick(InputValue value)
     {

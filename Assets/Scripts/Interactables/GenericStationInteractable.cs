@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AgentState))]
-public class GenericStationInteractable<T> : Interactable where T : PickUpInteractable
+public abstract class GenericStationInteractable<T> : Interactable where T : PickUpInteractable
 {
     public T pickedUpObject;
     public delegate void PlaceEvent(bool placeInStation);
@@ -43,12 +43,15 @@ public class GenericStationInteractable<T> : Interactable where T : PickUpIntera
         {
             // Put new object in station
             PickUpObject(newPickUpObject, otherAgent);
+            newPickUpObject.inStation = true;
         }
 
         if (droppingObject)
         {
             // Let the other agent pick up the dropped object
             droppingObject.PickUp(otherAgent);
+            droppingObject.inStation = false;
         }
     }
+    public abstract void FixStationObject();
 }
