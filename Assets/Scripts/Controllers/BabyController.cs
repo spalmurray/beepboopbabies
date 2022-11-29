@@ -18,16 +18,6 @@ public class BabyController : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public GameObject basebaby;
     // variable used to track consequences if any of the stats fell to zero
-    private bool isLocked;
-    private bool healthZero;
-    private bool energyZero;
-    private bool oilZero;
-    private bool funZero;
-    private bool ragdoll;
-    // if we are missing either legs the baby will ragdoll
-    private bool rightLegMissing;
-    private bool leftLegMissing;
-    
     // all colliders that are activated when using ragdoll
     public Collider capsuleCollider;
     public Collider[] allCollider;
@@ -42,18 +32,28 @@ public class BabyController : MonoBehaviour
     [SerializeField] private float decrementAmountDiaper = 2f;
     [SerializeField] private float oilDrinkAmountOil = 2f;
     [SerializeField] private float decrementAmountOil = 2f;
-    private BabyState state;
     [SerializeField] private float funDecreasePerSecondIdle = 2f;
     [SerializeField] private float funIncreasePerSecondFlying = 25f;
-    [SerializeField] private float healthDecreasePerDrop = 25;
     [SerializeField] private List<GameObject> bodyParts;
     [SerializeField] private List<GameObject> bodyPartsToHide;
+    private bool isLocked;
+    private bool healthZero;
+    private bool energyZero;
+    private bool oilZero;
+    private bool funZero;
+    private bool ragdoll;
+    // if we are missing either legs the baby will ragdoll
+    private bool rightLegMissing;
+    private bool leftLegMissing;
+    private BabyState state;
+    private float healthDecreasePerDrop;
     private static readonly int Walking = Animator.StringToHash("Walking");
     private static readonly int InStation = Animator.StringToHash("InStation");
     private static readonly int BabyShaking = Animator.StringToHash("BabyShaking");
     public void Awake()
     {
         state = GetComponent<BabyState>();
+        healthDecreasePerDrop = state.health / bodyParts.Count;
         interactable = GetComponent<BabyPickUpInteractable>();
         allCollider = GetComponentsInChildren<Collider>().Skip(1).ToArray();
         ragdollRigidBodies = new List<Rigidbody>();
@@ -214,6 +214,7 @@ public class BabyController : MonoBehaviour
                 }
                 bodyPartsToHide[i].SetActive(true);
                 bodyPartsToHide[i].GetComponent<Renderer>().material = mat;
+                state.healthcap += healthDecreasePerDrop;
                 return true;
             }
         }
@@ -237,7 +238,7 @@ public class BabyController : MonoBehaviour
     public void IncreaseHealth(float incrementAmount)
     {
         state.currentHealth += incrementAmount;
-        state.currentHealth = Math.Clamp(state.currentHealth, 0f, state.health);
+        state.currentHealth = Math.Clamp(state.currentHealth, 0f, state.healthcap);
         uiController.UpdateHealthBar(state.health, state.currentHealth);
     }
 
@@ -306,6 +307,8 @@ public class BabyController : MonoBehaviour
         var bodyPart = bodyPartsToHide[index];
         if (bodyPart.activeInHierarchy)
         {
+            state.healthcap -= healthDecreasePerDrop;
+            state.currentHealth = Mathf.Min(state.currentHealth, state.health);
             bodyPart.SetActive(false);
             var detachBodyPart = bodyParts[index];
             // instantiate the detached body part
@@ -359,11 +362,12 @@ public class BabyController : MonoBehaviour
             if (state.isFlying)
             {
                 state.isFlying = false;
-                state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
-                uiController.UpdateHealthBar(state.health, state.currentHealth);
                 // interactable.EnableAI();
                 // randomly choose a body part
                 DetachBodyPart(Random.Range(0, bodyPartsToHide.Count));
+                state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
+                state.currentHealth = Mathf.Min(state.currentHealth, state.healthcap);
+                uiController.UpdateHealthBar(state.health, state.currentHealth);
                 StartCoroutine(TemporaryAlert(health: true));
             }
             if (rightLegMissing || leftLegMissing)

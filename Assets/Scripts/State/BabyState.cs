@@ -6,6 +6,7 @@ public class BabyState : AgentState
     public string babyName;
     public float energy = 100f;
     public float health = 100f;
+    public float healthcap = 100f;
     public float diaper = 100f;
     public float fun = 100f;
     public float oil = 100f;
