@@ -49,7 +49,7 @@ public class BabyController : MonoBehaviour
     private float healthDecreasePerDrop;
     private static readonly int Walking = Animator.StringToHash("Walking");
     private static readonly int InStation = Animator.StringToHash("InStation");
-    private static readonly int BabyShaking = Animator.StringToHash("BabyShaking");
+    private static readonly int BabyShaking = Animator.StringToHash("BabyShake");
     public void Awake()
     {
         state = GetComponent<BabyState>();
@@ -105,12 +105,15 @@ public class BabyController : MonoBehaviour
     {
         anim.SetBool(InStation, interactable.inStation);
         anim.SetBool(Walking, agent.velocity.magnitude > 0.1f);
+        anim.SetBool(BabyShaking, oilZero || energyZero);
     }
 
     public void HandleConsequence()
     {
         var healthIsZero = Mathf.Approximately(state.currentHealth, 0.0f);
-        var funIsZero = Mathf.Approximately(state.currentFun, 0.0f);
+        funZero = Mathf.Approximately(state.currentFun, 0.0f);
+        energyZero = Mathf.Approximately(state.currentEnergy, 0.0f);
+        oilZero = Mathf.Approximately(state.currentOil, 0.0f);
         // Consequence for health (baby will explode if health is 0)
         if (healthIsZero && !healthZero)
         {
@@ -138,18 +141,8 @@ public class BabyController : MonoBehaviour
         {
             healthZero = false;
         }
-        
         // Consequence for fun (baby will start kicking other babies if fun is 0)
-        if (funIsZero && !funZero)
-        {
-            funZero = true;
-            state.isSad = true;
-        } else if (!funIsZero)
-        {
-            funZero = false;
-            state.isSad = false;
-        }
-        
+        state.isSad = funZero;
         if (isLocked && state.currentHealth > 0.0f && state.currentEnergy > 0.0f && state.currentOil > 0.0f && !ragdoll)
         {
             isLocked = false;
@@ -244,6 +237,7 @@ public class BabyController : MonoBehaviour
 
     private void HandleFun()
     {
+        if (ragdoll) return;
         if (state.isFlying)
         {
             state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
