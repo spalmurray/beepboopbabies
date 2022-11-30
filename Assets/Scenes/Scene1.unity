@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18386894, g: 0.22901732, b: 0.3031116, a: 1}
+  m_IndirectSpecularColor: {r: 0.18386917, g: 0.22901773, b: 0.30311212, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1045,7 +1045,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 413d587cf1227f5b6aa7f3b2419d35ba, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2e343af612ae50841becd5f9df5879a6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
@@ -1053,7 +1053,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 130
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1242,8 +1242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 346.508, y: 153.4}
-  m_SizeDelta: {x: 102.4758, y: 9.7908}
+  m_AnchoredPosition: {x: 346.33554, y: 153.32326}
+  m_SizeDelta: {x: 92.4175, y: 6.3785}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213688097
 MonoBehaviour:
@@ -1258,18 +1258,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2204945, g: 0.8867924, b: 0.13803846, a: 1}
+  m_Color: {r: 0.17181383, g: 0.9339623, b: 0.17181383, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f951b9a0a70c23542b69de3d342f17ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -4747,7 +4747,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278517048
-  m_fontColor: {r: 0.21871153, g: 0.990566, b: 0.014017418, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10943,8 +10943,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00066465, y: -0}
-  m_SizeDelta: {x: 102.48, y: 9.7937}
+  m_AnchoredPosition: {x: 0.0000453, y: 0.000016771}
+  m_SizeDelta: {x: 93.424, y: 6.3785}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916731579
 MonoBehaviour:
@@ -10959,7 +10959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}
+  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10971,7 +10971,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0

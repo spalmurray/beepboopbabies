@@ -10026,7 +10026,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 53
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -10064,7 +10064,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.081
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -11264,10 +11264,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 4.2881265
+  m_Radius: 0.425687
+  m_Height: 4.288127
   m_Direction: 1
-  m_Center: {x: -0.000000059604645, y: 2.0270813, z: -0.009595007}
+  m_Center: {x: 0.054314375, y: 2.0270813, z: -0.11889188}
 --- !u!143 &3144769629303293188
 CharacterController:
   m_ObjectHideFlags: 0
