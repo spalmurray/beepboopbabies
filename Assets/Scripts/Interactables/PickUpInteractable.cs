@@ -3,10 +3,9 @@ using UnityEngine;
 public class PickUpInteractable : Interactable
 {
     public delegate void PickedUpEvent();
-
     public event PickedUpEvent HandlePickedUp;
-        
     public bool isPickedUp;
+    public bool inStation;
     protected Rigidbody rb;
     public void Awake()
     {
@@ -32,9 +31,11 @@ public class PickUpInteractable : Interactable
             // Swap picked up object with current
             state.pickedUpObject.Drop(state);
         }
-        transform.parent = state.pickUpPoint.transform;
+
+        var pickUpTransform = state.pickUpPoint.transform;
+        transform.parent = pickUpTransform;
         transform.localPosition = Vector3.zero;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = pickUpTransform.rotation;
         state.pickedUpObject = this;
         rb.isKinematic = true;
         rb.detectCollisions = false;

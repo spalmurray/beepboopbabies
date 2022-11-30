@@ -6,6 +6,7 @@ public class BabyState : AgentState
     public string babyName;
     public float energy = 100f;
     public float health = 100f;
+    public float healthcap = 100f;
     public float diaper = 100f;
     public float fun = 100f;
     public float oil = 100f;
@@ -22,8 +23,8 @@ public class BabyState : AgentState
     public float currentOil;
     public float explosionRadius = 10f;
     public float explosionForce = 50f;
-    public List<GameObject> peers = new List<GameObject>();
-    public bool isSad = false;
+    public List<GameObject> peers = new();
+    public bool isSad;
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;

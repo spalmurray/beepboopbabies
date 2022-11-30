@@ -327,12 +327,12 @@ GameObject:
   - component: {fileID: 4565045519344408869}
   - component: {fileID: 4565045519344408870}
   - component: {fileID: 4565045519344408864}
-  - component: {fileID: 4565045519344408865}
   - component: {fileID: 4565045519344408866}
   - component: {fileID: 4565045519344408867}
   - component: {fileID: 4565045519344408876}
   - component: {fileID: 3053329369944639203}
   - component: {fileID: 7160577929280524547}
+  - component: {fileID: 2975688024801307282}
   m_Layer: 0
   m_Name: PR_ChangingTable_01 1
   m_TagString: Untagged
@@ -412,19 +412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   incrementAmount: 20
---- !u!114 &4565045519344408865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3751951600306045854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5467cb5856545bf4f846eb1e5232824d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickedUpObject: {fileID: 0}
 --- !u!114 &4565045519344408866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +566,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishAudio: {fileID: 0}
+--- !u!114 &2975688024801307282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751951600306045854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56e643fd02771f447a949eb3a9240f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickedUpObject: {fileID: 0}
+  diaperIncrement: 3
 --- !u!1 &8789993569997434057
 GameObject:
   m_ObjectHideFlags: 0

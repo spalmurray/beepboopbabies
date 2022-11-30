@@ -41,12 +41,4 @@ public class RepairHealth : MonoBehaviour
             station.Baby.uiController.SetAlwaysActive(health: false);
         }
     }
-
-    private void Update()
-    {
-        if (station.Baby)
-        {
-            station.Baby.IncreaseHealth(healthIncreasePerSecond * Time.deltaTime);
-        }
-    }
 }

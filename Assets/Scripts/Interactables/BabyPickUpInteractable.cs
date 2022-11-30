@@ -9,7 +9,7 @@ public class BabyPickUpInteractable : KickableInteractable
 {
     private BehaviorExecutor behaviorExecutor;
     private NavMeshAgent navMeshAgent;
-    private bool locked = false;
+    private bool locked;
     public void Start()
     {
         behaviorExecutor = GetComponent<BehaviorExecutor>();
@@ -43,14 +43,11 @@ public class BabyPickUpInteractable : KickableInteractable
 
     private void HandleAI()
     {
+        if (navMeshAgent == null && behaviorExecutor == null) return;
         if (isPickedUp)
         {
             navMeshAgent.enabled = false;
             behaviorExecutor.enabled = false;
-            if (transform.parent.name.Equals("Pickuppoint"))
-            {
-                Debug.Log(transform.name + "Parent");
-            }
         }
         else
         {
