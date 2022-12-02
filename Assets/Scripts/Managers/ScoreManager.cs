@@ -87,6 +87,9 @@ public class ScoreManager : MonoBehaviour
             .Select(tuple => tuple.Item1 / tuple.Item2)
             .Select(RoundToHalf)
             .Sum();
+        var numBodyPartsMissing = (babyState.health - babyState.healthcap) / 20;
+        stars = Mathf.Max(stars - numBodyPartsMissing, 0);
+        
         StarsPanel.Instance.ShowStars(stars);
         totalStars += stars;
         currentParents++;
