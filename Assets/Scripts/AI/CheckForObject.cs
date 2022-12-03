@@ -10,8 +10,11 @@ namespace BBUnity.Conditions
     {
         [InParam("state")] public AgentState state;
 
+        public static bool firstTimeChecked = false;
+
         public override bool Check()
         {
+            firstTimeChecked = true;
             return state.pickedUpObject != null;
         }
     }

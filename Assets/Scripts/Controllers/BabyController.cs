@@ -50,6 +50,11 @@ public class BabyController : MonoBehaviour
     private static readonly int Walking = Animator.StringToHash("Walking");
     private static readonly int InStation = Animator.StringToHash("InStation");
     private static readonly int BabyShaking = Animator.StringToHash("BabyShake");
+    
+    public delegate void BodyPartDetachedHandler();
+
+    public event BodyPartDetachedHandler HandleBodyPartDetached;
+    
     public void Awake()
     {
         state = GetComponent<BabyState>();
@@ -301,6 +306,8 @@ public class BabyController : MonoBehaviour
         var bodyPart = bodyPartsToHide[index];
         if (bodyPart.activeInHierarchy)
         {
+            HandleBodyPartDetached?.Invoke();
+            
             state.healthcap -= healthDecreasePerDrop;
             state.currentHealth = Mathf.Min(state.currentHealth, state.health);
             bodyPart.SetActive(false);

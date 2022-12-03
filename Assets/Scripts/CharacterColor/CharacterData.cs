@@ -55,7 +55,7 @@ public class CharacterData : MonoBehaviour
     
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LevelsManager.Instance.LoadLevelScene();
     }
 
     public void RegisterDevice(int deviceId, PlayerInput playerInput)

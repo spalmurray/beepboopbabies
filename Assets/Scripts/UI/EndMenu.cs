@@ -27,7 +27,7 @@ public class EndMenu : MonoBehaviour
 
     void ShowMenu()
     {
-        if (ScoreManager.Instance.FinalScore >= 3.0) { 
+        if (ScoreManager.Instance.FinalScore >= 3.0 || LevelsManager.Instance.IsTutorial) { 
             endMenuUI.SetActive(true);
             initialButton.Select();
             starsUIController.ShowStars(ScoreManager.Instance.FinalScore);
@@ -50,7 +50,7 @@ public class EndMenu : MonoBehaviour
     }
 
     void Update() {
-        if (ScoreManager.Instance.FinalScore >= 3.0) {
+        if (ScoreManager.Instance.FinalScore >= 3.0 || LevelsManager.Instance.IsTutorial) {
             NextLevel.enabled = true;
             
         } else {

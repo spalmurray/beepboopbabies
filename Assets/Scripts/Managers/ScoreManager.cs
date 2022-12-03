@@ -25,7 +25,9 @@ public class ScoreManager : MonoBehaviour
     public bool IsGameOver { get; private set; }
 
     // Final score, which is the average of "stars" of each parent
-    public float FinalScore => RoundToHalf(totalStars / FindObjectOfType<ParentSpawnManager>().NumberOfParents);
+    public float FinalScore => LevelsManager.Instance.IsTutorial ?
+        totalStars :
+        RoundToHalf(totalStars / FindObjectOfType<ParentSpawnManager>().NumberOfParents);
 
     private void Awake()
     {
@@ -43,7 +45,7 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdateTime();
-        if (CurrentTime < 0 && !IsGameOver)
+        if (CurrentTime < 0 && !IsGameOver && !LevelsManager.Instance.IsTutorial)
         {
             Debug.Log("New Game Over!");
             PlayerPrefs.SetFloat("music", 0);
@@ -53,6 +55,8 @@ public class ScoreManager : MonoBehaviour
 
     private IEnumerator EndGame()
     {
+        yield return new WaitForSeconds(1);
+        
         Time.timeScale = 0f;
         Image.SetActive(true);
         Image.GetComponent<AudioSource>().PlayOneShot(audioClip);
@@ -71,6 +75,7 @@ public class ScoreManager : MonoBehaviour
     private void UpdateTime()
     {
         CurrentTime -= Time.deltaTime;
+        CurrentTime = Mathf.Max(0, CurrentTime);  // in case of overtime in tutorial
         NotifyTimeUpdate?.Invoke((int)CurrentTime);
     }
 
@@ -94,7 +99,7 @@ public class ScoreManager : MonoBehaviour
         totalStars += stars;
         currentParents++;
 
-        if (currentParents == FindObjectOfType<ParentSpawnManager>().NumberOfParents)
+        if (LevelsManager.Instance.IsTutorial || currentParents == FindObjectOfType<ParentSpawnManager>().NumberOfParents)
         {
             StartCoroutine(EndGame());
         }
