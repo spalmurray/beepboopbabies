@@ -7,8 +7,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
 public class CharacterData : MonoBehaviour
 {
+
+    
     public Transform[] players;
     public GameObject[] playerSelectUIs;
     public TextMeshProUGUI gameStartingText;
@@ -55,6 +58,7 @@ public class CharacterData : MonoBehaviour
     
     public void StartGame()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
