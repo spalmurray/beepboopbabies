@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 989858243480056883}
   m_Layer: 0
   m_Name: bottle
-  m_TagString: Untagged
+  m_TagString: Bottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPickedUp: 0
+  inStation: 0
   explosiveOffset: 5
   maxAmount: 100
   currentAmount: 100

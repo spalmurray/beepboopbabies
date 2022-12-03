@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Shootable
   - Interactable
+  - Bottle
+  - ParentPick
   layers:
   - Default
   - TransparentFX

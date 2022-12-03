@@ -1,11 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu2 : MonoBehaviour
 {
-    // Update is called once per frame
+    [SerializeField]
+    private Slider SFX, MUSIC;
+    [SerializeField]
+    private Dropdown dropdown;
     private void Update()
     {
+        LevelsManager.Instance.Level = dropdown.value;
+        PlayerPrefs.SetFloat("sfx", SFX.value);
+        PlayerPrefs.SetFloat("music", MUSIC.value);
         var quitKey = KeyCode.Escape;
         var nextKey = KeyCode.Space;
 
@@ -21,6 +28,12 @@ public class MainMenu2 : MonoBehaviour
 
     public void PlayGame()
     {
+        LevelsManager.Instance.Level = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void ContineGame()
+    {
+        if (LevelsManager.Instance.Level > LevelsManager.Instance.UnLockLevel) return;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

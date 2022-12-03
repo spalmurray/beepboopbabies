@@ -12,7 +12,7 @@ public class PickUpInteractable : Interactable
         base.Awake();
         rb = GetComponent<Rigidbody>();
     }
-    
+
     public override void Interact(GameObject other)
     {
         var state = other.GetComponent<AgentState>();
@@ -50,6 +50,10 @@ public class PickUpInteractable : Interactable
 
     public void Drop(AgentState state)
     {
+        if (isPickedUp && transform.CompareTag("Bottle"))//transform.CompareTag("Bottle")
+            CharacterUpdate.Instance.PlayKickingBottle();
+        if (isPickedUp && transform.parent.CompareTag("ParentPick"))
+            CharacterUpdate.Instance.PlayParentsComing();
         state.pickedUpObject = null;
         rb.isKinematic = false;
         rb.detectCollisions = true;

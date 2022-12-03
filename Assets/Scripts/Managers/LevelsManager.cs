@@ -6,10 +6,12 @@ public class LevelsManager
 {
     public static LevelsManager Instance = new LevelsManager();
 
-    public int Level { get; private set; }
+    public int Level { get; set; }
+    public int UnLockLevel { get; set; }
 
     public void NextLevel()
     {
+        UnLockLevel++;
         Level++;
     }
 }
