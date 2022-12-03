@@ -20,5 +20,5 @@ public class StationInteractable : GenericStationInteractable<BabyPickUpInteract
           }
      }
 
-     public override void FixStationObject() {}
+     public override void FixStationObject(bool isFixing) {}
 }

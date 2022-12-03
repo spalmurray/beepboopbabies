@@ -186,12 +186,12 @@ public class PlayerController : MonoBehaviour
     public void OnKick(InputValue value)
     {
         var buttonDown = value.Get<float>() != 0;
-        if (buttonDown && state.interactable != null && state.pickedUpObject == null)
+        if (state.interactable != null && state.pickedUpObject == null)
         {
             var station = state.interactable.gameObject.GetComponent<StationInteractable>();
             if (station != null)
             {
-                station.FixStationObject();
+                station.FixStationObject(buttonDown);
             }
         } 
         else if (buttonDown && !IsKicking)

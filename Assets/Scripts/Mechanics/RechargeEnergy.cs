@@ -15,6 +15,7 @@ public class RechargeEnergy : MonoBehaviour
         station = GetComponent<StationInteractable>();
         
         var audioPlayer = GetComponent<BabyStationAudioPlayer>();
+        station.HandlePlaceEvent += audioPlayer.HandleBabyPlaced;
         audioPlayer.shouldStartAudio = baby => baby.currentEnergy < baby.energy - 1;
         audioPlayer.shouldEndAudio = baby => baby.currentEnergy >= baby.energy - 1;
     }

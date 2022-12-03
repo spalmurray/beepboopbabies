@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class DiaperStationInteractable : StationInteractable
 {
-    // Start is called before the first frame update
-    public float diaperIncrement = 3f;
-    // Start is called before the first frame update
-    public override void FixStationObject()
+    public float diaperIncrement = 8f;
+
+    private bool isChangingDiaper;
+    
+    public override void FixStationObject(bool isFixing)
     {
-        Baby.IncreaseDiaper(diaperIncrement);
+        isChangingDiaper = isFixing;
+        GetComponent<BabyStationAudioPlayer>().HandleBabyPlaced(isFixing);
+    }
+
+    private void Update()
+    {
+        if (isChangingDiaper)
+        {
+            Baby.IncreaseDiaper(diaperIncrement * Time.deltaTime);
+        }
     }
 }

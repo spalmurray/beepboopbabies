@@ -53,5 +53,5 @@ public abstract class GenericStationInteractable<T> : Interactable where T : Pic
             droppingObject.inStation = false;
         }
     }
-    public abstract void FixStationObject();
+    public abstract void FixStationObject(bool isFixing);
 }

@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUpObject: {fileID: 0}
-  diaperIncrement: 3
+  diaperIncrement: 8
 --- !u!1 &8789993569997434057
 GameObject:
   m_ObjectHideFlags: 0
