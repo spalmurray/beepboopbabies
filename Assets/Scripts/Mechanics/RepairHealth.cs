@@ -10,6 +10,7 @@ public class RepairHealth : MonoBehaviour
     private StationInteractable station;
     
     public float healthIncreasePerSecond = 5f;
+    private static readonly int Repair = Animator.StringToHash("Repair");
 
     private void Awake()
     {
@@ -35,10 +36,12 @@ public class RepairHealth : MonoBehaviour
         if (placeInStation)
         {
             station.Baby.uiController.SetAlwaysActive(health: true);
+            station.Baby.anim.SetBool(Repair, true);
         }
         else
         {
             station.Baby.uiController.SetAlwaysActive(health: false);
+            station.Baby.anim.SetBool(Repair, false);
         }
     }
 }
