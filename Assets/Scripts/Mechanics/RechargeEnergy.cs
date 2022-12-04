@@ -9,6 +9,7 @@ public class RechargeEnergy : MonoBehaviour
     public float incrementAmount = 5f;
     // Start is called before the first frame update
     private StationInteractable station;
+    private static readonly int Recharge = Animator.StringToHash("Recharge");
 
     private void Awake()
     {
@@ -35,10 +36,12 @@ public class RechargeEnergy : MonoBehaviour
         if (placeInStation)
         {
             station.Baby.uiController.SetAlwaysActive(energy: true);
+            station.Baby.anim.SetBool(Recharge, true);
         }
         else
         {
             station.Baby.uiController.SetAlwaysActive(energy: false);
+            station.Baby.anim.SetBool(Recharge, false);
         }
     }
 

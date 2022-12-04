@@ -1,18 +1,21 @@
 using Pada1.BBCore;
-using Pada1.BBCore.Framework;
+using Pada1.BBCore.Tasks;
+using UnityEngine;
+// Code attributes
 
 // ConditionBase
-namespace BBUnity.Conditions
+namespace BBUnity.Actions
 {
-    [Condition("MyConditions/CheckForObject")]
-    [Help("Checks whether Agent is interacting with an Object that matches a unique Id")]
-    public class CheckForObject : ConditionBase
+    [Action("MyActions/CheckForObject")]
+    [Help("Checks if the picked up object is gone")]
+    public class CheckForObject : GOAction
     {
-        [InParam("state")] public AgentState state;
+        [InParam("state")] public ParentState state;
 
-        public override bool Check()
+        // Main class method, invoked by the execution engine.
+        public override TaskStatus OnUpdate()
         {
-            return state.pickedUpObject != null;
-        }
+            return state.pickedUpObject != null ? TaskStatus.COMPLETED : TaskStatus.FAILED;
+        } // OnUpdate
     }
 }

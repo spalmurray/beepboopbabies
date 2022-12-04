@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PickUpInteractable : Interactable
@@ -47,7 +48,7 @@ public class PickUpInteractable : Interactable
         isPickedUp = true;
         HandlePickedUp?.Invoke();
     }
-
+    
     public void Drop(AgentState state)
     {
         if (isPickedUp && transform.CompareTag("Bottle"))//transform.CompareTag("Bottle")

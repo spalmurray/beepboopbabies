@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private float kickSpeed;
     private KickableInteractable kickingObject;
     private static readonly int Walk = Animator.StringToHash("Walk");
+    private static readonly int Fixing = Animator.StringToHash("Fixing");
 
     private bool IsKicking => kickingObject != null;
     private bool IsMoving => !IsKicking && inputDirection != Vector2.zero;
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller.SetPosition(startPosition);
+        StartCoroutine(TriggerIdleLoop());
     }
 
     private void Update()
@@ -142,6 +145,17 @@ public class PlayerController : MonoBehaviour
         
         controller.Move(playerVelocity * Time.deltaTime);
     }
+    
+    
+    IEnumerator TriggerIdleLoop()
+    {
+        while (true)
+        {
+            //yield on a new YieldInstruction that waits for 20 seconds.
+            yield return new WaitForSeconds(20);
+            anim.SetTrigger("Idle");
+        }
+    }
 
     public void OnMove(InputValue value)
     {
@@ -192,6 +206,7 @@ public class PlayerController : MonoBehaviour
             if (station != null)
             {
                 station.FixStationObject(buttonDown);
+                anim.SetBool(Fixing, buttonDown);
             }
         } 
         else if (buttonDown && !IsKicking)
@@ -207,6 +222,7 @@ public class PlayerController : MonoBehaviour
                 var kickObj = state.interactable.GetComponent<KickableInteractable>();
                 if (!kickObj) return;
                 state.interactable.Interact(gameObject);
+                anim.SetTrigger("Kick");
                 kickingObject = kickObj;
             }
         }
@@ -215,7 +231,7 @@ public class PlayerController : MonoBehaviour
             // Release if was previously still kicking
             // Drop picked up object before kicking
             state.pickedUpObject.Interact(gameObject);
-            
+            anim.SetTrigger("Kick");
             kickingObject.Kick(KickDirection * kickSpeed);
             ResetKick();
         }

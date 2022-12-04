@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class CharacterBun : MonoBehaviour
 {
     public PlayerInput playerInput;
-    
+
     private void OnEnable()
     {
         var index = playerInput.devices

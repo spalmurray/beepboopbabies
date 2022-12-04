@@ -6103,7 +6103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ead0b385a3520e4fadda9c07d17cb3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropdown: {fileID: 0}
   players:
   - {fileID: 1724000989}
   - {fileID: 967876855}

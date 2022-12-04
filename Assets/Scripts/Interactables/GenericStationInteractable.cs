@@ -24,8 +24,9 @@ public abstract class GenericStationInteractable<T> : Interactable where T : Pic
     {
         var otherAgent = other.GetComponent<AgentState>();
         if (otherAgent == null) return;
-
+        
         if (otherAgent.pickedUpObject != null && otherAgent.pickedUpObject is not T) return;
+
         var newPickUpObject = otherAgent.pickedUpObject as T;
 
         var agent = GetComponent<AgentState>();

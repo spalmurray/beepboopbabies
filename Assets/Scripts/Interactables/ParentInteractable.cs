@@ -13,6 +13,11 @@ public class ParentInteractable : StationInteractable
     }
     public override void Interact(GameObject other)
     {
+        if (!state.isLeaving)
+        {
+            base.Interact(other);
+            return;
+        }
         var otherAgent = other.GetComponent<AgentState>();
         if (otherAgent.pickedUpObject == null) return;
         var pickedUpObject = otherAgent.pickedUpObject.gameObject;

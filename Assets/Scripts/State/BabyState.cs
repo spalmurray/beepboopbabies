@@ -28,8 +28,8 @@ public class BabyState : AgentState
     [HideInInspector] public bool rechargeBaby;
     [HideInInspector] public bool rediaperBaby;
     [HideInInspector] public bool rechargeOil;
-    public bool isFlying = false;
-    [HideInInspector] public bool onGround = false;
+    [HideInInspector] public bool onGround;
+    public bool isFlying;
     public float GetCurrent()
     {
         return (currentEnergy + currentDiaper + currentHealth + currentFun + currentOil) / 500;
