@@ -551,10 +551,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.32521766
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.008324057, y: 0, z: -0.034366272}
 --- !u!195 &4096187092205034611
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -595,7 +595,8 @@ MonoBehaviour:
   childId: 0
   isLeaving: 0
   readyForPickUp: 0
-  currentTargetPoint: {fileID: 0}
+  currentTargetPoint: {x: 0, y: 0, z: 0}
+  waitPoint: {x: 0, y: 0, z: 0}
   frontOfQueue: 0
 --- !u!114 &4942547138861752171
 MonoBehaviour:
@@ -644,8 +645,10 @@ MonoBehaviour:
     vector2ParamsLostDefaultValue: 
     vector3Params:
     - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
     vector3ParamsNames:
     - LeavePoint
+    - ExitPoint
     vector3ParamsLostDefaultValue: 
     vector4Params: []
     vector4ParamsNames: []
