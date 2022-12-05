@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class HealthStationInteractble : StationInteractable
 {
     // Start is called before the first frame update
     public float healthIncrement = 5f;
+    private bool isRepairing;
     public override void Interact(GameObject other)
     {
         var state = other.GetComponent<AgentState>();
@@ -32,8 +34,17 @@ public class HealthStationInteractble : StationInteractable
         }
     }
 
-    public override void FixStationObject()
+    public override void FixStationObject(bool isFixing)
     {
-        Baby.IncreaseHealth(healthIncrement);
+        isRepairing = isFixing;
+        GetComponent<BabyStationAudioPlayer>().HandleBabyPlaced(isFixing);
+    }
+
+    private void Update()
+    {
+        if (isRepairing)
+        {
+            Baby.IncreaseHealth(healthIncrement * Time.deltaTime);
+        }
     }
 }

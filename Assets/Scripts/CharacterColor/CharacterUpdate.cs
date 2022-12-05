@@ -8,7 +8,7 @@ public class CharacterUpdate : MonoBehaviour
     public Color[] colors;
     public int index = -1;
     public int CharacterNum = 0;
-    public AudioClip KickingSound;
+    public AudioClip KickingSound,KickingBottle, ParentsComing;
     private void Awake()
     {
         Instance = this;
@@ -21,5 +21,17 @@ public class CharacterUpdate : MonoBehaviour
     public void PlayKickingSound()
     {
         GetComponent<AudioSource>().PlayOneShot(KickingSound);
+    }
+    public void PlayKickingBottle()
+    {
+        GetComponent<AudioSource>().PlayOneShot(KickingBottle);
+    }
+    public void StopPlay()
+    {
+        GetComponent<AudioSource>().Stop();
+    }
+    public void PlayParentsComing()
+    {
+        GetComponent<AudioSource>().PlayOneShot(ParentsComing);
     }
 }

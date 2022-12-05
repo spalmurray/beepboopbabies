@@ -19,11 +19,10 @@ public class BabyStationAudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<StationInteractable>().HandlePlaceEvent += HandleBabyPlaced;
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void HandleBabyPlaced(bool placed)
+    public void HandleBabyPlaced(bool placed)
     {
         if (placed)
         {

@@ -22,7 +22,7 @@ public class BabyController : MonoBehaviour
     public Collider capsuleCollider;
     public Collider[] allCollider;
     // all the rigidbodies used by ragdoll
-    public List <Rigidbody> ragdollRigidBodies;
+    public List<Rigidbody> ragdollRigidBodies;
     // animator used to controll different animation state of the character
     public Animator anim;
     // colliders that needs to be enabled when not using ragdoll
@@ -64,11 +64,13 @@ public class BabyController : MonoBehaviour
         ragdollRigidBodies = new List<Rigidbody>();
         capsuleCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-        foreach(var collider in allCollider) {
+        foreach (var collider in allCollider)
+        {
             if (collider.transform != transform) // if this is not parent transform
             {
                 var rag_rb = collider.GetComponent<Rigidbody>(); // get attached rigidbody
-                if (rag_rb) {
+                if (rag_rb)
+                {
                     ragdollRigidBodies.Add(rag_rb); // add to list
                 }
             }
@@ -85,14 +87,14 @@ public class BabyController : MonoBehaviour
         interactable.HandlePickedUp += HandlePickedUp;
         interactable.HandleKicked += HandleKicked;
     }
-    
+
     public void OnDisable()
     {
         interactable.HandlePickedUp -= HandlePickedUp;
         interactable.HandleKicked -= HandleKicked;
     }
-    
-    
+
+
 
     private void Update()
     {
@@ -104,6 +106,20 @@ public class BabyController : MonoBehaviour
         DecreaseEnergy();
         SetAlwaysActive();
         HandleConsequence();
+        //Increased water sound
+        if (transform.GetChild(2).childCount != 0)
+        {
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                CharacterUpdate.Instance.StopPlay();
+                GetComponent<AudioSource>().Play();
+            }
+        }
+        else
+        {
+            if (GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Stop();
+        }
     }
 
     public void HandleAnimation()
@@ -124,7 +140,7 @@ public class BabyController : MonoBehaviour
         {
             healthZero = true;
             //explodeSound.Stop();
-			explodeSound.Play();
+            explodeSound.Play();
             // explodes when health is 0
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Collider[] colliders = Physics.OverlapSphere(transform.position, state.explosionRadius);
@@ -137,7 +153,7 @@ public class BabyController : MonoBehaviour
                     baby.KickExplosive(state.explosionForce, transform.position, state.explosionRadius);
                 }
             }
-            for(int i = 0; i < bodyParts.Count; i++)
+            for (int i = 0; i < bodyParts.Count; i++)
             {
                 DetachBodyPart(i);
             }
@@ -192,7 +208,7 @@ public class BabyController : MonoBehaviour
 
     public bool SetBodyPart(BodyPartInteractable.BodyPartType type, Material mat)
     {
-        for(int i = 0; i < bodyParts.Count; i++)
+        for (int i = 0; i < bodyParts.Count; i++)
         {
             // find body part with the same type
             var bodyPart = bodyParts[i].GetComponent<BodyPartInteractable>();
@@ -201,7 +217,8 @@ public class BabyController : MonoBehaviour
                 if (type == BodyPartInteractable.BodyPartType.RightLeg)
                 {
                     rightLegMissing = false;
-                } else if (type == BodyPartInteractable.BodyPartType.LeftLeg)
+                }
+                else if (type == BodyPartInteractable.BodyPartType.LeftLeg)
                 {
                     leftLegMissing = false;
                 }
@@ -225,14 +242,14 @@ public class BabyController : MonoBehaviour
         state.currentEnergy = Math.Clamp(state.currentEnergy, 0f, state.energy);
         uiController.UpdateEnergyBar(state.energy, state.currentEnergy);
     }
-    
+
     public void IncreaseDiaper(float incrementAmount)
     {
         state.currentDiaper += incrementAmount;
         state.currentDiaper = Math.Clamp(state.currentDiaper, 0f, state.diaper);
         uiController.UpdateDiaperBar(state.diaper, state.currentDiaper);
     }
-    
+
     public void IncreaseHealth(float incrementAmount)
     {
         state.currentHealth += incrementAmount;
@@ -246,12 +263,12 @@ public class BabyController : MonoBehaviour
         if (state.isFlying)
         {
             state.currentFun = Mathf.Min(state.currentFun + funIncreasePerSecondFlying * Time.deltaTime, state.fun);
-            uiController.SetAlwaysActive(fun:true);
+            uiController.SetAlwaysActive(fun: true);
         }
         else
         {
             state.currentFun = Mathf.Max(state.currentFun - funDecreasePerSecondIdle * Time.deltaTime, 0);
-            uiController.SetAlwaysActive(fun:false);
+            uiController.SetAlwaysActive(fun: false);
         }
         uiController.UpdateFunBar(state.fun, state.currentFun);
     }
@@ -274,12 +291,12 @@ public class BabyController : MonoBehaviour
         else if (state.pickedUpObject is BottleInteractable dropBottle && state.currentOil >= state.oil)
         {
             dropBottle.Drop(state);
-        } 
-        else 
+        }
+        else
         {
             state.currentOil = Mathf.Max(state.currentOil - decrementAmountOil * Time.deltaTime, 0);
             uiController.UpdateOilBar(state.oil, state.currentOil);
-            uiController.SetAlwaysActive(oil:false);
+            uiController.SetAlwaysActive(oil: false);
         }
     }
 
@@ -325,14 +342,16 @@ public class BabyController : MonoBehaviour
             if (part.bodyPartType == BodyPartInteractable.BodyPartType.LeftLeg)
             {
                 leftLegMissing = true;
-            } else if (part.bodyPartType == BodyPartInteractable.BodyPartType.RightLeg)
+            }
+            else if (part.bodyPartType == BodyPartInteractable.BodyPartType.RightLeg)
             {
                 rightLegMissing = true;
             }
         }
     }
-    
-    public void EnableRagdoll(bool enableRagdoll) {
+
+    public void EnableRagdoll(bool enableRagdoll)
+    {
         ragdoll = enableRagdoll;
         anim.enabled = !enableRagdoll;
         rb.isKinematic = true;
@@ -347,10 +366,12 @@ public class BabyController : MonoBehaviour
             capsuleCollider.isTrigger = false;
             interactable.UnlockBaby();
         }
-        foreach(Collider item in allCollider) {
+        foreach (Collider item in allCollider)
+        {
             item.enabled = enableRagdoll; // enable all colliders  if ragdoll is set to enabled
         }
-        foreach(var ragdollRigidBody in ragdollRigidBodies) {
+        foreach (var ragdollRigidBody in ragdollRigidBodies)
+        {
             ragdollRigidBody.useGravity = enableRagdoll; // make rigidbody use gravity if ragdoll is active
             ragdollRigidBody.isKinematic = !enableRagdoll; // enable or disable kinematic accordig to enableRagdoll variable
         }
@@ -364,8 +385,12 @@ public class BabyController : MonoBehaviour
             {
                 state.isFlying = false;
                 // interactable.EnableAI();
-                // randomly choose a body part
-                DetachBodyPart(Random.Range(0, bodyPartsToHide.Count));
+                // Sometimes, baby will lose bodypart
+                if (UnityEngine.Random.Range(0, 100) < 25)
+                {
+                  // randomly choose a body part
+                    DetachBodyPart(UnityEngine.Random.Range(0, bodyPartsToHide.Count));
+                }
                 state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
                 state.currentHealth = Mathf.Min(state.currentHealth, state.healthcap);
                 uiController.UpdateHealthBar(state.health, state.currentHealth);
@@ -381,7 +406,7 @@ public class BabyController : MonoBehaviour
             }
         }
     }
-    
+
     private IEnumerator TemporaryAlert(bool? health = null, bool? energy = null, bool? diaper = null, bool? fun = null, bool? oil = null)
     {
         uiController.SetAlwaysActive(health, energy, diaper, fun, oil);

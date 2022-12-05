@@ -10,14 +10,12 @@ namespace BBUnity.Actions
     [Help("Updates the Score by specified amount")]
     public class UpdateScore : GOAction
     {
-        [InParam("state")] public AgentState state;
-
         // Main class method, invoked by the execution engine.
         public override TaskStatus OnUpdate()
         {
             var hud = GameObject.Find("HUD");
             var scoreManager = hud.GetComponent<ScoreManager>();
-            var babyState = state.pickedUpObject.GetComponent<BabyState>();
+            var babyState = gameObject.GetComponent<ParentState>().pickedUpObject.GetComponent<BabyState>();
             scoreManager.RegisterPickedUpBaby(babyState);
             return TaskStatus.COMPLETED;
         } // OnUpdate

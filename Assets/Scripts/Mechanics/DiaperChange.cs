@@ -9,6 +9,7 @@ public class DiaperChange : MonoBehaviour
 
     // Start is called before the first frame update
     private StationInteractable station;
+    private static readonly int Diaper = Animator.StringToHash("Diapers");
 
     private void Awake()
     {
@@ -34,10 +35,12 @@ public class DiaperChange : MonoBehaviour
         if (placeInStation)
         {
             station.Baby.uiController.SetAlwaysActive(diaper: true);
+            station.Baby.anim.SetBool(Diaper, true);
         }
         else
         {
             station.Baby.uiController.SetAlwaysActive(diaper: false);
+            station.Baby.anim.SetBool(Diaper, false);
         }
     }
 }

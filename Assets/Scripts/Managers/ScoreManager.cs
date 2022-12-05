@@ -48,7 +48,8 @@ public class ScoreManager : MonoBehaviour
         if (CurrentTime < 0 && !IsGameOver && !LevelsManager.Instance.IsTutorial)
         {
             Debug.Log("New Game Over!");
-            PlayerPrefs.SetFloat("music", 0);
+            GameObject.Find("babis level music").GetComponent<AudioSource>().enabled = false;
+            //PlayerPrefs.SetFloat("music", 0);
             StartCoroutine(EndGame());
         }
     }

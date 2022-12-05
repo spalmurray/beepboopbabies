@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUpObject: {fileID: 0}
+  healthIncrement: 25
 --- !u!1 &4120720235115747755
 GameObject:
   m_ObjectHideFlags: 0

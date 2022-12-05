@@ -49,9 +49,12 @@ public class PlayerController : MonoBehaviour
     private float kickSpeed;
     private KickableInteractable kickingObject;
     private static readonly int Walk = Animator.StringToHash("Walk");
+    private static readonly int Fixing = Animator.StringToHash("Fixing");
+
+    private bool isFixing;
 
     private bool IsKicking => kickingObject != null;
-    private bool IsMoving => !IsKicking && inputDirection != Vector2.zero;
+    private bool IsMoving => !IsKicking && !isFixing && inputDirection != Vector2.zero;
 
     private Vector3 KickDirection
     {
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         controller.SetPosition(startPosition);
+        StartCoroutine(TriggerIdleLoop());
     }
 
     private void Update()
@@ -84,8 +88,9 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero || IsKickingWithMouse)
+        if (!isFixing && (move != Vector3.zero || IsKickingWithMouse))
         {
+            // Rotation
             if (move != Vector3.zero && IsKicking)
             {
                 // Keyboard input received, use that instead of mouse
@@ -128,6 +133,12 @@ public class PlayerController : MonoBehaviour
             kickTrajectoryRenderer.ClearTrajectory();
         }
 
+        if (isFixing)
+        {
+            playerVelocity.x = 0;
+            playerVelocity.z = 0;
+        }
+
         if (IsMoving && !ScoreManager.Instance.IsGameOver)
         {
             anim.SetBool(Walk, true);
@@ -146,6 +157,17 @@ public class PlayerController : MonoBehaviour
         }
         
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+    
+    
+    IEnumerator TriggerIdleLoop()
+    {
+        while (true)
+        {
+            //yield on a new YieldInstruction that waits for 20 seconds.
+            yield return new WaitForSeconds(20);
+            anim.SetTrigger("Idle");
+        }
     }
 
     public void OnMove(InputValue value)
@@ -198,12 +220,14 @@ public class PlayerController : MonoBehaviour
     public void OnKick(InputValue value)
     {
         var buttonDown = value.Get<float>() != 0;
-        if (buttonDown && state.interactable != null && state.pickedUpObject == null)
+        if (state.interactable != null && state.pickedUpObject == null)
         {
             var station = state.interactable.gameObject.GetComponent<StationInteractable>();
             if (station != null)
             {
-                station.FixStationObject();
+                isFixing = buttonDown;
+                station.FixStationObject(buttonDown);
+                anim.SetBool(Fixing, buttonDown);
             }
         } 
         else if (buttonDown && !IsKicking)
@@ -219,6 +243,7 @@ public class PlayerController : MonoBehaviour
                 var kickObj = state.interactable.GetComponent<KickableInteractable>();
                 if (!kickObj) return;
                 state.interactable.Interact(gameObject);
+                anim.SetTrigger("Kick");
                 kickingObject = kickObj;
             }
         }
@@ -227,7 +252,7 @@ public class PlayerController : MonoBehaviour
             // Release if was previously still kicking
             // Drop picked up object before kicking
             state.pickedUpObject.Interact(gameObject);
-            
+            anim.SetTrigger("Kick");
             kickingObject.Kick(KickDirection * kickSpeed);
             ResetKick();
         }
