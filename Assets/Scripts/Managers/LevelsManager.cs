@@ -8,14 +8,24 @@ public class LevelsManager
     public static LevelsManager Instance = new LevelsManager();
 
     public int Level { get; set; }
-    public int UnLockLevel { get; private set; }
+
+    public int UnlockedLevel
+    {
+        get => PlayerPrefs.GetInt("UnlockedLevel", 0);
+        private set => PlayerPrefs.SetInt("UnlockedLevel", value);
+    }
 
     public bool IsTutorial => Level == 0;
 
     public void NextLevel()
     {
-        UnLockLevel++;
+        UnlockedLevel++;
         Level++;
+    }
+
+    private LevelsManager()
+    {
+        Level = UnlockedLevel;
     }
 
     public void LoadNextLevelScene()

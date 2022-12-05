@@ -8964,7 +8964,8 @@ MonoBehaviour:
   theme: {fileID: 1609792222}
   win: {fileID: 1801222490}
   fail: {fileID: 206540847}
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: de73c8b1046700343a24ea561581b8e3, type: 3}
 --- !u!114 &1448595098
 MonoBehaviour:
   m_ObjectHideFlags: 0
