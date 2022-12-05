@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using BBUnity.Actions;
 using UnityEngine;
-using BBUnity.Conditions;
 using TMPro;
 
 public class TutorialSequenceController : MonoBehaviour

@@ -23,7 +23,7 @@ public class ParentSpawnManager : MonoBehaviour
     public Transform waitPoint;
     public Transform exitPoint;
 
-    public int NumberOfParents => 4 + LevelsManager.Instance.Level;
+    public virtual int NumberOfParents => 4 + (LevelsManager.Instance.Level - 1);
     private BehaviorExecutor behaviorExecutorParent;
     // track all babies in the game
     private List<GameObject> children = new();
@@ -34,7 +34,7 @@ public class ParentSpawnManager : MonoBehaviour
     private Queue<GameObject> parentsWaitingForPickup = new();
     
 
-    private void Start()
+    protected virtual void Start()
     {
         childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Chad", "Linda", "Bruce", "Penelope", "Jillian", "Carter" };
         StartCoroutine(SpawnMultipleParents());
@@ -94,7 +94,7 @@ public class ParentSpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnMultipleParents()
+    protected IEnumerator SpawnMultipleParents()
     {
         // Shuffle the list of textures so each parent/child gets a unique one
         var rng = new System.Random();

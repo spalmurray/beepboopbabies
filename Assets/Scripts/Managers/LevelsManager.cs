@@ -7,10 +7,10 @@ public class LevelsManager
 {
     public static LevelsManager Instance = new LevelsManager();
 
-    public int Level { get; set; } = -1;
-    public int UnLockLevel { get; set; }
+    public int Level { get; set; }
+    public int UnLockLevel { get; private set; }
 
-    public bool IsTutorial => Level == -1;
+    public bool IsTutorial => Level == 0;
 
     public void NextLevel()
     {
