@@ -378,8 +378,12 @@ public class BabyController : MonoBehaviour
             {
                 state.isFlying = false;
                 // interactable.EnableAI();
-                // randomly choose a body part
-                DetachBodyPart(Random.Range(0, bodyPartsToHide.Count));
+                // Sometimes, baby will lose bodypart
+                if (UnityEngine.Random.Range(0, 100) < 25)
+                {
+                  // randomly choose a body part
+                    DetachBodyPart(UnityEngine.Random.Range(0, bodyPartsToHide.Count));
+                }
                 state.currentHealth = Mathf.Max(state.currentHealth - healthDecreasePerDrop, 0);
                 state.currentHealth = Mathf.Min(state.currentHealth, state.healthcap);
                 uiController.UpdateHealthBar(state.health, state.currentHealth);

@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106facb48a1e79746b2f0d9c9e4e35c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incrementAmount: 20
+  incrementAmount: 50
 --- !u!114 &4565045519344408866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUpObject: {fileID: 0}
-  diaperIncrement: 8
+  diaperIncrement: 50
 --- !u!1 &8789993569997434057
 GameObject:
   m_ObjectHideFlags: 0

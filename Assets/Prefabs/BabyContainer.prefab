@@ -1069,8 +1069,8 @@ MonoBehaviour:
   rechargeBaby: 0
   rediaperBaby: 0
   rechargeOil: 0
-  isFlying: 0
   onGround: 0
+  isFlying: 0
 --- !u!114 &434532449779671709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,11 +1095,11 @@ MonoBehaviour:
   ragdollRigidBodies: []
   anim: {fileID: 4649954827600401395}
   rb: {fileID: 0}
-  decrementAmountEnergy: 1.5
+  decrementAmountEnergy: 1
   decrementAmountDiaper: 1.5
   oilDrinkAmountOil: 25
-  decrementAmountOil: 2
-  funDecreasePerSecondIdle: 2
+  decrementAmountOil: 1
+  funDecreasePerSecondIdle: 1
   funIncreasePerSecondFlying: 100
   bodyParts:
   - {fileID: 6953705972608006578, guid: 4858f945bc31559468aee84491e7039e, type: 3}
