@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ba18abf79fb4c49be6935786778df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundRole: sfx
+  SoundRole: music
 --- !u!82 &206540847
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12984,7 +12984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ba18abf79fb4c49be6935786778df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundRole: sfx
+  SoundRole: music
 --- !u!1 &1824003007
 GameObject:
   m_ObjectHideFlags: 0
