@@ -47,8 +47,10 @@ public class PlayerController : MonoBehaviour
     private static readonly int Walk = Animator.StringToHash("Walk");
     private static readonly int Fixing = Animator.StringToHash("Fixing");
 
+    private bool isFixing;
+
     private bool IsKicking => kickingObject != null;
-    private bool IsMoving => !IsKicking && inputDirection != Vector2.zero;
+    private bool IsMoving => !IsKicking && !isFixing && inputDirection != Vector2.zero;
 
     private Vector3 KickDirection
     {
@@ -82,8 +84,9 @@ public class PlayerController : MonoBehaviour
         // Only allow moving while not kicking
         var move = new Vector3(inputDirection.x, 0, inputDirection.y);
 
-        if (move != Vector3.zero || IsKickingWithMouse)
+        if (!isFixing && (move != Vector3.zero || IsKickingWithMouse))
         {
+            // Rotation
             if (move != Vector3.zero && IsKicking)
             {
                 // Keyboard input received, use that instead of mouse
@@ -124,6 +127,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             kickTrajectoryRenderer.ClearTrajectory();
+        }
+
+        if (isFixing)
+        {
+            playerVelocity.x = 0;
+            playerVelocity.z = 0;
         }
 
         if (IsMoving && !ScoreManager.Instance.IsGameOver)
@@ -205,6 +214,7 @@ public class PlayerController : MonoBehaviour
             var station = state.interactable.gameObject.GetComponent<StationInteractable>();
             if (station != null)
             {
+                isFixing = buttonDown;
                 station.FixStationObject(buttonDown);
                 anim.SetBool(Fixing, buttonDown);
             }
