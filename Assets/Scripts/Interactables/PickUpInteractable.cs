@@ -40,8 +40,6 @@ public class PickUpInteractable : Interactable
         state.pickedUpObject = this;
         rb.isKinematic = true;
         rb.detectCollisions = false;
-        // clear the interactable slot so the agent can interact with other objects
-        state.interactable = null;
         // set the agent to non interactable so Triggers won't collide with it
         gameObject.layer = LayerMask.NameToLayer("NonInteractable");
         outline.OutlineMode = Outline.Mode.OutlineHidden;

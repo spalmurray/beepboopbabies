@@ -58,14 +58,11 @@ public class ParentSpawnManager : MonoBehaviour
             parentTexture.AddRange(shiftedParentTextures);
             childTexture.AddRange(shiftedChildTextures);
         }
-        Debug.Log("numberofparents " + NumberOfParents);
-        Debug.Log(parentTexture.Count);
         StartCoroutine(SpawnMultipleParents());
     }
 
     private void Update()
     {
-        Debug.Log($"Parents in line: {parentsInLine.Count}");
         if (parentsInLine.Count > 0)
         {
             var parentAtFront = parentsInLine.Peek();
@@ -94,8 +91,6 @@ public class ParentSpawnManager : MonoBehaviour
                 parentsWaiting.Enqueue(parentsWaitingForPickup.Dequeue());
             }
         }
-        Debug.Log($"Parents waiting for pick up: {parentsWaitingForPickup.Count}");
-        Debug.Log($"Parents waiting: {parentsWaiting.Count}");
         // queue the parents waiting
         while (parentsInLine.Count < lineUpPoints.Count && parentsWaiting.TryPeek(out _))
         {
