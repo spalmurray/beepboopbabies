@@ -20,6 +20,12 @@ public class TutorialSequenceController : MonoBehaviour
 
     private bool healthTutorialStarted;
     private bool healthTutorialFinished;
+    
+    private const string HealthSprite = "<sprite name=\"Health\">";
+    private const string EnergySprite = "<sprite name=\"Energy\">";
+    private const string DiaperSprite = "<sprite name=\"Diaper\">";
+    private const string HappinessSprite = "<sprite name=\"Happiness\">";
+    private const string OilSprite = "<sprite name=\"Oil\">";
 
     private void Init()
     {
@@ -47,10 +53,15 @@ public class TutorialSequenceController : MonoBehaviour
         controlsUI.SetActive(false);
         SetPause(false);
 
+        yield return ShowDialog("Welcome to your robot baby daycare! It's 8:00, so the parents should be coming soon " +
+                                "to drop off their babies!");
+        yield return ShowDialog("Your goal is to take care of the babies until the parents return later in the " +
+                                "afternoon. The daycare closes at 18:00, so be sure to return the kids by then!");
+
         // Spawn parent
         yield return new WaitForSeconds(1);
         FindObjectOfType<TutorialParentSpawnManager>().SpawnParents();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.5f);
         yield return ShowDialog("A parent is here to drop off their baby! When they do, go to the baby " +
                                 "and press 'Interact' to pick them up.");
 
@@ -64,14 +75,20 @@ public class TutorialSequenceController : MonoBehaviour
         yield return WaitUntilBabyPickedUp();
 
         yield return ShowDialog(
-            "A baby has five needs: health, diaper, energy, happiness, and oil. " +
+            $"A baby has five needs: health {HealthSprite}, diaper {DiaperSprite}, energy {EnergySprite}, " +
+            $"happiness {HappinessSprite}, and oil {OilSprite}. " +
             "Health is decreased when you damage the baby, and the other four needs drain over time.");
         yield return ShowDialog(
             "At the end of the day, our score is based on how well the babies' needs are fulfilled! " +
             "Don't let the need fall to zero; otherwise bad things might happen :D");
+
+        var diaperOutline = FindObjectOfType<DiaperStationInteractable>().gameObject.GetComponent<Outline>();
+        var co = StartCoroutine(StartFlashingOutline(diaperOutline));
         yield return ShowDialog(
-            "Look, the baby needs a diaper change! Go to the diaper station (the blue table on top) " +
+            $"Look, the baby needs a diaper {DiaperSprite} change! Go to the diaper station (the blue table on top) " +
             "and interact with the diaper station with the baby picked up.");
+        StopCoroutine(co);
+        diaperOutline.OutlineMode = Outline.Mode.OutlineHidden;
 
         yield return WaitUntilBabyInDiaperStation();
         yield return ShowDialog("Nice. Now, hold down the Kick/Fix button until the diaper bar is filled.");
@@ -79,26 +96,37 @@ public class TutorialSequenceController : MonoBehaviour
         yield return new WaitUntil(() => babyState.currentDiaper >= 0.95f * babyState.diaper);
 
         yield return ShowDialog(
-            "Great. Now, the baby seems to be unhappy and needs energy. Luckily, we can fill both of these at once!");
+            $"Great. Now, the baby seems to be unhappy {HappinessSprite} and needs energy {EnergySprite}. " +
+            "Luckily, we can fill both of these at once!");
         yield return ShowDialog(
-            "To make a baby happy, we pick them up and kick them! Just remember to catch them or kick them into a " +
-            "station, otherwise they will take damage.");
+            $"To make a baby happy {HappinessSprite}, we pick them up and kick them! Just remember to catch " +
+            $"them or kick them into a station, otherwise they will take damage {HealthSprite}.");
+        
+        var rechargeOutline = FindObjectOfType<RechargeEnergy>().gameObject.GetComponent<Outline>();
+        co = StartCoroutine(StartFlashingOutline(rechargeOutline));
         yield return ShowDialog(
             "Try kicking the baby into the recharge station on the left. Hold down the kick button to charge, use " +
             "movement keys to aim, and release to kick.");
+        StopCoroutine(co);
+        rechargeOutline.OutlineMode = Outline.Mode.OutlineHidden;
         
         yield return WaitUntilBabyInRechargeStation();
         
         yield return new WaitForSeconds(0.5f);
+        
+        var oilOutline = FindObjectOfType<BottleStationInteractable>().gameObject.GetComponent<Outline>();
+        co = StartCoroutine(StartFlashingOutline(oilOutline));
         yield return ShowDialog(
-            "While we're waiting for the baby to charge, we might need to refill its oil later. " +
+            $"While we're waiting for the baby to charge, we might need to refill its oil {OilSprite} later. " +
             "Interact with the station on the bottom right to get an oil bottle.");
+        StopCoroutine(co);
+        oilOutline.OutlineMode = Outline.Mode.OutlineHidden;
 
         yield return WaitUntilBottlePickedUp();
         yield return ShowDialog("We can pick up, put down, and throw bottles just like babies.");
         yield return ShowDialog(
-            "When the baby has finished charging, take it out of the charging station and interact with it while " +
-            "holding the oil bottle. This gives the baby the bottle and it will replenish oil.");
+            $"When the baby has finished charging {EnergySprite}, take it out of the charging station and interact " +
+            $"with it while holding the oil bottle. This gives the baby the bottle and it will replenish oil {OilSprite}.");
 
         yield return new WaitUntil(() => babyState.currentOil >= babyState.oil * 0.95f);
         
@@ -116,8 +144,8 @@ public class TutorialSequenceController : MonoBehaviour
         else if (!healthTutorialFinished)
         {
             yield return ShowDialog(
-                "We should probably finish repairing the baby before the parent returns. Bring it and its missing " +
-                "body part to the repair station, and hold down the Kick/Fix button.");
+                $"We should probably finish repairing {HealthSprite} the baby before the parent returns. Bring it " +
+                "and its missing body part to the repair station, and hold down the Kick/Fix button.");
         }
         yield return new WaitUntil(() => healthTutorialFinished);
 
@@ -148,10 +176,15 @@ public class TutorialSequenceController : MonoBehaviour
         healthTutorialStarted = true;
         
         yield return ShowDialog(
-            "Oops! The baby had a hard landing and is now missing a body part. We should repair it before " +
-            "giving it back to its parent.");
-        yield return ShowDialog("First, pick up the baby and put it in the repair station, on the right.");
+            $"Oops! The baby had a hard landing and is now missing a body part. We should repair {HealthSprite} it " +
+            "before giving it back to its parent.");
 
+        var repairOutline = FindObjectOfType<RepairHealth>().GetComponent<Outline>();
+        var co = StartCoroutine(StartFlashingOutline(repairOutline));
+        yield return ShowDialog("First, pick up the baby and put it in the repair station, on the right.");
+        StopCoroutine(co);
+        repairOutline.OutlineMode = Outline.Mode.OutlineHidden;
+        
         yield return WaitUntilBabyInRepairStation();
 
         yield return ShowDialog("Go pick up the detached body parts and put them in the repair station.");
@@ -164,7 +197,7 @@ public class TutorialSequenceController : MonoBehaviour
 
         yield return new WaitUntil(() => babyState.currentHealth >= babyState.health * 0.95f);
 
-        yield return ShowDialog("Nice! The parent should be happy with the baby's health now.");
+        yield return ShowDialog($"Nice! The parent should be happy with the baby's health {HealthSprite} now.");
         
         healthTutorialFinished = true;
     }
@@ -250,6 +283,18 @@ public class TutorialSequenceController : MonoBehaviour
         yield return PollInteract();
         dialogContainer.SetActive(false);
         SetPause(false);
+    }
+
+    private IEnumerator StartFlashingOutline(Outline outline)
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(0.2f);
+            outline.OutlineMode = Outline.Mode.OutlineHidden;
+            
+            yield return new WaitForSecondsRealtime(0.2f);
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+        }
     }
 
     private bool interacted = false;
