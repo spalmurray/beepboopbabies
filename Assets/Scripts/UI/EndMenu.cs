@@ -23,7 +23,6 @@ public class EndMenu : MonoBehaviour
     {
         NextLevel.enabled = false;
         ScoreManager.Instance.HandleGameOver += ShowMenu;
-        Debug.Log(LevelsManager.Instance.Level);
         var audioClip = audioClips[LevelsManager.Instance.Level % audioClips.Length];
         theme.clip = audioClip;
         theme.Play(); //LevelsManager.Instance.NextLevel();
@@ -55,7 +54,6 @@ public class EndMenu : MonoBehaviour
             fail.loop = true;
             fail.Play();
         }
-        
     }
 
     void Update() {

@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip audioClip;//Audio for Clock
     public AudioSource AudioSource;//Audio for countdown
     private float totalStars;
-    private int currentParents = 0;
+    private int currentParents;
 
     public static ScoreManager Instance
     {
@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public float CurrentTime { get; private set; } = 150f; //set total game length
+    private float ParentReturnTime = 40f; //set parent return time
     public float AllTime { get; private set; }
 
     public bool IsGameOver { get; private set; }
@@ -34,20 +35,21 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
         AllTime = CurrentTime;
     }
-
-    private void Start()
-    {
-
-        //AudioSource = GetComponent<AudioSource>();
-        //AudioSource.PlayDelayed(145.0f);
-    }
-
+    
     private void Update()
     {
         UpdateTime();
+        // TODO:
+        if (CurrentTime < ParentReturnTime)
+        {
+            // make each parent return to their kid
+            foreach (var parent in ParentSpawnManager.Instance.parentStates)
+            {
+                parent.returnToKids = true;
+            }
+        }
         if (CurrentTime < 0 && !IsGameOver && !LevelsManager.Instance.IsTutorial)
         {
-            Debug.Log("New Game Over!");
             GameObject.Find("babis level music").GetComponent<AudioSource>().enabled = false;
             //PlayerPrefs.SetFloat("music", 0);
             StartCoroutine(EndGame());

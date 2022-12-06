@@ -387,7 +387,7 @@ public class BabyController : MonoBehaviour
                 // interactable.EnableAI();
                 // Sometimes, baby will lose bodypart
                 // Guaranteed to lose body part in tutorial
-                if (LevelsManager.Instance.IsTutorial || UnityEngine.Random.Range(0, 100) < 25)
+                if (LevelsManager.Instance.IsTutorial || Random.Range(0, 100) < 25)
                 {
                   // randomly choose a body part
                     DetachBodyPart(UnityEngine.Random.Range(0, bodyPartsToHide.Count));

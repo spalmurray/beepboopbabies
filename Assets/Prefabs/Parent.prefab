@@ -576,7 +576,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &3783832187471141651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +598,7 @@ MonoBehaviour:
   currentTargetPoint: {x: 0, y: 0, z: 0}
   waitPoint: {x: 0, y: 0, z: 0}
   frontOfQueue: 0
+  returnToKids: 0
 --- !u!114 &4942547138861752171
 MonoBehaviour:
   m_ObjectHideFlags: 0

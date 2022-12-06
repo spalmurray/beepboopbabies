@@ -186,6 +186,14 @@ public class PlayerController : MonoBehaviour
         
         if (state.interactable != null) {
             //case 1: interact with object detected by collider
+            if (isFixing)
+            {
+                // Stop fixing before picking up baby
+                isFixing = false;
+                state.interactable.GetComponent<StationInteractable>()?.FixStationObject(false);
+                anim.SetBool(Fixing, false);
+            }
+            
             state.interactable.Interact(gameObject);
             actionAudioSource.PlayOneShot(audioPickup);// the audio for pickup
         } else if (state.pickedUpObject != null) { 
