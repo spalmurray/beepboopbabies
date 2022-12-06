@@ -40,15 +40,12 @@ public class ScoreManager : MonoBehaviour
     {
         UpdateTime();
         // TODO:
-        if (CurrentTime < ParentReturnTime)
+        if (CurrentTime < ParentReturnTime && !LevelsManager.Instance.IsTutorial)
         {
             // make each parent return to their kid
-            foreach (var parent in ParentSpawnManager.Instance.parentStates)
-            {
-                parent.returnToKids = true;
-            }
+            ParentSpawnManager.Instance.ReturnParents();
         }
-        if (CurrentTime < 0 && !IsGameOver && !LevelsManager.Instance.IsTutorial)
+        if (CurrentTime <= 0 && !IsGameOver && !LevelsManager.Instance.IsTutorial)
         {
             GameObject.Find("babis level music").GetComponent<AudioSource>().enabled = false;
             //PlayerPrefs.SetFloat("music", 0);
@@ -58,7 +55,7 @@ public class ScoreManager : MonoBehaviour
 
     private IEnumerator EndGame()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(0.5f);
         
         Time.timeScale = 0f;
         Image.SetActive(true);

@@ -154,6 +154,9 @@ public class TutorialSequenceController : MonoBehaviour
         yield return ShowDialog(
             "Keep tending to the baby's needs until the parent returns. Try to keep them as high as possible to get " +
             "more stars!");
+        
+        // Make parents return early
+        ParentSpawnManager.Instance.ReturnParents();
 
         // nice hack
         CheckForObject.firstTimeChecked = false;

@@ -150,7 +150,7 @@ public class ParentSpawnManager : MonoBehaviour
             }
         }
     }
-    
+
     private void SpawnParent(Vector3 leavePoint, Vector3 targetPoint, string childName, int randomIndex, Queue<GameObject> queue)
     {
         //randomize the color, parent and child will have same color
@@ -218,6 +218,14 @@ public class ParentSpawnManager : MonoBehaviour
             behaviorExecutorChild.SetBehaviorParam("wanderArea", GameObject.Find("Floor"));
         }
         children.Add(childInstance);
+    }
+    
+    public void ReturnParents()
+    {
+        foreach (var p in parentStates)
+        {
+            p.returnToKids = true;
+        }
     }
 
     private Texture2D HueShift(Texture2D texture, float shift)
