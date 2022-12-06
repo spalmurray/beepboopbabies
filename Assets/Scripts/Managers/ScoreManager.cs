@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public float CurrentTime { get; private set; } = 150f; //set total game length
-    private float ParentReturnTime = 140f; //set parent return time
+    private float ParentReturnTime = 40f; //set parent return time
     public float AllTime { get; private set; }
 
     public bool IsGameOver { get; private set; }
