@@ -23,7 +23,7 @@ public class ParentSpawnManager : MonoBehaviour
     public Transform waitPoint;
     public Transform exitPoint;
 
-    public int NumberOfParents => 4 + LevelsManager.Instance.Level;
+    public int NumberOfParents => 10 + LevelsManager.Instance.Level;
     public List<ParentState> parentStates = new();
     private BehaviorExecutor behaviorExecutorParent;
     // track all babies in the game

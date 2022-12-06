@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip audioClip;//Audio for Clock
     public AudioSource AudioSource;//Audio for countdown
     private float totalStars;
-    private int currentParents = 0;
+    private int currentParents;
 
     public static ScoreManager Instance
     {
@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     public float CurrentTime { get; private set; } = 150f; //set total game length
-    public float ParentReturnTime = 40f; //set parent return time
+    private float ParentReturnTime = 40f; //set parent return time
     public float AllTime { get; private set; }
 
     public bool IsGameOver { get; private set; }
@@ -37,6 +37,8 @@ public class ScoreManager : MonoBehaviour
     private void Update()
     {
         UpdateTime();
+        bool lessthanParentReturnTime = CurrentTime < ParentReturnTime;
+        Debug.Log("current time: " + lessthanParentReturnTime + " Current Time: " + CurrentTime + " Parent Return Time:" + ParentReturnTime);
         if (CurrentTime < ParentReturnTime)
         {
             // make each parent return to their kid
