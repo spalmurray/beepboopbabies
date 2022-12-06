@@ -37,11 +37,30 @@ public class ParentSpawnManager : MonoBehaviour
     private void Start()
     {
         childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Chad", "Linda", "Bruce", "Penelope", "Jillian", "Carter" };
-        StartCoroutine(SpawnMultipleParents());
         if (parentTexture.Count != childTexture.Count)
         {
             Debug.LogError("Parent and Child Texture lists must be the same length");
         }
+
+        if (NumberOfParents > parentTexture.Count)
+        {
+            // Generate more textures by hue shifting
+            var numShifts = (NumberOfParents - 1) / parentTexture.Count;
+            var shiftDiff = 1.0f / (numShifts + 1);
+            var shiftedParentTextures = new List<Texture2D>();
+            var shiftedChildTextures = new List<Texture2D>();
+            for (var i = 0; i < numShifts; i++)
+            {
+                var shift = (i + 1) * shiftDiff;
+                shiftedParentTextures.AddRange(parentTexture.Select(texture => HueShift(texture, shift)));
+                shiftedChildTextures.AddRange(childTexture.Select(texture => HueShift(texture, shift)));
+            }
+            parentTexture.AddRange(shiftedParentTextures);
+            childTexture.AddRange(shiftedChildTextures);
+        }
+        Debug.Log("numberofparents " + NumberOfParents);
+        Debug.Log(parentTexture.Count);
+        StartCoroutine(SpawnMultipleParents());
     }
 
     private void Update()
@@ -192,5 +211,23 @@ public class ParentSpawnManager : MonoBehaviour
             behaviorExecutorChild.SetBehaviorParam("wanderArea", GameObject.Find("Floor"));
         }
         children.Add(childInstance);
+    }
+
+    private Texture2D HueShift(Texture2D texture, float shift)
+    {
+        var pixels = texture.GetPixels(0, 0, texture.width, texture.height);
+        var output = new Texture2D(texture.width, texture.height);
+        
+        for (var i = 0; i < pixels.Length; i++)
+        {
+            Color.RGBToHSV(pixels[i], out var h, out var s, out var v);
+            h = (h + shift) % 1;
+            pixels[i] = Color.HSVToRGB(h, s, v);
+        }
+   
+        output.SetPixels(0, 0, texture.width, texture.height, pixels);
+        output.Apply();
+
+        return output;
     }
 }

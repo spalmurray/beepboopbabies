@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18386917, g: 0.22901773, b: 0.30311212, a: 1}
+  m_IndirectSpecularColor: {r: 0.18386894, g: 0.22901732, b: 0.3031116, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11325,18 +11325,8 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 9676d0d187309804e8cf41abfbb0607b, type: 3}
   - {fileID: 2800000, guid: 4c33e8c514561684ea6abe9a580a76a9, type: 3}
   - {fileID: 2800000, guid: b17cf5531f4447943b7b623e29c387b7, type: 3}
-  - {fileID: 2800000, guid: f22e0e49dbfe5c04b8f6361d1dc4a923, type: 3}
-  - {fileID: 2800000, guid: 219466cb736d66e4b994075d3bc4fcaa, type: 3}
-  - {fileID: 2800000, guid: 9676d0d187309804e8cf41abfbb0607b, type: 3}
-  - {fileID: 2800000, guid: 4c33e8c514561684ea6abe9a580a76a9, type: 3}
-  - {fileID: 2800000, guid: b17cf5531f4447943b7b623e29c387b7, type: 3}
   parentTextureEyes: {fileID: 2800000, guid: 74cb328f059f0b341bd7b307718d187e, type: 3}
   childTexture:
-  - {fileID: 2800000, guid: 19f198cb26cf46d429e02164c6470462, type: 3}
-  - {fileID: 2800000, guid: 9ca3228dbcd503d4f867c5f5fc2e1eda, type: 3}
-  - {fileID: 2800000, guid: 7984862f6bda42343b78d6f268bc7dd1, type: 3}
-  - {fileID: 2800000, guid: 638d81667330cae4593790e1f1861461, type: 3}
-  - {fileID: 2800000, guid: b9900ed7d9e495748adbc19781767992, type: 3}
   - {fileID: 2800000, guid: 19f198cb26cf46d429e02164c6470462, type: 3}
   - {fileID: 2800000, guid: 9ca3228dbcd503d4f867c5f5fc2e1eda, type: 3}
   - {fileID: 2800000, guid: 7984862f6bda42343b78d6f268bc7dd1, type: 3}

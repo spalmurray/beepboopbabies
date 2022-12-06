@@ -6,7 +6,7 @@ public class LevelsManager
 {
     public static LevelsManager Instance = new LevelsManager();
 
-    public int Level { get; set; }
+    public int Level { get; set; } = 7;
     public int UnLockLevel { get; set; }
 
     public void NextLevel()
