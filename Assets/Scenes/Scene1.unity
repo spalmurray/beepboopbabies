@@ -7918,6 +7918,7 @@ MonoBehaviour:
   Image: {fileID: 1781861026}
   audioClip: {fileID: 8300000, guid: e396decfd00f1c4458aeafe4a0c8daa7, type: 3}
   AudioSource: {fileID: 435005447}
+  ParentReturnTime: 40
 --- !u!114 &1181025128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11358,6 +11359,7 @@ MonoBehaviour:
   - {fileID: 844915656}
   waitPoint: {fileID: 1078184965}
   exitPoint: {fileID: 1874255053}
+  parentStates: []
 --- !u!1 &1609242022
 GameObject:
   m_ObjectHideFlags: 0
@@ -14142,8 +14144,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081294478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.3256, y: -0.53, z: 10.9937}
-  m_LocalScale: {x: 35.43831, y: 1, z: 31.502638}
+  m_LocalPosition: {x: 13.1287, y: -0.53, z: 9.2801}
+  m_LocalScale: {x: 21.802025, y: 1, z: 17.565966}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 199995935}

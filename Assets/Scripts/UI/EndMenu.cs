@@ -23,7 +23,6 @@ public class EndMenu : MonoBehaviour
     {
         NextLevel.enabled = false;
         ScoreManager.Instance.HandleGameOver += ShowMenu;
-        Debug.Log(LevelsManager.Instance.Level);
         AudioClip audioClip = null;
         switch (audioClips.Length)
         {

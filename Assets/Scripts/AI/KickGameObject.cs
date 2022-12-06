@@ -22,7 +22,6 @@ namespace BBUnity.Actions
         
         public override TaskStatus OnUpdate()
         {
-            Debug.Log("Kicking " + kickObject.name + " with speed " + kickSpeed + " and angle " + kickAngle);
             var kick = kickObject.GetComponent<KickableInteractable>();
             if (kick != null)
             {

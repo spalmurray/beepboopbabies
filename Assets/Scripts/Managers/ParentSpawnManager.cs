@@ -24,6 +24,7 @@ public class ParentSpawnManager : MonoBehaviour
     public Transform exitPoint;
 
     public int NumberOfParents => 4 + LevelsManager.Instance.Level;
+    public List<ParentState> parentStates = new();
     private BehaviorExecutor behaviorExecutorParent;
     // track all babies in the game
     private List<GameObject> children = new();
@@ -33,6 +34,16 @@ public class ParentSpawnManager : MonoBehaviour
     private Queue<GameObject> parentsWaiting = new();
     private Queue<GameObject> parentsWaitingForPickup = new();
     
+    
+    public static ParentSpawnManager Instance
+    {
+        get; private set;
+    }
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -46,7 +57,6 @@ public class ParentSpawnManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"Parents in line: {parentsInLine.Count}");
         if (parentsInLine.Count > 0)
         {
             var parentAtFront = parentsInLine.Peek();
@@ -177,6 +187,7 @@ public class ParentSpawnManager : MonoBehaviour
         parentState.frontOfQueue = false;
         parentState.currentTargetPoint = targetPoint;
         parentState.waitPoint = leavePoint;
+        parentStates.Add(parentState);
         behaviorExecutorParent = parentInstance.GetComponent<BehaviorExecutor>();
         if (behaviorExecutorParent != null)
         {

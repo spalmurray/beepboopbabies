@@ -18,7 +18,6 @@ public class ParentInteractable : StationInteractable
     {
         if (!state.isLeaving)
         {
-            state.waitForSeconds = 5f; //Math.Max(ScoreManager.Instance.CurrentTime - delayTime, 0);
             base.Interact(other);
             return;
         }
