@@ -50,6 +50,11 @@ public class BabyController : MonoBehaviour
     private static readonly int Walking = Animator.StringToHash("Walking");
     private static readonly int InStation = Animator.StringToHash("InStation");
     private static readonly int BabyShaking = Animator.StringToHash("BabyShake");
+    
+    public delegate void BodyPartDetachedHandler();
+
+    public event BodyPartDetachedHandler HandleBodyPartDetached;
+    
     public void Awake()
     {
         state = GetComponent<BabyState>();
@@ -318,6 +323,8 @@ public class BabyController : MonoBehaviour
         var bodyPart = bodyPartsToHide[index];
         if (bodyPart.activeInHierarchy)
         {
+            HandleBodyPartDetached?.Invoke();
+            
             state.healthcap -= healthDecreasePerDrop;
             state.currentHealth = Mathf.Min(state.currentHealth, state.health);
             bodyPart.SetActive(false);
@@ -379,7 +386,8 @@ public class BabyController : MonoBehaviour
                 state.isFlying = false;
                 // interactable.EnableAI();
                 // Sometimes, baby will lose bodypart
-                if (Random.Range(0, 100) < 25)
+                // Guaranteed to lose body part in tutorial
+                if (LevelsManager.Instance.IsTutorial || Random.Range(0, 100) < 25)
                 {
                   // randomly choose a body part
                     DetachBodyPart(UnityEngine.Random.Range(0, bodyPartsToHide.Count));

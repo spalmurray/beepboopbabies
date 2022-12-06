@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsKickingWithMouse => isAimingWithMouse && IsKicking;
     private bool IsKickingWithKeyboard => IsKicking && Keyboard.current != null && !isAimingWithMouse;
+
+    public delegate void EventHandler();
+
+    public event EventHandler InteractPoll;
     
     private Vector3 MouseAimingDirection
     {
@@ -173,6 +177,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract()
     {
+        if (InteractPoll != null)
+        {
+            // Interact poll prevents the action from happening
+            InteractPoll?.Invoke();
+            return;
+        }
+        
         if (state.interactable != null) {
             //case 1: interact with object detected by collider
             if (isFixing)

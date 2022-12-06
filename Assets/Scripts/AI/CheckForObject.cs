@@ -12,9 +12,12 @@ namespace BBUnity.Actions
     {
         [InParam("state")] public ParentState state;
 
+        public static bool firstTimeChecked = false;
+
         // Main class method, invoked by the execution engine.
         public override TaskStatus OnUpdate()
         {
+            firstTimeChecked = true;
             return state.pickedUpObject != null ? TaskStatus.COMPLETED : TaskStatus.FAILED;
         } // OnUpdate
     }

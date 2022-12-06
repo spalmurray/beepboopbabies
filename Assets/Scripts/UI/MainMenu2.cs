@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,6 +11,14 @@ public class MainMenu2 : MonoBehaviour
     private Slider SFX, MUSIC;
     [SerializeField]
     private Dropdown dropdown;
+
+    private void Start()
+    {
+        dropdown.options = Enumerable.Range(0, LevelsManager.Instance.UnlockedLevel + 1)
+            .Select(level => new Dropdown.OptionData(level == 0 ? "Tutorial" : "Level " + level))
+            .ToList();
+    }
+
     private void Update()
     {
         LevelsManager.Instance.Level = dropdown.value;
@@ -33,7 +44,7 @@ public class MainMenu2 : MonoBehaviour
     }
     public void ContineGame()
     {
-        if (LevelsManager.Instance.Level > LevelsManager.Instance.UnLockLevel) return;
+        if (LevelsManager.Instance.Level > LevelsManager.Instance.UnlockedLevel) return;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

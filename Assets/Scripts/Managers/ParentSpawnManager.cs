@@ -23,7 +23,7 @@ public class ParentSpawnManager : MonoBehaviour
     public Transform waitPoint;
     public Transform exitPoint;
 
-    public int NumberOfParents => 4 + LevelsManager.Instance.Level;
+    public virtual int NumberOfParents => 4 + (LevelsManager.Instance.Level - 1);
     public List<ParentState> parentStates = new();
     private BehaviorExecutor behaviorExecutorParent;
     // track all babies in the game
@@ -45,7 +45,7 @@ public class ParentSpawnManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Chad", "Linda", "Bruce", "Penelope", "Jillian", "Carter" };
         if (parentTexture.Count != childTexture.Count)
@@ -119,7 +119,7 @@ public class ParentSpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnMultipleParents()
+    protected IEnumerator SpawnMultipleParents()
     {
         // Shuffle the list of textures so each parent/child gets a unique one
         var rng = new System.Random();
@@ -150,7 +150,7 @@ public class ParentSpawnManager : MonoBehaviour
             }
         }
     }
-    
+
     private void SpawnParent(Vector3 leavePoint, Vector3 targetPoint, string childName, int randomIndex, Queue<GameObject> queue)
     {
         //randomize the color, parent and child will have same color
@@ -218,6 +218,14 @@ public class ParentSpawnManager : MonoBehaviour
             behaviorExecutorChild.SetBehaviorParam("wanderArea", GameObject.Find("Floor"));
         }
         children.Add(childInstance);
+    }
+    
+    public void ReturnParents()
+    {
+        foreach (var p in parentStates)
+        {
+            p.returnToKids = true;
+        }
     }
 
     private Texture2D HueShift(Texture2D texture, float shift)
