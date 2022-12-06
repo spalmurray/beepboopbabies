@@ -16,6 +16,11 @@ public class ParentInteractable : StationInteractable
     }
     public override void Interact(GameObject other)
     {
+        // can only interact with parent at the front of queue
+        if (!state.frontOfQueue)
+        {
+            return;
+        }
         if (!state.isLeaving)
         {
             base.Interact(other);
