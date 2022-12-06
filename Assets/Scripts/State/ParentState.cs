@@ -11,9 +11,5 @@ public class ParentState : AgentState
     public Vector3 currentTargetPoint;
     public Vector3 waitPoint;
     public bool frontOfQueue;
-
-    public void SetReady()
-    {
-        readyForPickUp = true;
-    }
+    public float waitForSeconds;
 }

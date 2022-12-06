@@ -75,8 +75,6 @@ public class ParentSpawnManager : MonoBehaviour
                 parentsWaiting.Enqueue(parentsWaitingForPickup.Dequeue());
             }
         }
-        Debug.Log($"Parents waiting for pick up: {parentsWaitingForPickup.Count}");
-        Debug.Log($"Parents waiting: {parentsWaiting.Count}");
         // queue the parents waiting
         while (parentsInLine.Count < lineUpPoints.Count && parentsWaiting.TryPeek(out _))
         {

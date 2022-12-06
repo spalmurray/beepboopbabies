@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine;
 public class ParentInteractable : StationInteractable
 {
     private ParentState state;
+    private float delayTime = 100f;
     public const float KICK_SPEED = 35;
+    // how many seconds before the end of game that parents will return 
     public const float KICK_UPWARD_ANGLE = 45;
     private void Awake()
     {
@@ -15,6 +18,7 @@ public class ParentInteractable : StationInteractable
     {
         if (!state.isLeaving)
         {
+            state.waitForSeconds = 5f; //Math.Max(ScoreManager.Instance.CurrentTime - delayTime, 0);
             base.Interact(other);
             return;
         }
