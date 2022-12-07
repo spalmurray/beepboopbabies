@@ -10,7 +10,12 @@ namespace BBUnity.Actions
     [Help("Check position at the front of queue")]
     public class CheckForPosition : GOAction
     {
-        [InParam("state")] public ParentState state;
+        public ParentState state;
+
+        public override void OnStart()
+        {
+            state = gameObject.GetComponent<ParentState>();
+        }
 
         // Main class method, invoked by the execution engine.
         public override TaskStatus OnUpdate()

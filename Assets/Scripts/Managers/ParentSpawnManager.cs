@@ -79,16 +79,15 @@ public class ParentSpawnManager : MonoBehaviour
             var parentAtFront = parentsInLine.Peek();
             var parentState = parentAtFront.GetComponent<ParentState>();
             // if parents is leaving they should have the baby
-            if (parentState.isLeaving && parentState.pickedUpObject != null)
+            if (parentState.isLeaving && parentState.pickedUpObject != null && parentState.frontOfQueue)
             {
                 parentsInLine.Dequeue();
             }
             // if parent is waiting and they should wait until there are no babies
-            else if (!parentState.isLeaving && parentState.pickedUpObject == null)
+            else if (!parentState.isLeaving && parentState.pickedUpObject == null && parentState.frontOfQueue)
             {
                 parentsWaitingForPickup.Enqueue(parentsInLine.Dequeue());
                 parentState.currentTargetPoint = parentState.waitPoint;
-                parentState.frontOfQueue = false;
             }
         }
 
