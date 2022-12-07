@@ -36,7 +36,27 @@ public class BodyPartInteractable : KickableInteractable
     public void SetBodyPartName(string bodyPart)
     {
         bodyPartName = bodyPart;
-        nameText.SetText(bodyPartName + "'s " + bodyPartType);
+        string bodyPartText = ""; 
+        switch(bodyPartType) {
+            case BodyPartType.Head:
+                bodyPartText = "head";
+                break;
+            case BodyPartType.LeftArm:
+                bodyPartText = "arm";
+                break;
+            case BodyPartType.RightArm:
+                bodyPartText = "arm";
+                break;
+            case BodyPartType.LeftLeg:
+                bodyPartText = "leg";
+                break;
+            case BodyPartType.RightLeg:
+                bodyPartText = "leg";
+                break;
+            default:
+                break;
+        }
+        nameText.SetText(bodyPartName + "'s " + bodyPartText);
     }
 
     private void Update()

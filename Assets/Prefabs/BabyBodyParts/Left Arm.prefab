@@ -385,9 +385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPickedUp: 0
+  inStation: 0
   explosiveOffset: 5
   bodyPartType: 1
   nameTextObject: {fileID: 479486895354194666}
   renderer: {fileID: 0}
+  bodyPartName: 
   height: 3
   nameText: {fileID: 7055330975664340436}
