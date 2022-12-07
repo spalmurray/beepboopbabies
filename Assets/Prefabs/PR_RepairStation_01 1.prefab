@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2028b4ce902ed4bb8ca01083523f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthIncreasePerSecond: 5
+  healthIncreasePerSecond: 50
 --- !u!114 &185379612077160689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUpObject: {fileID: 0}
-  healthIncrement: 25
+  healthIncrement: 50
 --- !u!1 &4120720235115747755
 GameObject:
   m_ObjectHideFlags: 0

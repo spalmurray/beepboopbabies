@@ -47,7 +47,34 @@ public class ParentSpawnManager : MonoBehaviour
 
     protected virtual void Start()
     {
-        childNames = new List<string>() { "Bob", "Anna", "Gaston", "Lemmy", "Chad", "Linda", "Bruce", "Penelope", "Jillian", "Carter" };
+        childNames = new List<string>() { 
+            "Bob", 
+            "Anna", 
+            "Gaston", 
+            "Lemmy",
+            "Elias",
+            "Karthik",
+            "Chad", 
+            "Linda", 
+            "Bruce", 
+            "Penelope", 
+            "Jillian", 
+            "Carter",
+            "Gord",
+            "Stephan",
+            "Esther",
+            "Spencer",
+            "Ronan",
+            "Ethan",
+            "Lauren",
+            "Rhiannon",
+            "Kenny",
+            "Peter",
+            "Tony",
+            "Heather",
+            "Sofia",
+            "Chris"
+        };
         if (parentTexture.Count != childTexture.Count)
         {
             Debug.LogError("Parent and Child Texture lists must be the same length");
