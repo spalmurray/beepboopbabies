@@ -12,7 +12,7 @@ public class LevelsManager
     public int UnlockedLevel
     {
         get => PlayerPrefs.GetInt("UnlockedLevel", 0);
-        private set => PlayerPrefs.SetInt("UnlockedLevel", value);
+        set => PlayerPrefs.SetInt("UnlockedLevel", value);
     }
 
     public bool IsTutorial => Level == 0;
