@@ -14,6 +14,9 @@ public class MainMenu2 : MonoBehaviour
 
     private void Start()
     {
+        SFX.value = PlayerPrefs.GetFloat("sfx", 0.5f);
+        MUSIC.value = PlayerPrefs.GetFloat("music", 0.5f);
+        
         dropdown.options = Enumerable.Range(0, LevelsManager.Instance.UnlockedLevel + 1)
             .Select(level => new Dropdown.OptionData(level == 0 ? "Tutorial" : "Level " + level))
             .ToList();
