@@ -20,6 +20,10 @@ namespace BBUnity.Actions
         // Main class method, invoked by the execution engine.
         public override TaskStatus OnUpdate()
         {
+            if (state.frontOfQueue)
+            {
+                CharacterUpdate.Instance.PlayParentsComing();
+            }
             return state.frontOfQueue ? TaskStatus.COMPLETED : TaskStatus.FAILED;
         } // OnUpdate
     }
