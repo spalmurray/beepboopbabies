@@ -10,7 +10,6 @@ public class ParentState : AgentState
     // list of points where parents wait in line
     public Vector3 currentTargetPoint;
     public Vector3 waitPoint;
-    public bool acknowledged;
     public bool frontOfQueue;
     public bool returnToKids;
 }
