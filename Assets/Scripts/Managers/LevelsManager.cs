@@ -17,21 +17,9 @@ public class LevelsManager
 
     public bool IsTutorial => Level == 0;
 
-    public void NextLevel()
-    {
-        UnlockedLevel++;
-        Level++;
-    }
-
     private LevelsManager()
     {
         Level = UnlockedLevel;
-    }
-
-    public void LoadNextLevelScene()
-    {
-        NextLevel();
-        LoadLevelScene();
     }
 
     public void LoadLevelScene()

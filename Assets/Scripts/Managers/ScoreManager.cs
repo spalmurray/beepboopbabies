@@ -55,6 +55,7 @@ public class ScoreManager : MonoBehaviour
 
     private IEnumerator EndGame()
     {
+        IsGameOver = true;
         yield return new WaitForSecondsRealtime(0.5f);
         
         Time.timeScale = 0f;
@@ -62,13 +63,18 @@ public class ScoreManager : MonoBehaviour
         if (Image.GetComponent<AudioSource>().isPlaying == false) {
             Image.GetComponent<AudioSource>().PlayOneShot(audioClip);
         }
-        IsGameOver = true;
 
         yield return new WaitForSecondsRealtime(2);
 
-        LevelsManager.Instance.UnlockedLevel = Mathf.Max(LevelsManager.Instance.Level + 1, LevelsManager.Instance.UnlockedLevel);
-
-            Image.gameObject.SetActive(false);
+        if (FinalScore >= 3.0 || LevelsManager.Instance.IsTutorial)
+        {
+            LevelsManager.Instance.UnlockedLevel = Mathf.Max(
+                LevelsManager.Instance.Level + 1,
+                LevelsManager.Instance.UnlockedLevel
+            );
+        }
+        
+        Image.gameObject.SetActive(false);
         transform.gameObject.SetActive(false);
         HandleGameOver?.Invoke();
     }
