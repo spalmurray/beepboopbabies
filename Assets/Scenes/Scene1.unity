@@ -8287,7 +8287,7 @@ MonoBehaviour:
   CharacterNum: 0
   KickingSound: {fileID: 8300000, guid: 01d68e4763df2454b9440b26bea9b201, type: 3}
   KickingBottle: {fileID: 8300000, guid: fd1575551a338bc47a766eec4e8e8acb, type: 3}
-  ParentsComing: {fileID: 8300000, guid: 302c3ccbbaf8d1644826df2b3d3775ca, type: 3}
+  ParentsComing: {fileID: 8300000, guid: 17e45c1caa20b644ca0dab0cd09fe807, type: 3}
 --- !u!4 &1223101234
 Transform:
   m_ObjectHideFlags: 0

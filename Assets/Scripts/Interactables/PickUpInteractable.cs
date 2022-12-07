@@ -51,8 +51,6 @@ public class PickUpInteractable : Interactable
     {
         if (isPickedUp && transform.CompareTag("Bottle"))//transform.CompareTag("Bottle")
             CharacterUpdate.Instance.PlayKickingBottle();
-        if (isPickedUp && transform.parent.CompareTag("ParentPick"))
-            CharacterUpdate.Instance.PlayParentsComing();
         state.pickedUpObject = null;
         rb.isKinematic = false;
         rb.detectCollisions = true;
