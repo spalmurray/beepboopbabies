@@ -29,6 +29,7 @@ public class BabyController : MonoBehaviour
     public Rigidbody rb;
     // every one 1 second decrement by 2 units
     [SerializeField] private float decrementAmountEnergy = 2f;
+    private float decreaseHealthPerKick = 10f;
     [SerializeField] private float decrementAmountDiaper = 2f;
     [SerializeField] private float oilDrinkAmountOil = 2f;
     [SerializeField] private float decrementAmountOil = 2f;
@@ -427,6 +428,10 @@ public class BabyController : MonoBehaviour
 
     private void HandleKicked()
     {
+        state.currentHealth = Mathf.Max(state.currentHealth - decreaseHealthPerKick, 0);
+        state.currentHealth = Mathf.Min(state.currentHealth, state.healthcap);
+        uiController.UpdateHealthBar(state.health, state.currentHealth);
+        StartCoroutine(TemporaryAlert(health: true));
         state.isFlying = true;
         interactable.DisableAI();
     }
