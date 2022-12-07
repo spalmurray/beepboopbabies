@@ -64,7 +64,9 @@ public class ScoreManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
-        Image.gameObject.SetActive(false);
+        LevelsManager.Instance.UnlockedLevel = Mathf.Max(LevelsManager.Instance.Level + 1, LevelsManager.Instance.UnlockedLevel);
+
+            Image.gameObject.SetActive(false);
         transform.gameObject.SetActive(false);
         HandleGameOver?.Invoke();
     }

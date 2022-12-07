@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
 
     public void NextLevel()
     {
-        LevelsManager.Instance.NextLevel();
+        LevelsManager.Instance.Level++;
         LoadGame();
     }
 
